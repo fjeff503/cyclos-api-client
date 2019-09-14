@@ -1,0 +1,13 @@
+com\puntotransacciones\domain\userRecords\User.class
+com\puntotransacciones\service\UserRecordService$OportunidadesResponse.class
+com\puntotransacciones\util\Encoder.class
+com\puntotransacciones\domain\userRecords\Image.class
+com\puntotransacciones\configuration\SpringConfiguration.class
+com\puntotransacciones\domain\userRecords\Oportunidad.class
+com\puntotransacciones\domain\user\EntityUser.class
+com\puntotransacciones\domain\userRecords\CustomValues.class
+com\puntotransacciones\service\UserRecordService.class
+com\puntotransacciones\domain\userRecords\CreatedBy.class
+com\puntotransacciones\service\AuthenticationService.class
+com\puntotransacciones\configuration\SpringInitializer.class
+com\puntotransacciones\controller\MainController.class
