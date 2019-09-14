@@ -84,40 +84,52 @@
             </c:forEach>
         </table>
 
-        <nav aria-label="...">
-            <ul class="pagination">
-                <c:if test="${currentPage>0}">
-                    <li class="page-item">
-                        <span class="page-link">Previous</span>
-                    </li>
-                </c:if>
-                <c:if test="${currentPage==0}">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
-                </c:if>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <span class="page-link">
-                        2
-                        <span class="sr-only">(current)</span>
-                    </span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <c:if test="${currentPage==pageCount}">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </c:if>
-                <c:if test="${currentPage<pageCount}">
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </c:if>
+            <div class="text-center center-text" style="width: 20%; margin: 0 auto;">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <c:if test="${currentPage>0}">
+                            <li class="page-item">
+                                <span class="page-link">Anterior</span>
+                            </li>
+                        </c:if>
+                        <c:if test="${currentPage==0}">
+                            <li class="page-item disabled">
+                                <span class="page-link">Anterior</span>
+                            </li>
+                        </c:if>
+                        <li class="page-item ${currentPage==0?'active':''}"> 
+                            ${currentPage==0?'<span class="page-link">':'<a class="page-link" href="#">'}
+                                ${currentPage==0?'1':currentPage} 
+                            ${currentPage==0?'<span class="sr-only">(current)</span></span>':'</a>'}
+                        </li>
+                        <c:if test="${pageCount>1}">
+                        <li class="page-item ${currentPage<pageCount && currentPage!=0?'active':''}">
+                                ${currentPage<pageCount && currentPage!=0?'<span class="page-link">':'<a class="page-link" href="#">'}
+                                    ${currentPage==0?'2':currentPage+1}
+                                ${currentPage<pageCount && currentPage!=0?'<span class="sr-only">(current)</span></span>':'</a>'}    
+                        </li>
+                        </c:if>
+                        <c:if test="${pageCount>2}">
+                        <li class="page-item ${currentPage==(pageCount-1)?'active':''}">
+                            ${currentPage==(pageCount-1)?'<span class="page-link">':'<a class="page-link" href="#">'}
+                                ${currentPage==0?'3':currentPage==(pageCount-1)?currentPage+1:currentPage+1+1}
+                            ${currentPage==(pageCount-1)?'<span class="sr-only">(current)</span></span>':'</a>'} 
+                        </li>
+                        </c:if>
+                            <c:if test="${currentPage==pageCount}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Siguiente</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${currentPage<pageCount}">
+                            <li class="page-item">
+                                <a class="page-link" href="#">Siguiente</a>
+                            </li>
+                        </c:if>
 
-            </ul>
-        </nav>
-
+                    </ul>
+                </nav>
+            </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

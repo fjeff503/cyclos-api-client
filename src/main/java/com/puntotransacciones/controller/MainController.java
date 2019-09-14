@@ -38,13 +38,9 @@ public class MainController {
         Map<String, String> headers = oportunidadesResponse.headers;
         if(oportunidades != null){
             mv.addObject("records", oportunidades);
-            mv.addObject("pageCount",headers.get("X-Page-Count"));
-            mv.addObject("currentPage", headers.get("X-Current-Page"));
-            mv.addObject("totalCount", headers.get("X-Total-Count"));
-            Logger l = Logger.getLogger("logger");
-            l.info("X-Page-Count"+" : " +headers.get("X-Page-Count"));
-            l.info("X-Current-Page"+" : " +headers.get("X-Current-Page"));
-            l.info("X-Total-Count"+" : " +headers.get("X-Total-Count"));           
+            mv.addObject("pageCount",Integer.parseInt(headers.get("X-Page-Count")));
+            mv.addObject("currentPage", Integer.parseInt(headers.get("X-Current-Page")));
+            mv.addObject("totalCount", Integer.parseInt(headers.get("X-Total-Count")));     
         }
         else{
             mv.addObject("isNull",true);
