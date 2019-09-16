@@ -125,6 +125,15 @@ public class UserRecordService {
             JSONObject oportunidadJson = responseArray.getJSONObject(i);
             Gson gson = new Gson();
             Oportunidad oportunidad = gson.fromJson(oportunidadJson.toString(), Oportunidad.class);
+            if(oportunidad.getCustomValues().getVendedor()!=null){
+                if(oportunidad.getCustomValues().getVendedor().contains("E")){
+                    String[] vendedor = oportunidad.getCustomValues().getVendedor().split("E", 2);
+                    if(vendedor.length>1){
+                        oportunidad.customValues.setVendedor("E"+vendedor[1]);
+                    }
+                
+                }
+            }
             oportunidades.add(oportunidad);
         }
         HashMap<String,String> headersMap = new HashMap();
@@ -142,7 +151,46 @@ public class UserRecordService {
         
        
         
-    
+    public String  estatusInterpreter(String id){
+        if(id.equals("no_procede")){
+            return "No Procede";
+        }
+        
+        if(id.equals("pendiente")){
+            return "Pendiente";
+        }
+        if(id.equals("realizado")){
+            return "Realizado";
+        }
+        if(id.equals("suspendido")){
+            return "Suspendido";
+        }
+        if(id.equals("confirmado")){
+            return "Confirmado";
+        }
+        if(id.equals("prospecto")){
+            return "1. Prospecto";
+        }
+        if(id.equals("cotizado")){
+            return "2. Cotizado";
+        }
+        if(id.equals("aprobado")){
+            return "3. Aprobado";
+        }
+        if(id.equals("entregado")){
+            return "4. Entregado";
+        }
+        if(id.equals("logrado")){
+            return "5. Logrado";
+        }
+        if(id.equals("no_logrado")){
+            return "6. No Logrado";
+        }
+        if(id.equals("contrato")){
+            return "7. Contrato";
+        }
+        return id;
+    }
     
     
 }

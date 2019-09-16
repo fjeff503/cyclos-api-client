@@ -13,7 +13,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../styles/Main.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+        <style>
+            body{
+                font-size:14px;
+            }
+        </style>
     </head>
     <body>
         <c:if test="${isNull}">
@@ -70,16 +74,41 @@
         <table class="table">
             <tr>
                 <th>Index</th>
-                <th>Titulo</th>
-                <th>Empresa</th>
+                <th>Compra</th>
+                <th>Vende</th>
+                <th>Concepto</th>
+                <th style="padding-right: 90px;">Estatus</th>
+                <th>Monto</th>
+                <th>Observaciones</th>
             </tr>
             <% int indice = 0; %>
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
                 <tr>
+                    <form>
                     <th contenteditable="true"><%=indice%></th>
-                    <td contenteditable="true">${record.customValues.titulo}</td>
                     <td contenteditable="true">${record.user.display}</td>
+                    <td contenteditable="true">${record.customValues.vendedor}</td>
+                    <td contenteditable="true">${record.customValues.titulo}</td>
+                    <td class="select-td" > 
+                        <select class="form-control" id="estatus">
+                                    <option value="no_procede"${record.customValues.estatus=="no_procede"?"selected":""}>No Procede</option>
+                                    <option value="pendiente"${record.customValues.estatus=="pendiente"?"selected":""}>Pendiente</option>
+                                    <option value="realizado"${record.customValues.estatus=="realizado"?"selected":""}>Realizado</option>
+                                    <option value="suspendido"${record.customValues.estatus=="suspendido"?"selected":""}>Suspendido</option>
+                                    <option value="confirmado" ${record.customValues.estatus=="confirmado"?"selected":""}>Confirmado</option>
+                                    <option value="prospecto"${record.customValues.estatus=="prospecto"?"selected":""}>1. Prospecto</option>
+                                    <option value="cotizado"${record.customValues.estatus=="cotizado"?"selected":""}>2. Cotizado</option>
+                                    <option value="aprobado"${record.customValues.estatus=="aprobado"?"selected":""}>3. Aprobado</option>
+                                    <option value="entregado"${record.customValues.estatus=="entregado"?"selected":""}>4. Entregado</option>
+                                    <option value="logrado"${record.customValues.estatus=="logrado"?"selected":""}>5. Logrado</option>
+                                    <option value="no_logrado"${record.customValues.estatus=="no_logrado"?"selected":""}>6. No Logrado</option>
+                                    <option value="contrato"${record.customValues.estatus=="contrato"?"selected":""}>7. Contrato</option>
+                        </select>
+                    </td>
+                    <td contenteditable="true">${record.customValues.montoTrans}</td>
+                    <td contenteditable="true">${record.customValues.descripcion}</td>
+                    </form>
                 </tr>
             </c:forEach>
         </table>

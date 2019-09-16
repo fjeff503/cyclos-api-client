@@ -8,7 +8,7 @@ public class CustomValues {
 
     @SerializedName("reg_estatus")
     @Expose
-    private String regEstatus;
+    private String estatus;
     @SerializedName("fecha")
     @Expose
     private String fecha;
@@ -18,22 +18,48 @@ public class CustomValues {
     @SerializedName("titulo")
     @Expose
     private String titulo;
+    @SerializedName("montotrans")
+    @Expose
+    private Double montoTrans;
+    @SerializedName("descripcion")
+    @Expose
+    private String descripcion;
 
-    public CustomValues(String regEstatus, String fecha, String vendedor, String titulo) {
-        this.regEstatus = regEstatus;
+    public CustomValues(String fecha, String vendedor, String titulo) {
         this.fecha = fecha;
         this.vendedor = vendedor;
         this.titulo = titulo;
     }
 
-    
-    public String getRegEstatus() {
-        return regEstatus;
+    public CustomValues() {
     }
 
-    public void setRegEstatus(String regEstatus) {
-        this.regEstatus = regEstatus;
+    public String getEstatus() {
+        return estatus;
     }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+    
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    
+    public Double getMontoTrans() {
+        return montoTrans;
+    }
+
+    public void setMontoTrans(Double montoTrans) {
+        this.montoTrans = montoTrans;
+    }
+
 
     public String getFecha() {
         return fecha;
