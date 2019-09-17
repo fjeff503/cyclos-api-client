@@ -13,6 +13,7 @@ import com.puntotransacciones.util.Encoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class UserRecordService {
     
     public String targetWP = "https://global.puntotransacciones.com/api";
     public Encoder encoder;
-
+    public Logger l = Logger.getLogger("logger");
     public UserRecordService() {
     }
     
@@ -53,7 +54,7 @@ public class UserRecordService {
     }
     
     //UsernameAsesora debe ser el username!! (Ej. c0872 [Amairini])
-     public OportunidadesResponse  getOportunidades(ArrayList<Integer> usernameAsesoras, Integer page, ArrayList<String> grupos) throws IOException{
+     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String usr, String pword) throws IOException{
         targetWP += "/general-records/oportunidades";
         Boolean amperson = false;
         if(page!=null){
@@ -61,51 +62,63 @@ public class UserRecordService {
             amperson = true;
         }
         if(usernameAsesoras!=null){
-            if(amperson){
-                targetWP+="&brokers=";
-            }
-            else{
-                targetWP+="?brokers=";
-                amperson=true;
-            }
-            for(int i=0; i<usernameAsesoras.size();i++){
-                    if(i==0){
-                    targetWP+=usernameAsesoras.get(0);}
-                    else{
-                        targetWP+="%2C"+usernameAsesoras.get(i);
-                    }
+            if(!usernameAsesoras.isEmpty()){
+                if(amperson){
+                    targetWP+="&brokers=";
                 }
+                else{
+                    targetWP+="?brokers=";
+                    amperson=true;
+                }
+
+                for(int i=0; i<usernameAsesoras.size();i++){
+                        if(i==0){
+                            if(usernameAsesoras.get(0)==null){
+                                targetWP+=null;
+                            }
+                            else{
+                                targetWP+=usernameAsesoras.get(0);
+                            }
+                        }
+                        else{
+                            targetWP+="%2C"+usernameAsesoras.get(i) ;
+                        }
+                  }
+            }
         }
         if(grupos!=null){
-            if(amperson){
-                targetWP+="&groups=";
-            }
-            else{
-                targetWP="?brokers=";
-                amperson = true;
-            }
-            for(int i=0; i<grupos.size();i++){
-                    if(i==0){
-                    targetWP+=grupos.get(0);}
-                    else{
-                        targetWP+="%2C"+grupos.get(i);
+            if(!grupos.isEmpty()){
+                if(amperson){
+                    targetWP+="&groups=";
+                }
+                else{
+                    targetWP+="?groups=";
+                    amperson = true;
+                }
+                for(int i=0; i<grupos.size();i++){
+                        if(i==0){
+                        targetWP+=grupos.get(0);}
+                        else{
+                            targetWP+="%2C"+grupos.get(i);
+                        }
                     }
-                }            
+            }
         }
         
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(targetWP);
-        String encodedCred = encoder.encode64("uscript","1234");
+        String encodedCred = encoder.encode64(usr,pword);
         request.addHeader("Authorization", encodedCred);
         request.addHeader("Accept", "application/json");
-        
+        Logger logger = Logger.getLogger("logger");
+                 logger.info( targetWP);
         HttpResponse response = client.execute(request);
         
         if(response.getStatusLine().getStatusCode()!=200){
-            Logger l = Logger.getLogger("logger");
             int responseCode = response.getStatusLine().getStatusCode();
             l.info("Codigo de ejecución: "+responseCode);
             l.info(targetWP);
+            targetWP = "https://global.puntotransacciones.com/api";
             return null;
         }
         BufferedReader rd = new BufferedReader(
@@ -132,6 +145,14 @@ public class UserRecordService {
                         oportunidad.customValues.setVendedor("E"+vendedor[1]);
                     }
                 
+                }
+                else if(oportunidad.getCustomValues().getVendedor().contains("C")){
+                    String[] vendedor = oportunidad.getCustomValues().getVendedor().split("C", 2);
+                    if(vendedor.length>1){
+                        oportunidad.customValues.setVendedor("C"+vendedor[1]);
+                        oportunidad.customValues.setVendedor(oportunidad.customValues.getVendedor().replace("Ã", "í"));
+                    }
+                    
                 }
             }
             oportunidades.add(oportunidad);

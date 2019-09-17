@@ -19,7 +19,7 @@
     <body>
 
 
-        <form action="/CyclosAPIClient2/oportunidades">
+        <form action="${pageContext.request.contextPath}/oportunidades">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
