@@ -85,6 +85,60 @@ public class MainController {
             mv.addObject("asesora", asesora);
             mv.addObject("grupo", grupo);
             mv.addObject("empresa",empresa);
+            String uri = "";
+            Boolean amperson = false;
+            if( asesora != null && asesora!=""){
+                uri +="?asesora="+asesora;
+                amperson = true;
+            }
+            if( grupo != null && grupo !=""){
+                if(amperson){
+                    uri+="&grupo="+grupo;
+                }
+                else{
+                    uri+="?grupo="+grupo;
+                }
+            }
+            if(empresa != null && empresa !=""){
+                if(amperson){
+                    empresa+="&empresa="+empresa;
+                }
+                else{
+                    uri+="?empresa="+empresa;
+                }
+            }
+            if(Integer.parseInt(headers.get("X-Current-Page")) != 0){
+                if(amperson){
+                    if(Integer.parseInt(headers.get("X-Current-Page"))==Integer.parseInt(headers.get("X-Page-Count"))){
+                           mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-2)+"\">"); 
+                           mv.addObject("secondLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
+                           mv.addObject("thirdLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+
+                    }
+                    else{
+                        mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
+                        mv.addObject("secondLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+                        mv.addObject("thirdLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))+1)+"\">"); 
+                    }
+                }
+                else{
+                    if(Integer.parseInt(headers.get("X-Current-Page"))==Integer.parseInt(headers.get("X-Page-Count"))){
+                        mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-2)+"\">");
+                }
+                    else{
+                        mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">");
+
+                    }
+                }
+            }
+             if(Integer.parseInt(headers.get("X-Current-Page")) != 0){
+                if(amperson){
+                    mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+headers.get("X-Current-Page")+"\">");
+                }
+                else{
+                    mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"?page="+headers.get("X-Current-Page")+"\">");
+                }
+            }
         }
         else{
             mv.addObject("isNull",true);

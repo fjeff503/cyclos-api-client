@@ -44,7 +44,7 @@
                         <div class="col-2"></div>
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="text" placeholder="${empresa!=null?empresa:"Empresa"}" class="form-control" id="empresa" />
+                                <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Aún en construcción!!)"}" class="form-control" id="empresa" />
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                 </li>
                 <c:if test="${pageCount>1}">
                     <li class="page-item ${currentPage<pageCount && currentPage!=0?'active':''}">
-                        ${currentPage<pageCount && currentPage!=0?'<span class="page-link">':'<a class="page-link" href="">'}
+                        ${currentPage<pageCount && currentPage!=0?'<span class="page-link">':firstLink}
                         ${currentPage==0?'2':currentPage+1}
                         ${currentPage<pageCount && currentPage!=0?'<span class="sr-only">(current)</span></span>':'</a>'}    
                     </li>
