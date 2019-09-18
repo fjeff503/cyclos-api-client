@@ -34,31 +34,12 @@ public class MainController {
         mv.setViewName("recordList");
          Logger logger = Logger.getLogger("logger");
         
-        String[] asesoraVector = request.getParameterMap().get("asesora");
-        String asesora = (String)request.getAttribute("asesora");
-        if(asesoraVector !=null){
-        if(asesoraVector.length>=1){
-            asesora =  asesoraVector[0];
-        }}
-        String[] empresaVector = request.getParameterMap().get("empresa");
-        String empresa = (String)request.getAttribute("empresa");
-        if(empresaVector !=null){
-            if(empresaVector.length>=1){
-                if(empresaVector[0]!=null){
-                    empresa = empresaVector[0];
-                }
-            }
-        }
-        String[] grupoVector = request.getParameterMap().get("grupos");
-        Integer page = (Integer) request.getAttribute("page");
-        String grupo = (String)request.getAttribute("grupos");
-        if(grupoVector !=null){
-            if(grupoVector.length>=1){
-                if(grupoVector[0]!=null){
-                        grupo = grupoVector[0];
-            }
-         }
-        }
+        String asesora = (String)request.getParameter("asesora");
+        String empresa = (String)request.getParameter("empresa");      
+        Integer page = (request.getParameter("page")!=null?Integer.parseInt(request.getParameter("page")):null);
+        String grupo = (String)request.getParameter("grupos");
+        String estatus = (String) request.getParameter("estatus");
+
         logger.info( "grupo: "+grupo+" empresa: "+empresa+" asesoras: "+asesora + " Parameter map is empty: "+request.getParameterMap().get("asesora"));
         ArrayList<String> asesoras = new ArrayList();
         if(asesora != null){
@@ -68,11 +49,15 @@ public class MainController {
                 }
             }
         }
+        if("todos".equals(estatus)){
+            estatus=null;
+        }
+        logger.info(estatus);
         ArrayList grupos = new ArrayList();
         if(grupo != null && !grupo.contains("todos")){
             grupos.add(grupo);
         }
-        UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, "uscript", "1234");
+        UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, "uscript", "1234", estatus);
         ArrayList<Oportunidad> oportunidades = oportunidadesResponse.oportunidades;
         Map<String, String> headers = oportunidadesResponse.headers;
         //Adding Java objects
@@ -85,6 +70,7 @@ public class MainController {
             mv.addObject("asesora", asesora);
             mv.addObject("grupo", grupo);
             mv.addObject("empresa",empresa);
+            mv.addObject("estatus",estatus);
             String uri = "";
             Boolean amperson = false;
             if( asesora != null && asesora!=""){
@@ -107,37 +93,55 @@ public class MainController {
                     uri+="?empresa="+empresa;
                 }
             }
+            
+            //Check the page and 
+            String htmlLink = "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades"+uri;
             if(Integer.parseInt(headers.get("X-Current-Page")) != 0){
                 if(amperson){
                     if(Integer.parseInt(headers.get("X-Current-Page"))==Integer.parseInt(headers.get("X-Page-Count"))){
-                           mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-2)+"\">"); 
-                           mv.addObject("secondLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
-                           mv.addObject("thirdLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+                           mv.addObject("firstLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-2)+"\">"); 
+                           mv.addObject("secondLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
+                           mv.addObject("thirdLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
 
                     }
                     else{
-                        mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
-                        mv.addObject("secondLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
-                        mv.addObject("thirdLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))+1)+"\">"); 
+                        mv.addObject("firstLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
+                        mv.addObject("secondLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+                        mv.addObject("thirdLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))+1)+"\">"); 
                     }
                 }
                 else{
                     if(Integer.parseInt(headers.get("X-Current-Page"))==Integer.parseInt(headers.get("X-Page-Count"))){
-                        mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-2)+"\">");
+                           mv.addObject("firstLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-2)+"\">"); 
+                           mv.addObject("secondLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
+                           mv.addObject("thirdLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
                 }
                     else{
-                        mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">");
-
+                        mv.addObject("firstLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-1)+"\">"); 
+                        mv.addObject("secondLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+                        mv.addObject("thirdLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))+1)+"\">"); 
                     }
                 }
             }
-             if(Integer.parseInt(headers.get("X-Current-Page")) != 0){
+             else{
                 if(amperson){
-                    mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"&page="+headers.get("X-Current-Page")+"\">");
+                    mv.addObject("firstLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+                    mv.addObject("secondLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))+1)+"\">"); 
+                    mv.addObject("thirdLink", htmlLink+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))+2)+"\">"); 
                 }
                 else{
-                    mv.addObject("firstLink", "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades?"+uri+"?page="+headers.get("X-Current-Page")+"\">");
+                    mv.addObject("firstLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-0)+"\">"); 
+                    mv.addObject("secondLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))+1)+"\">"); 
+                    mv.addObject("thirdLink", htmlLink+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))+2)+"\">"); 
                 }
+            }
+            if(amperson){
+                mv.addObject("nextPage", request.getContextPath()+"/oportunidades"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))+1));
+                mv.addObject("prevPage",request.getContextPath()+"/oportunidades"+uri+"&page="+(Integer.parseInt(headers.get("X-Current-Page"))-1));
+            }
+            else{
+                mv.addObject("nextPage",request.getContextPath()+"/oportunidades"+uri+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))+1));
+                mv.addObject("prevPage",request.getContextPath()+"/oportunidades"+uri+"?page="+(Integer.parseInt(headers.get("X-Current-Page"))-1));
             }
         }
         else{
@@ -162,12 +166,5 @@ public class MainController {
         return mv;
     }
     
-    @RequestMapping(value="/getOportunidades")
-    public void getOportunidades(HttpServletRequest request ){
-          ArrayList<Integer> asesoras = (ArrayList<Integer>)request.getAttribute("asesoras");
-          Integer page = (Integer) request.getAttribute("page");
-          ArrayList<String> grupos = (ArrayList)request.getAttribute("grupos");
-                      
-}
     
 }

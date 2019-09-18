@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Oportunidades</title>
+        <base href="http://localhost:8080/CyclosAPIClient2/oportunidades"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../styles/Main.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -41,10 +42,30 @@
             <div class="collapse" id="formulario">
                 <form action="${pageContext.request.contextPath}/oportunidades" method="GET">
                     <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
+                                <label for="empresa">Empresa</label>
                                 <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Aún en construcción!!)"}" class="form-control" id="empresa" />
+                            </div>
+                        </div>
+                            <div class="col-4">
+                            <div class="form-group">
+                                <label for="estatus">Estatus</label>
+                                <select class="form-control" id="estatus" path="estatus" name="estatus">
+                                    <option value="no_procede"${estatus=="no_procede"?"selected":""}>No Procede</option>
+                                    <option value="pendiente"${estatus=="pendiente"?"selected":""}>Pendiente</option>
+                                    <option value="realizado"${estatus=="realizado"?"selected":""}>Realizado</option>
+                                    <option value="suspendido"${estatus=="suspendido"?"selected":""}>Suspendido</option>
+                                    <option value="confirmado" ${estatus=="confirmado"?"selected":""}>Confirmado</option>
+                                    <option value="prospecto"${estatus=="prospecto"?"selected":""}>1. Prospecto</option>
+                                    <option value="cotizado"${estatus=="cotizado"?"selected":""}>2. Cotizado</option>
+                                    <option value="aprobado"${estatus=="aprobado"?"selected":""}>3. Aprobado</option>
+                                    <option value="entregado"${estatus=="entregado"?"selected":""}>4. Entregado</option>
+                                    <option value="logrado"${estatus=="logrado"?"selected":""}>5. Logrado</option>
+                                    <option value="no_logrado"${estatus=="no_logrado"?"selected":""}>6. No Logrado</option>
+                                    <option value="contrato"${estatus=="contrato"?"selected":""}>7. Contrato</option>
+                                    <option value="todos"${estatus==null?"selected":""}>Todos</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -74,7 +95,7 @@
                                     <option value="empresas_venta" ${grupo=="empresas_venta"?"selected":""}>Empresas Solo Ventas</option>
                                     <option value="sucursalesboc" ${grupo=="sucursalesboc"?"selected":""}>Sucursales BOC</option>
                                     <option value="eduvigis" ${grupo=="eduvigis"?"selected":""}>Sucursales Eduvigis</option>
-                                    <option value="todos" ${grupos==null?"selected":""}>Todos</option>
+                                    <option value="todos" ${grupo==null || grupo=="todos"? "selected":""}>Todos</option>
                                 </select>
                             </div>
                         </div>
@@ -90,25 +111,51 @@
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" style="margin-bottom:0px;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
         </div>
                 <!---------------- Modal ------------------->
-        <div id="myModal" class="modal fade" role="dialog">
+                   <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Crear Oportunidad</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <form action="${pageContext.request.contextPath}/oportunidades" method="POST">
+                            <label for="grupos">Titulo</label>
+                                <input type="text" placeholder="Titulo" class="form-control" id="empresa" />
+                            <label for="grupos">Estatus</label>
+                                <select class="form-control" id="estatus" path="estatus" name="estatus">
+                                    <option value="no_procede">No Procede</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="realizado">Realizado</option>
+                                    <option value="suspendido">Suspendido</option>
+                                    <option value="confirmado">Confirmado</option>
+                                    <option value="prospecto">1. Prospecto</option>
+                                    <option value="cotizado">2. Cotizado</option>
+                                    <option value="aprobado">3. Aprobado</option>
+                                    <option value="entregado">4. Entregado</option>
+                                    <option value="logrado">5. Logrado</option>
+                                    <option value="no_logrado"}>6. No Logrado</option>
+                                    <option value="contrato">7. Contrato</option>
+                                </select>
+                            <label for="grupos">Vendedor</label>
+                                <input type="text" placeholder="Vendedor" class="form-control" id="vendedor" />
+                            <label for="grupos">Vendedor 2</label>
+                                <input type="text" placeholder="Titulo" class="form-control" id="vendedor" />
+                            <label for="grupos">Descripcion</label>
+                            <label for="grupos">Monto T$</label>
+                            <label for="grupos">Notas</label>
+                            <label for="grupos">Titulo</label>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="bsubmit" class="btn btn-primary">Crear oportunidadad</button>
                     </div>
                 </div>
             </div>
-        </div>                           
+        </div>                
         <table class="table">
             <tr>
                 <th>Index</th>
@@ -150,7 +197,7 @@
             </tr>
         </c:forEach>
     </table>
-            <c:if test="${empty records}">
+            <c:if test="${empty records && test!=null}">
                  <div class="container">
                 <div class="row justify content center">
                     <div class="alert alert-danger col-6 " role="alert">La busqueda no ha retornado registros. Vuelva a intentarlo cambiando los parametros</div>
@@ -162,8 +209,8 @@
         <nav aria-label="...">
             <ul class="pagination">
                 <c:if test="${currentPage>0}">
-                    <li class="page-item">
-                        <a class="page-link" href="">Siguiente</a>
+                    <li class="page-item">  
+                        <a class="page-link" href="${prevPage}">Anterior</a>
                     </li>
                 </c:if>
                 <c:if test="${currentPage==0}">
@@ -172,20 +219,20 @@
                     </li>
                 </c:if>
                 <li class="page-item ${currentPage==0?'active':''}"> 
-                    ${currentPage==0?'<span class="page-link">':'<a class="page-link" href="">'}
+                    ${currentPage==0?'<span class="page-link">':firstLink}
                     ${currentPage==0?'1':currentPage} 
                     ${currentPage==0?'<span class="sr-only">(current)</span></span>':'</a>'}
                 </li>
                 <c:if test="${pageCount>1}">
                     <li class="page-item ${currentPage<pageCount && currentPage!=0?'active':''}">
-                        ${currentPage<pageCount && currentPage!=0?'<span class="page-link">':firstLink}
+                        ${currentPage<pageCount && currentPage!=0?'<span class="page-link">':secondLink}
                         ${currentPage==0?'2':currentPage+1}
                         ${currentPage<pageCount && currentPage!=0?'<span class="sr-only">(current)</span></span>':'</a>'}    
                     </li>
                 </c:if>
                 <c:if test="${pageCount>2}">
                     <li class="page-item ${currentPage==(pageCount-1)?'active':''}">
-                        ${currentPage==(pageCount-1)?'<span class="page-link">':'<a class="page-link" href="">'}
+                        ${currentPage==(pageCount-1)?'<span class="page-link">':thirdLink}
                         ${currentPage==0?'3':currentPage==(pageCount-1)?currentPage+1:currentPage+1+1}
                         ${currentPage==(pageCount-1)?'<span class="sr-only">(current)</span></span>':'</a>'} 
                     </li>
@@ -197,7 +244,7 @@
                 </c:if>
                 <c:if test="${currentPage<pageCount-1}">
                     <li class="page-item">
-                        <a class="page-link" href="">Siguiente</a>
+                        <a class="page-link" href="${nextPage}">Siguiente</a>
                     </li>
                 </c:if>
 

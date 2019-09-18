@@ -13,10 +13,12 @@ import com.puntotransacciones.util.Encoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.ws.rs.client.Client;
@@ -27,10 +29,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -51,10 +60,16 @@ public class UserRecordService {
         public HashMap<String,String> headers;
         public OportunidadesResponse(){
         }
+
+        public OportunidadesResponse(ArrayList<Oportunidad> oportunidades, HashMap<String, String> headers) {
+            this.oportunidades = oportunidades;
+            this.headers = headers;
+        }
+        
     }
     
     //UsernameAsesora debe ser el username!! (Ej. c0872 [Amairini])
-     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String usr, String pword) throws IOException{
+     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String usr, String pword, String estatus) throws IOException{
         targetWP += "/general-records/oportunidades";
         Boolean amperson = false;
         if(page!=null){
@@ -104,6 +119,14 @@ public class UserRecordService {
                     }
             }
         }
+        if(estatus!=null){
+            if(amperson){
+                targetWP+="&customFields=reg_estatus:"+estatus;
+            }
+            else{
+                targetWP+="?customFields=reg_estatus:"+estatus;
+            }
+        }
         
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(targetWP);
@@ -119,7 +142,7 @@ public class UserRecordService {
             l.info("Codigo de ejecución: "+responseCode);
             l.info(targetWP);
             targetWP = "https://global.puntotransacciones.com/api";
-            return null;
+            return new OportunidadesResponse(null,null);
         }
         BufferedReader rd = new BufferedReader(
 		new InputStreamReader(response.getEntity().getContent()));
@@ -137,6 +160,7 @@ public class UserRecordService {
         for(int i=0;i<size;i++){
             JSONObject oportunidadJson = responseArray.getJSONObject(i);
             Gson gson = new Gson();
+            logger.info(i+": "+oportunidadJson.toString());
             Oportunidad oportunidad = gson.fromJson(oportunidadJson.toString(), Oportunidad.class);
             if(oportunidad.getCustomValues().getVendedor()!=null){
                 if(oportunidad.getCustomValues().getVendedor().contains("E")){
@@ -169,8 +193,68 @@ public class UserRecordService {
         respuesta.oportunidades=oportunidades;
         return respuesta;
     }  
-        
-       
+        public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas){
+            String oportunidadJSON = "";
+            oportunidadJSON+="{\"customValues\":{";
+            Boolean coma = false;
+            if(titulo!=null){
+                oportunidadJSON+="\"titulo:\":\""+titulo+"\"";
+                coma=true;
+            }
+            if(estatus!=null){
+                if(coma){
+                    oportunidadJSON+=",";
+                }
+                oportunidadJSON+="\"reg_estatus:\":\""+estatus+"\"";
+            }
+            if(vendedor!=null){
+                if(coma){
+                    oportunidadJSON+=",";
+                }
+                oportunidadJSON+="\"vendedor:\":\""+vendedor+"\"";
+            }
+            if(vendedor2!=null){
+                if(coma){
+                    oportunidadJSON+=",";
+                }
+                oportunidadJSON+="\"vendedor2:\":\""+vendedor2+"\"";
+            }
+            if(descripcion!=null){
+                if(coma){
+                    oportunidadJSON+=",";
+                }
+                oportunidadJSON+="\"descripcion:\":\""+descripcion+"\"";
+            }
+            if(montoT!=null){
+                if(coma){
+                    oportunidadJSON+=",";
+                }
+                oportunidadJSON+="\"montoTrans:\":'"+montoT+"'";
+            }
+            if(notas!=null){
+                if(coma){
+                    oportunidadJSON+=",";
+                }
+                oportunidadJSON+="\"notas:\":\""+notas+"\"";
+            }
+            oportunidadJSON+="}}";
+        return oportunidadJSON;
+        }
+       public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
+           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
+           targetWP+="/"+user+"/records/oportunidades";
+           CloseableHttpClient client = HttpClients.createDefault();
+           HttpPost httpPost=new HttpPost(targetWP);
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("record",record) );
+            httpPost.setEntity(new UrlEncodedFormEntity(params));
+            CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpPost);
+            if(response.getStatusLine().getStatusCode()==201){
+                client.close();
+                return "Exito";
+            }
+           return "Error";
+       }
         
     public String  estatusInterpreter(String id){
         if(id.equals("no_procede")){

@@ -15,12 +15,15 @@ public class CustomValues {
     @SerializedName("vendedor")
     @Expose
     private String vendedor;
+    @SerializedName("vendedor2")
+    @Expose
+    private String vendedor2;
     @SerializedName("titulo")
     @Expose
     private String titulo;
     @SerializedName("montotrans")
     @Expose
-    private Double montoTrans;
+    private String montoTrans;
     @SerializedName("descripcion")
     @Expose
     private String descripcion;
@@ -52,11 +55,11 @@ public class CustomValues {
     }
 
     
-    public Double getMontoTrans() {
+    public String getMontoTrans() {
         return montoTrans;
     }
 
-    public void setMontoTrans(Double montoTrans) {
+    public void setMontoTrans(String montoTrans) {
         this.montoTrans = montoTrans;
     }
 
@@ -77,6 +80,15 @@ public class CustomValues {
         this.vendedor = vendedor;
     }
 
+    public String getVendedor2() {
+        return vendedor2;
+    }
+
+    public void setVendedor2(String vendedor2) {
+        this.vendedor2 = vendedor2;
+    }
+
+    
     public String getTitulo() {
         return titulo;
     }
