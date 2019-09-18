@@ -160,7 +160,6 @@ public class UserRecordService {
         for(int i=0;i<size;i++){
             JSONObject oportunidadJson = responseArray.getJSONObject(i);
             Gson gson = new Gson();
-            logger.info(i+": "+oportunidadJson.toString());
             Oportunidad oportunidad = gson.fromJson(oportunidadJson.toString(), Oportunidad.class);
             if(oportunidad.getCustomValues().getVendedor()!=null){
                 if(oportunidad.getCustomValues().getVendedor().contains("E")){

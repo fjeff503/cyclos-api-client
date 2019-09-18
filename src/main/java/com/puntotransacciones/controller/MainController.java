@@ -93,7 +93,14 @@ public class MainController {
                     uri+="?empresa="+empresa;
                 }
             }
-            
+            if(estatus!=null && estatus!="logrado"){
+                if(amperson){
+                    uri+="&estatus="+estatus;
+                }
+                else{
+                    uri+="?estatus="+estatus;
+                }
+            }
             //Check the page and 
             String htmlLink = "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades"+uri;
             if(Integer.parseInt(headers.get("X-Current-Page")) != 0){

@@ -121,9 +121,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.request.contextPath}/oportunidades" method="POST">
+                        <form action="${pageContext.request.contextPath}/oportunidades" method="POST" id="addEmpresa">
                             <label for="grupos">Titulo</label>
-                                <input type="text" placeholder="Titulo" class="form-control" id="empresa" />
+                                <input type="text" placeholder="Titulo" class="form-control" name="titulo" />
                             <label for="grupos">Estatus</label>
                                 <select class="form-control" id="estatus" path="estatus" name="estatus">
                                     <option value="no_procede">No Procede</option>
@@ -139,14 +139,16 @@
                                     <option value="no_logrado"}>6. No Logrado</option>
                                     <option value="contrato">7. Contrato</option>
                                 </select>
-                            <label for="grupos">Vendedor</label>
-                                <input type="text" placeholder="Vendedor" class="form-control" id="vendedor" />
-                            <label for="grupos">Vendedor 2</label>
-                                <input type="text" placeholder="Titulo" class="form-control" id="vendedor" />
-                            <label for="grupos">Descripcion</label>
-                            <label for="grupos">Monto T$</label>
-                            <label for="grupos">Notas</label>
-                            <label for="grupos">Titulo</label>
+                            <label for="vendedor">Vendedor</label>
+                                <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor"/>
+                            <label for="vendedor2">Vendedor 2</label>
+                                <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedor2" />
+                            <label for="descripcion">Descripcion</label>
+                                <textarea class="form-control" placeholder="Descripcion" id="descripcion" form="addEmpresa" name="descripcion" rows="3"></textarea>
+                            <label for="montoT">Monto T$</label>
+                                <input type="number" placeholder="0.00" class="form-control" id="montoT" name="montoT" />
+                            <label for="notas">Notas</label>
+                                <textarea class="form-control" placeholder="Notas" id="notas" form="addEmpresa" name="descripcion" rows="3"></textarea>
                         </form>
                     </div>
                     <div class="modal-footer">
