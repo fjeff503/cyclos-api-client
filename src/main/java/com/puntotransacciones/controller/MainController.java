@@ -7,6 +7,7 @@ package com.puntotransacciones.controller;
 
 
 import com.puntotransacciones.domain.userRecords.Oportunidad;
+import com.puntotransacciones.service.AuthenticationService;
 import com.puntotransacciones.service.UserRecordService;
 import com.puntotransacciones.service.UserService;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,9 +31,13 @@ public class MainController {
     public UserRecordService userRecordService = new UserRecordService();
     public UserService userService = new UserService();
     public static ArrayList<String> users;
+    public AuthenticationService authService;
     @RequestMapping(value = "/oportunidades")
     public ModelAndView oportunidades(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
+            
+        }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("recordList");
          Logger logger = Logger.getLogger("logger");
@@ -160,6 +166,20 @@ public class MainController {
         return mv;
     }
     
+    @RequestMapping(value="/auth")
+    public void authentication(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        String usuario = request.getParameter("usuario");
+        String pass = request.getParameter("pass");
+        if(authService.authenticateUser(usuario, pass)){
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("usuario", usuario);
+             sesion.setAttribute("password", pass);
+           
+            response.sendRedirect(request.getContextPath()+"/oportunidades");
+        }
+        
+        response.sendRedirect(request.getContextPath()+"/");
+    }
     
     @RequestMapping(value="/")
     public ModelAndView indice(HttpServletRequest request) throws IOException{
@@ -170,6 +190,11 @@ public class MainController {
         else{
             request.
         }*/
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("user")!=null){
+            
+        }
+                
         users = userService.getUsers("uscript","1234");
         
         ModelAndView mv = new ModelAndView();

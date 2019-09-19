@@ -8,6 +8,7 @@ package com.puntotransacciones.controller;
 import com.puntotransacciones.service.UserRecordService;
 import java.io.IOException;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,11 @@ public class RecordController {
     @RequestMapping(value = "/addOportunidad", method = RequestMethod.POST)
     public void addRecord(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String titulo = request.getParameter("titulo");
+        String empresa = request.getParameter("empresa");
+        if(empresa.contains(" - ")){
+            String[] empresaVector = empresa.split(" - ");
+            empresa = empresaVector[0];
+        }
         String estatus = request.getParameter("estatus");
         String vendedor = request.getParameter("vendedor");
         String vendedor2 = request.getParameter("vendedor2");
@@ -36,9 +42,10 @@ public class RecordController {
         String montoT = request.getParameter("montoT");
         String notas = request.getParameter("notas");
         
+        userRecordService.addOportunidad("uscript", "1234", empresa, titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
         
-        l.info("Titulo: "+ titulo+" estatus: "+estatus+" Vendedor: "+vendedor+" Vendedor2:" +vendedor+" MontoT: "+montoT+" Notas: "+notas +" Descripcion: "+descripcion);
-        response.sendRedirect("/oportunidades");
+        
+        response.sendRedirect(request.getContextPath()+"/oportunidades");
     } 
     
 }

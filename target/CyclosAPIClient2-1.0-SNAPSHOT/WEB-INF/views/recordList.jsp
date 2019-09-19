@@ -158,7 +158,7 @@
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" style="margin-bottom:0px;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
         </div>
                 <!---------------- Modal ------------------->
-                <form action="/addOportunidad" method="POST" id="addEmpresa">
+                <form action="${pageContext.request.contextPath}/addOportunidad" method="POST" id="addEmpresa">
                    <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -170,15 +170,15 @@
                     </div>
                     <div class="modal-body">
                             <label for="grupos">Titulo <font color="red">*</font></label>
-                            <input type="text" placeholder="Titulo" class="form-control" name="titulo" />
+                            <input type="text" placeholder="Titulo" class="form-control" name="titulo" required/>
                             <label for="grupos">Empresa <font color="red">*</font></label>
                             <div class="row">
                             <div class="autocomplete col-12">
-                                <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm"/>
+                                <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" required/>
                             </div>
                             </div>
                             <label for="grupos">Estatus <font color="red">*</font></label>
-                                <select class="form-control" id="estatus" path="estatus" name="estatus">
+                                <select class="form-control" id="estatus" path="estatus" name="estatus" required>
                                     <option value="no_procede">No Procede</option>
                                     <option value="pendiente">Pendiente</option>
                                     <option value="realizado">Realizado</option>
@@ -201,7 +201,7 @@
                             <label for="montoT">Monto T$</label>
                                 <input type="number" placeholder="0.00" step=".01" class="form-control" id="montoT" name="montoT" />
                             <label for="notas">Notas</label>
-                                <textarea class="form-control" placeholder="Notas" id="notas" form="addEmpresa" name="descripcion" rows="3"></textarea>
+                                <textarea class="form-control" placeholder="Notas" id="notas" form="addEmpresa" name="notas" rows="3"></textarea>
                     </div>
                     <div class="modal-footer">
                         <font color="red">* Valor requerido</font>
@@ -422,6 +422,7 @@
                             console.log(empresasSplitted);
                             autocomplete(document.getElementById("myInput"), empresasSplitted);
                             autocomplete(document.getElementById("empresasForm"), empresasSplitted);
+                            autocomplete(document.getElementById("vendedor"), empresasSplitted);
                          });
                 </script>
                 

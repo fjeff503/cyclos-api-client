@@ -192,7 +192,25 @@ public class UserRecordService {
         respuesta.oportunidades=oportunidades;
         return respuesta;
     }  
-        public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas){
+      
+       public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
+           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
+           targetWP+="/"+user+"/records/oportunidades";
+           CloseableHttpClient client = HttpClients.createDefault();
+           HttpPost httpPost=new HttpPost(targetWP);
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("record",record) );
+            httpPost.setEntity(new UrlEncodedFormEntity(params));
+            CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpPost);
+            if(response.getStatusLine().getStatusCode()==201){
+                client.close();
+                l.info("Exito guardando la oportunidad");
+                return "Exito";
+            }
+            l.info("Error guardando la oportunidad");
+           return "Error";
+       }
+          public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas){
             String oportunidadJSON = "";
             oportunidadJSON+="{\"customValues\":{";
             Boolean coma = false;
@@ -239,22 +257,6 @@ public class UserRecordService {
             oportunidadJSON+="}}";
         return oportunidadJSON;
         }
-       public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
-           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
-           targetWP+="/"+user+"/records/oportunidades";
-           CloseableHttpClient client = HttpClients.createDefault();
-           HttpPost httpPost=new HttpPost(targetWP);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("record",record) );
-            httpPost.setEntity(new UrlEncodedFormEntity(params));
-            CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpPost);
-            if(response.getStatusLine().getStatusCode()==201){
-                client.close();
-                return "Exito";
-            }
-           return "Error";
-       }
-        
     public String  estatusInterpreter(String id){
         if(id.equals("no_procede")){
             return "No Procede";

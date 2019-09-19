@@ -51,6 +51,10 @@ public class UserService {
         for(int i=1;i<firstVector.length;i++){
             String empresa = firstVector[i].replace("\"", "");
             empresa = empresa.replace("},{", "");
+            //empresa = new String(empresa.getBytes("ISO-8859-1"),"UTF-8");
+            if(empresa.contains("E0772")){
+                l.info(empresa);
+            }
             usuarios.add(empresa);
         }
         
