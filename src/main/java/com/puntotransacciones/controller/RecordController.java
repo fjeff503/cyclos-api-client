@@ -7,6 +7,7 @@ package com.puntotransacciones.controller;
 
 import com.puntotransacciones.service.UserRecordService;
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -22,16 +23,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class RecordController {
     
     public UserRecordService userRecordService = new UserRecordService();
+    public Logger l = Logger.getLogger("logger");
     
-    @RequestMapping(value = "/oportunidades", method = RequestMethod.POST)
+    
+    @RequestMapping(value = "/addOportunidad", method = RequestMethod.POST)
     public void addRecord(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String titulo = request.getParameter("titulo");
         String estatus = request.getParameter("estatus");
         String vendedor = request.getParameter("vendedor");
         String vendedor2 = request.getParameter("vendedor2");
+        String descripcion = request.getParameter("descripcion");
         String montoT = request.getParameter("montoT");
         String notas = request.getParameter("notas");
         
+        
+        l.info("Titulo: "+ titulo+" estatus: "+estatus+" Vendedor: "+vendedor+" Vendedor2:" +vendedor+" MontoT: "+montoT+" Notas: "+notas +" Descripcion: "+descripcion);
         response.sendRedirect("/oportunidades");
     } 
     

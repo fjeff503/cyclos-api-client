@@ -8,6 +8,7 @@ package com.puntotransacciones.controller;
 
 import com.puntotransacciones.domain.userRecords.Oportunidad;
 import com.puntotransacciones.service.UserRecordService;
+import com.puntotransacciones.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -26,7 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
     
     public UserRecordService userRecordService = new UserRecordService();
-    
+    public UserService userService = new UserService();
+    public static ArrayList<String> users;
     @RequestMapping(value = "/oportunidades")
     public ModelAndView oportunidades(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
@@ -154,13 +156,13 @@ public class MainController {
         else{
             mv.addObject("isNull",true);
         }
-        //Adding JS objects
-        
+
         return mv;
     }
     
+    
     @RequestMapping(value="/")
-    public ModelAndView indice(HttpServletRequest request){
+    public ModelAndView indice(HttpServletRequest request) throws IOException{
         
        /* if(request.getSession()!=null){
             
@@ -168,6 +170,8 @@ public class MainController {
         else{
             request.
         }*/
+        users = userService.getUsers("uscript","1234");
+        
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
