@@ -10,6 +10,7 @@ import com.puntotransacciones.domain.userRecords.CustomValues;
 import com.puntotransacciones.domain.userRecords.Oportunidad;
 import com.puntotransacciones.domain.userRecords.User;
 import com.puntotransacciones.util.Encoder;
+import com.sun.net.httpserver.Headers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -195,64 +196,83 @@ public class UserRecordService {
       
        public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
            String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
+           l.info(record);
            targetWP+="/"+user+"/records/oportunidades";
+           l.info(targetWP);
            CloseableHttpClient client = HttpClients.createDefault();
            HttpPost httpPost=new HttpPost(targetWP);
+            String encodedCred = encoder.encode64(username,pass);
+            httpPost.addHeader("Authorization", encodedCred);
+            httpPost.addHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("record",record) );
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpPost);
+            targetWP = "https://global.puntotransacciones.com/api";
             if(response.getStatusLine().getStatusCode()==201){
                 client.close();
                 l.info("Exito guardando la oportunidad");
                 return "Exito";
             }
+            
+            Header[] headers = response.getAllHeaders();
+            BufferedReader rd = new BufferedReader(
+		new InputStreamReader(response.getEntity().getContent()));
+        StringBuilder result = new StringBuilder();
+	String line = "";
+	while ((line = rd.readLine()) != null) {
+		result.append(line);
+	}
+        String stringResult = result.toString();
+            l.info(response.getStatusLine().getStatusCode()+" "+stringResult);
             l.info("Error guardando la oportunidad");
-           return "Error";
+           client.close();
+            return "Error";
        }
           public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas){
             String oportunidadJSON = "";
             oportunidadJSON+="{\"customValues\":{";
             Boolean coma = false;
-            if(titulo!=null){
-                oportunidadJSON+="\"titulo:\":\""+titulo+"\"";
+            if(titulo!=null && titulo!=""){
+                oportunidadJSON+="\"titulo\":\""+titulo+"\"";
                 coma=true;
             }
-            if(estatus!=null){
+            if(estatus!=null && estatus!=""){
                 if(coma){
                     oportunidadJSON+=",";
                 }
-                oportunidadJSON+="\"reg_estatus:\":\""+estatus+"\"";
+                oportunidadJSON+="\"reg_estatus\":\""+estatus+"\"";
             }
-            if(vendedor!=null){
+            if(vendedor!=null && vendedor!=""){
                 if(coma){
                     oportunidadJSON+=",";
                 }
-                oportunidadJSON+="\"vendedor:\":\""+vendedor+"\"";
+                oportunidadJSON+="\"vendedor\":\""+vendedor+"\"";
             }
-            if(vendedor2!=null){
+            if(vendedor2!=null && vendedor2!=""){
                 if(coma){
                     oportunidadJSON+=",";
                 }
-                oportunidadJSON+="\"vendedor2:\":\""+vendedor2+"\"";
+                oportunidadJSON+="\"vendedor2\":\""+vendedor2+"\"";
             }
-            if(descripcion!=null){
+            if(descripcion!=null && descripcion!=""){
                 if(coma){
                     oportunidadJSON+=",";
                 }
-                oportunidadJSON+="\"descripcion:\":\""+descripcion+"\"";
+                oportunidadJSON+="\"descripcion\":\""+descripcion+"\"";
             }
-            if(montoT!=null){
+            if(montoT!=null && montoT!=""){
                 if(coma){
                     oportunidadJSON+=",";
                 }
-                oportunidadJSON+="\"montoTrans:\":'"+montoT+"'";
+                oportunidadJSON+="\"montoTrans\":'"+montoT+"'";
             }
-            if(notas!=null){
+            if(notas!=null && notas!=""){
                 if(coma){
                     oportunidadJSON+=",";
                 }
-                oportunidadJSON+="\"notas:\":\""+notas+"\"";
+                oportunidadJSON+="\"notas\":\""+notas+"\"";
             }
             oportunidadJSON+="}}";
         return oportunidadJSON;

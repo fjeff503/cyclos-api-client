@@ -14,7 +14,7 @@
     <head>
         <title>Login Oportunidades</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+        <link rel="icon" href="https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/b4/b0/a1/b4b0a1a8-433a-7e7d-ada3-ebe07e1f6fca/source/512x512bb.jpg">
     </head>
     <body>
         
@@ -26,14 +26,14 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-        <form action="${pageContext.request.contextPath}/oportunidades">
+        <form action="${pageContext.request.contextPath}/auth">
             <div class="form-group">
                 <label for="exampleInputEmail1">Usuario</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Usuario">
+                <input type="text" class="form-control" id="exampleInputEmail1" name="usuario" placeholder="Usuario">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
+                <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="Contraseña">
             </div>
             <button type="submit" class="btn btn-primary text-right">Ingresar</button>
         </form>

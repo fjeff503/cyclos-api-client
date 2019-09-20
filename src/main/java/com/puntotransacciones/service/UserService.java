@@ -57,7 +57,7 @@ public class UserService {
             }
             usuarios.add(empresa);
         }
-        
+        targetWP = "https://global.puntotransacciones.com/api";
         return usuarios;
     }
 }

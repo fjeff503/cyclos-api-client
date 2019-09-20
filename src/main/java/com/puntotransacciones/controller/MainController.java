@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,16 +32,24 @@ public class MainController {
     public UserRecordService userRecordService = new UserRecordService();
     public UserService userService = new UserService();
     public static ArrayList<String> users;
-    public AuthenticationService authService;
+    public AuthenticationService authService = new AuthenticationService();
+    public Logger logger = Logger.getLogger("logger");
     @RequestMapping(value = "/oportunidades")
     public ModelAndView oportunidades(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession sesion = request.getSession();
+        String usuario = "";
+        String password = "";
         if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
+            response.sendRedirect(request.getContextPath()+"/");
+        }
+        else{
+            usuario = (String) sesion.getAttribute("usuario");
+            password = (String) sesion.getAttribute("password");
             
         }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("recordList");
-         Logger logger = Logger.getLogger("logger");
+         
         
         String asesora = (String)request.getParameter("asesora");
         String empresa = (String)request.getParameter("empresa");      
@@ -65,7 +74,7 @@ public class MainController {
         if(grupo != null && !grupo.contains("todos")){
             grupos.add(grupo);
         }
-        UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, "uscript", "1234", estatus);
+        UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, usuario, password, estatus);
         ArrayList<Oportunidad> oportunidades = oportunidadesResponse.oportunidades;
         Map<String, String> headers = oportunidadesResponse.headers;
         //Adding Java objects
@@ -167,22 +176,26 @@ public class MainController {
     }
     
     @RequestMapping(value="/auth")
-    public void authentication(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        String usuario = request.getParameter("usuario");
-        String pass = request.getParameter("pass");
+    public void authentication(HttpServletRequest request, HttpServletResponse response, @RequestParam(name="usuario") String usuario, @RequestParam(name="pass") String pass) throws IOException{
+        logger.info(usuario);
+        logger.info(pass);
+        
         if(authService.authenticateUser(usuario, pass)){
+            logger.info("Entre al authService true");
             HttpSession sesion = request.getSession();
             sesion.setAttribute("usuario", usuario);
              sesion.setAttribute("password", pass);
-           
+             users = userService.getUsers("uscript","1234");
             response.sendRedirect(request.getContextPath()+"/oportunidades");
         }
+        else{
         
         response.sendRedirect(request.getContextPath()+"/");
-    }
+        }
+}
     
     @RequestMapping(value="/")
-    public ModelAndView indice(HttpServletRequest request) throws IOException{
+    public ModelAndView indice(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
        /* if(request.getSession()!=null){
             
@@ -191,11 +204,9 @@ public class MainController {
             request.
         }*/
         HttpSession sesion = request.getSession();
-        if(sesion.getAttribute("user")!=null){
-            
+        if(sesion.getAttribute("user")!=null && sesion.getAttribute("password")!=null){
+            response.sendRedirect(request.getContextPath()+"/oportunidades");
         }
-                
-        users = userService.getUsers("uscript","1234");
         
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");

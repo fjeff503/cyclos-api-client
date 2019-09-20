@@ -65,6 +65,7 @@
             color: #ffffff;
           }
         </style>
+        <link rel="icon" href="https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/b4/b0/a1/b4b0a1a8-433a-7e7d-ada3-ebe07e1f6fca/source/512x512bb.jpg">
     </head>
     <body>
         <c:if test="${isNull}">
@@ -184,7 +185,7 @@
                                     <option value="realizado">Realizado</option>
                                     <option value="suspendido">Suspendido</option>
                                     <option value="confirmado">Confirmado</option>
-                                    <option value="prospecto">1. Prospecto</option>
+                                    <option value="prospecto" selected>1. Prospecto</option>
                                     <option value="cotizado">2. Cotizado</option>
                                     <option value="aprobado">3. Aprobado</option>
                                     <option value="entregado">4. Entregado</option>
@@ -226,7 +227,7 @@
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
                 <tr>
-                <form>
+                <form method="PUT" id="form${index.index+1}">
                     <th contenteditable="false"><%=indice%></th>
                     <td contenteditable="false">${record.user.display}</td>
                     <td contenteditable="true">${record.customValues.vendedor}</td>
