@@ -90,8 +90,8 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
-                                <div class="autocomplete" style="width:300px;">
-                                    <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Aún en construcción!!)"}" class="form-control" id="myInput" name="empresa"/>
+                                <div class="autocomplete" style="width:300px;" >
+                                    <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Aún en construcción!!)"}" class="form-control" id="myInput" name="empresa" autocomplete="off"/>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                             <label for="grupos">Empresa <font color="red">*</font></label>
                             <div class="row">
                             <div class="autocomplete col-12">
-                                <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" required/>
+                                <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off" required/>
                             </div>
                             </div>
                             <label for="grupos">Estatus <font color="red">*</font></label>
@@ -193,9 +193,9 @@
                                     <option value="contrato">7. Contrato</option>
                                 </select>
                             <label for="vendedor">Vendedor</label>
-                                <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor"/>
+                            <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off"/>
                             <label for="vendedor2">Vendedor 2</label>
-                                <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedor2" />
+                                <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedor2" autocomplete="off"/>
                             <label for="descripcion">Descripcion</label>
                                 <textarea class="form-control" placeholder="Descripcion" id="descripcion" form="addEmpresa" name="descripcion" rows="3"></textarea>
                             <label for="montoT">Monto T$</label>
@@ -212,6 +212,7 @@
             </div>
         </div>     
                    </form>
+                   <!---------------------------- Content's Table ------------------->
         <table class="table">
             <tr>
                 <th>Index</th>
@@ -227,9 +228,9 @@
                 <% indice += 1;%>
                 <tr>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
-                    <th contenteditable="false"><%=indice%></th>
+                    <th contenteditable="false"><%=indice%> <input type="hidden" value="${record.id}" name="id" name="id"></th>
                     <td contenteditable="false">${record.user.display}</td>
-                    <td contenteditable="true">${record.customValues.vendedor}</td>
+                    <td contenteditable="true">${record.customValues.vendedor}</td> 
                     <td contenteditable="true">${record.customValues.titulo}</td>
                     <td class="select-td" > 
                         <select class="form-control" id="estatus">

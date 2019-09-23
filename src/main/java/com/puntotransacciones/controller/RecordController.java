@@ -31,12 +31,17 @@ public class RecordController {
     public void addRecord(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String titulo = request.getParameter("titulo");
         String empresa = request.getParameter("empresa");
+        String vendedor = request.getParameter("vendedor");
         if(empresa.contains(" - ")){
             String[] empresaVector = empresa.split(" - ");
             empresa = empresaVector[0];
         }
+        if(vendedor.contains(" - ")){
+            String[] vendedorVector = vendedor.split(" - ");
+            vendedor = vendedorVector[0];
+        }
         String estatus = request.getParameter("estatus");
-        String vendedor = request.getParameter("vendedor");
+
         String vendedor2 = request.getParameter("vendedor2");
         String descripcion = request.getParameter("descripcion");
         String montoT = request.getParameter("montoT");

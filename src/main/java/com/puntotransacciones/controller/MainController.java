@@ -52,7 +52,13 @@ public class MainController {
          
         
         String asesora = (String)request.getParameter("asesora");
-        String empresa = (String)request.getParameter("empresa");      
+        String empresa = (String)request.getParameter("empresa");
+        if(empresa != null){
+            if(empresa.contains(" - ")){
+                String[] empresaVector = empresa.split(" - ");
+                empresa = empresaVector[0];
+            }
+        }
         Integer page = (request.getParameter("page")!=null?Integer.parseInt(request.getParameter("page")):null);
         String grupo = (String)request.getParameter("grupos");
         String estatus = (String) request.getParameter("estatus");
@@ -177,12 +183,14 @@ public class MainController {
     
     @RequestMapping(value="/auth")
     public void authentication(HttpServletRequest request, HttpServletResponse response, @RequestParam(name="usuario") String usuario, @RequestParam(name="pass") String pass) throws IOException{
-        logger.info(usuario);
-        logger.info(pass);
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("user")!=null && sesion.getAttribute("password")!=null){
+            response.sendRedirect(request.getContextPath()+"/oportunidades");
+            users = userService.getUsers((String)sesion.getAttribute("user"),(String)sesion.getAttribute("password"));
+        }
         
         if(authService.authenticateUser(usuario, pass)){
             logger.info("Entre al authService true");
-            HttpSession sesion = request.getSession();
             sesion.setAttribute("usuario", usuario);
              sesion.setAttribute("password", pass);
              users = userService.getUsers("uscript","1234");
