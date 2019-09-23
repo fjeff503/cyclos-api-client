@@ -53,10 +53,11 @@ public class MainController {
         
         String asesora = (String)request.getParameter("asesora");
         String empresa = (String)request.getParameter("empresa");
+        String empresaCodigo = "";
         if(empresa != null){
             if(empresa.contains(" - ")){
                 String[] empresaVector = empresa.split(" - ");
-                empresa = empresaVector[0];
+                empresa = empresaCodigo;
             }
         }
         Integer page = (request.getParameter("page")!=null?Integer.parseInt(request.getParameter("page")):null);
@@ -92,7 +93,7 @@ public class MainController {
             mv.addObject("totalCount", Integer.parseInt(headers.get("X-Total-Count")));   
             mv.addObject("asesora", asesora);
             mv.addObject("grupo", grupo);
-            mv.addObject("empresa",empresa);
+            Object temp =  (empresa!=null ? mv.addObject("empresa",empresa):"");
             mv.addObject("estatus",estatus);
             String uri = "";
             Boolean amperson = false;
@@ -124,7 +125,7 @@ public class MainController {
                     uri+="?estatus="+estatus;
                 }
             }
-            //Check the page and 
+            //Check the page and add links to the pagination buttons acordingly
             String htmlLink = "<a class=\"page-link\" href=\""+request.getContextPath()+"/oportunidades"+uri;
             if(Integer.parseInt(headers.get("X-Current-Page")) != 0){
                 if(amperson){
