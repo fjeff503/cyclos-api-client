@@ -226,7 +226,7 @@
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
                 <tr>
-                <form method="PUT" id="form${index.index+1}">
+                <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
                     <th contenteditable="false"><%=indice%></th>
                     <td contenteditable="false">${record.user.display}</td>
                     <td contenteditable="true">${record.customValues.vendedor}</td>
