@@ -46,6 +46,11 @@ public class RecordController {
         
         
         response.sendRedirect(request.getContextPath()+"/oportunidades");
-    } 
+    }
     
+    @RequestMapping(value="/changeoportunidad", method=RequestMethod.PUT)
+    public void changeRecord(HttpServletRequest request, HttpServletResponse response){
+        l.info("comprado: "+request.getParameter("comprador")+" vendedor: "+request.getParameter("vendedor")+" titulo:" + request.getParameter("titulo")+" estatus:" + request.getParameter("estatus") + "montoTrans: "+ request.getParameter("montoTrans")+" descripcion: "+request.getParameter("descripcion"));
+        
+    }  
 }
