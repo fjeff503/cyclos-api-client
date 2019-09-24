@@ -193,7 +193,11 @@
                                     <option value="contrato">7. Contrato</option>
                                 </select>
                             <label for="vendedor">Vendedor</label>
+                            <div class="row">
+                                <div class="autocomplete col-12">
                             <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off"/>
+                                </div>
+                            </div>
                             <label for="vendedor2">Vendedor 2</label>
                                 <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedor2" autocomplete="off"/>
                             <label for="descripcion">Descripcion</label>
@@ -424,7 +428,6 @@
                             for(i=1; i< empresasSplitted.length;i++){
                                 empresasSplitted[i] = empresasSplitted[i].replace(" ","");
                             }
-                            console.log(empresas);
                             autocomplete(document.getElementById("myInput"), empresasSplitted);
                             autocomplete(document.getElementById("empresasForm"), empresasSplitted);
                             autocomplete(document.getElementById("vendedor"), empresasSplitted);
