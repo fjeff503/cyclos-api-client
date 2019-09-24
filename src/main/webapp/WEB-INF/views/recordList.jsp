@@ -155,6 +155,7 @@
         </div>
                <!----------- Modal Button -------------->
         <div>
+            <a class="btn btn-primary float-left" href="${pageContext.request.contextPath}/logout">Log out</a>
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" style="margin-bottom:0px;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
         </div>
                 <!---------------- Modal ------------------->
@@ -219,7 +220,7 @@
                    <!---------------------------- Content's Table ------------------->
         <table class="table">
             <tr>
-                <th>Index</th>
+                <th>Fecha Creado</th>
                 <th>Compra</th>
                 <th>Vende</th>
                 <th>Concepto</th>
@@ -257,6 +258,7 @@
                 </form>
             </tr>
         </c:forEach>
+            <td/><td/><td/><td/><td/><td></td><td/>
     </table>
             <c:if test="${empty records && test!=null}">
                  <div class="container">

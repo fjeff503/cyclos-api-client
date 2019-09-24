@@ -155,6 +155,7 @@
         </div>
                <!----------- Modal Button -------------->
         <div>
+            <a class="btn btn-primary float-left" href="${pageContext.request.contextPath}/logout">Log out</a>
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal" style="margin-bottom:0px;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
         </div>
                 <!---------------- Modal ------------------->
@@ -193,7 +194,11 @@
                                     <option value="contrato">7. Contrato</option>
                                 </select>
                             <label for="vendedor">Vendedor</label>
+                            <div class="row">
+                                <div class="autocomplete col-12">
                             <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off"/>
+                                </div>
+                            </div>
                             <label for="vendedor2">Vendedor 2</label>
                                 <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedor2" autocomplete="off"/>
                             <label for="descripcion">Descripcion</label>
@@ -215,7 +220,7 @@
                    <!---------------------------- Content's Table ------------------->
         <table class="table">
             <tr>
-                <th>Index</th>
+                <th>Fecha Creado</th>
                 <th>Compra</th>
                 <th>Vende</th>
                 <th>Concepto</th>
@@ -253,6 +258,7 @@
                 </form>
             </tr>
         </c:forEach>
+            <td/><td/><td/><td/><td/><td></td><td/>
     </table>
             <c:if test="${empty records && test!=null}">
                  <div class="container">
@@ -332,7 +338,7 @@
                              /*for each item in the array...*/
                              var resultados = 0;
                              for (i = 0; i < arr.length; i++) {
-                                 if(resultados == 5){
+                                 if(resultados == 7){
                                      break;
                                  }
                                /*check if the item starts with the same letters as the text field value:*/
@@ -424,7 +430,6 @@
                             for(i=1; i< empresasSplitted.length;i++){
                                 empresasSplitted[i] = empresasSplitted[i].replace(" ","");
                             }
-                            console.log(empresas);
                             autocomplete(document.getElementById("myInput"), empresasSplitted);
                             autocomplete(document.getElementById("empresasForm"), empresasSplitted);
                             autocomplete(document.getElementById("vendedor"), empresasSplitted);

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -180,6 +181,16 @@ public class MainController {
         }
 
         return mv;
+    }
+    
+    @RequestMapping(value="/logout", method=RequestMethod.GET)
+        public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user")!=null && session.getAttribute("password")!=null){
+                session.removeAttribute("user");
+                session.removeAttribute("password");
+        }
+        response.sendRedirect(request.getContextPath()+"/");
     }
     
     @RequestMapping(value="/auth")
