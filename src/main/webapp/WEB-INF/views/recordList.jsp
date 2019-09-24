@@ -332,7 +332,7 @@
                              /*for each item in the array...*/
                              var resultados = 0;
                              for (i = 0; i < arr.length; i++) {
-                                 if(resultados == 5){
+                                 if(resultados == 7){
                                      break;
                                  }
                                /*check if the item starts with the same letters as the text field value:*/
