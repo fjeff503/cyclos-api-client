@@ -228,8 +228,8 @@
                 <% indice += 1;%>
                 <tr>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
-                    <th contenteditable="false"><%=indice%> <input type="hidden" value="${record.id}" name="id" name="id"></th>
-                    <td contenteditable="false">${record.user.display}</td>
+                    <th contenteditable="false">${record.creationDate}<input type="hidden" value="${record.id}" name="id" name="id"></th>
+                    <td contenteditable="false">${record.user.display}</td> 
                     <td contenteditable="true">${record.customValues.vendedor}</td> 
                     <td contenteditable="true">${record.customValues.titulo}</td>
                     <td class="select-td" > 

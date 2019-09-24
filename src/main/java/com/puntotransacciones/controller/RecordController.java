@@ -32,7 +32,7 @@ public class RecordController {
     public void addRecord(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession sesion = request.getSession();
         String usuario = (String) sesion.getAttribute("usuario");
-        String password = (String) sesion.getAttribute("passowrd");
+        String password = (String) sesion.getAttribute("password");
         if(usuario==null || password==null){
             response.sendRedirect(request.getContextPath()+"/");
         }
@@ -53,7 +53,6 @@ public class RecordController {
         String descripcion = request.getParameter("descripcion");
         String montoT = request.getParameter("montoT");
         String notas = request.getParameter("notas");
-        
         userRecordService.addOportunidad(usuario, password, empresa, titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
         
         

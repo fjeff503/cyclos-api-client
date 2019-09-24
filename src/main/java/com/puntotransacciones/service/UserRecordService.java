@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -182,6 +183,11 @@ public class UserRecordService {
                     
                 }
             }
+            if(oportunidad.getCreationDate()!=null){
+                String[] tempVector = oportunidad.getCreationDate().split("T");
+                String[] tempVector2 = tempVector[0].split("-");
+                oportunidad.setCreationDate(tempVector2[2]+"-"+tempVector2[1]+"-"+tempVector2[0]);
+            }
             oportunidades.add(oportunidad);
         }
         HashMap<String,String> headersMap = new HashMap();
@@ -195,7 +201,38 @@ public class UserRecordService {
         respuesta.headers=headersMap;
         respuesta.oportunidades=oportunidades;
         return respuesta;
-    }  
+    }
+     public String putOportunidad(String username, String pass, String id, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas ) throws MalformedURLException, IOException{
+         String oportunidadWP = targetWP+"/records/"+id;
+         String record = oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
+         String encodedCred = encoder.encode64(username,pass);
+           URL url = new URL (oportunidadWP);
+           try{
+           HttpURLConnection con = (HttpURLConnection)url.openConnection();
+           con.setRequestMethod("PUT");
+           con.setRequestProperty("Content-Type", "application/json; utf-8");
+           con.setRequestProperty("Accept", "application/json");
+           con.setRequestProperty("Authorization", encodedCred);
+           con.setDoOutput(true);
+           try(OutputStream os = con.getOutputStream()) {
+                byte[] input = record.getBytes("utf-8");
+                os.write(input, 0, input.length);           
+            }
+           try(BufferedReader br = new BufferedReader(
+            new InputStreamReader(con.getInputStream(), "utf-8"))) {
+              StringBuilder response = new StringBuilder();
+              String responseLine = null;
+              while ((responseLine = br.readLine()) != null) {
+                  response.append(responseLine.trim());
+              }
+              l.info(response.toString());
+          }
+           }
+           catch(Exception e){
+               return "Fallo";
+           }
+         return "Exito";
+     }
       
        public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
            String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
@@ -223,36 +260,7 @@ public class UserRecordService {
               }
               l.info(response.toString());
           }
-           /*
-           CloseableHttpClient client = HttpClients.createDefault();
-           HttpPost httpPost=new HttpPost(targetWP);
-            httpPost.addHeader("Authorization", encodedCred);
-            httpPost.addHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("record",record) );
-            httpPost.setEntity(new UrlEncodedFormEntity(params));
-            CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpPost);
-            targetWP = "https://global.puntotransacciones.com/api";
-            if(response.getStatusLine().getStatusCode()==201){
-                client.close();
-                l.info("Exito guardando la oportunidad");
-                return "Exito";
-            }
-            
-            Header[] headers = response.getAllHeaders();
-            BufferedReader rd = new BufferedReader(
-		new InputStreamReader(response.getEntity().getContent()));
-        StringBuilder result = new StringBuilder();
-	String line = "";
-	while ((line = rd.readLine()) != null) {
-		result.append(line);
-	}
-        String stringResult = result.toString();
-            l.info(response.getStatusLine().getStatusCode()+" "+stringResult);
-            l.info("Error guardando la oportunidad");
-           client.close();
-            return "Error";*/
+          
            return "Exito";
        }
           public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas){
@@ -299,6 +307,7 @@ public class UserRecordService {
                 }
                 oportunidadJSON+="\"notas\":\""+notas+"\"";
             }
+
             oportunidadJSON+="}}";
         return oportunidadJSON;
         }
