@@ -183,6 +183,10 @@ public class UserRecordService {
                     
                 }
             }
+            if(oportunidad.user.display != null){
+                oportunidad.user.display += "("+ oportunidad.createdBy.getDisplay().substring(0, 1).toUpperCase()+ ")";
+            }
+            
             if(oportunidad.getCreationDate()!=null){
                 String[] tempVector = oportunidad.getCreationDate().split("T");
                 String[] tempVector2 = tempVector[0].split("-");

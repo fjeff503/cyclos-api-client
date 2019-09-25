@@ -12,7 +12,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Oportunidades</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="<c:url value="../styles/Main.css" />">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <style>
             body{
@@ -67,6 +66,21 @@
         <link rel="icon" href="https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/b4/b0/a1/b4b0a1a8-433a-7e7d-ada3-ebe07e1f6fca/source/512x512bb.jpg">
     </head>
     <body>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+        <script>
+             function addBlurListener(inp,number){
+                        inp.addEventListener("blur", function handler(e){
+                             var form = $('#form'+number).ajaxSubmit({ /* options */ });
+                             var xhr = form.data('jqxhr');
+
+                            xhr.done(function() {
+                                   info('Se han registrado los cambios de el registro '+number);
+                            });
+                            e.currentTarget.removeEventListener("blur", handler);
+                        });
+                    }
+        </script>
         <c:if test="${isNull}">
             <div class="container">
                 <div class="row justify content center">
@@ -233,12 +247,12 @@
                 <% indice += 1;%>
                 <tr>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
-                    <th contenteditable="false">${record.creationDate}<input type="hidden" value="${record.id}" name="id" name="id"></th>
-                    <td contenteditable="false">${record.user.display}</td> 
-                    <td contenteditable="true">${record.customValues.vendedor}</td> 
-                    <td contenteditable="true">${record.customValues.titulo}</td>
+                    <th >${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
+                    <td >${record.user.display}</td> 
+                    <td ><div class="autocomplete"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
+                    <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo"></td>
                     <td class="select-td" > 
-                        <select class="form-control" id="estatus">
+                        <select class="form-control" id="estatus${index.index+1}" name="estatus">
                             <option value="no_procede"${record.customValues.estatus=="no_procede"?"selected":""}>No Procede</option>
                             <option value="pendiente"${record.customValues.estatus=="pendiente"?"selected":""}>Pendiente</option>
                             <option value="realizado"${record.customValues.estatus=="realizado"?"selected":""}>Realizado</option>
@@ -253,8 +267,8 @@
                             <option value="contrato"${record.customValues.estatus=="contrato"?"selected":""}>7. Contrato</option>
                         </select>
                     </td>
-                    <td contenteditable="true">${record.customValues.montoTrans}</td>
-                    <td contenteditable="true">${record.customValues.descripcion}</td>
+                    <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans"></td>
+                    <td ><input type="text" value="${record.customValues.descripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion"></td>
                 </form>
             </tr>
         </c:forEach>
@@ -314,7 +328,6 @@
             </ul>
         </nav>
     </div>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
                 <script>
@@ -433,7 +446,13 @@
                             autocomplete(document.getElementById("myInput"), empresasSplitted);
                             autocomplete(document.getElementById("empresasForm"), empresasSplitted);
                             autocomplete(document.getElementById("vendedor"), empresasSplitted);
+                            for(i=1;i<=40;i++){
+                                autocomplete(document.getElementById("vendedor"+i), empresasSplitted);
+                            }
                          });
+                         
+                   
+                   
                 </script>
                 
     </body>

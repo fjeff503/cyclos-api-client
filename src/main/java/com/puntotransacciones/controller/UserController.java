@@ -24,7 +24,6 @@ public class UserController {
     public Logger l = Logger.getLogger("logger");
     @RequestMapping(value="/usuarios")
     public void getUsuarios(HttpServletResponse response, HttpServletRequest request) throws IOException{
-        l.info(users.toString());
         
         if(users != null && !users.isEmpty()){
             response.setContentType("text/plain");

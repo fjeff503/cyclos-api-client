@@ -24,7 +24,6 @@ public class AuthenticationService {
     
     public boolean authenticateUser(String usuario, String pass) throws IOException{
         targetWP+="/auth";
-        logger.info("Entre a la funcion authenticate");
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(targetWP);
         String encodedCred = encoder.encode64(usuario,pass);
@@ -32,7 +31,6 @@ public class AuthenticationService {
         request.addHeader("Accept", "application/json");
        targetWP="https://global.puntotransacciones.com/api";
         HttpResponse response = client.execute(request);
-        logger.info(response.getStatusLine().getStatusCode()+"");
         if(response.getStatusLine().getStatusCode()==200){
             return true;
         }
