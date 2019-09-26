@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : recordList
     Created on : 10/09/2019, 11:48:29 AM
     Author     : HP PC
@@ -70,13 +70,10 @@
          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
         <script>
              function addBlurListener(inp,number){
+                        console.info('Entré a la funcion');
                         inp.addEventListener("blur", function handler(e){
-                             var form = $('#form'+number).ajaxSubmit({ /* options */ });
-                             var xhr = form.data('jqxhr');
-
-                            xhr.done(function() {
-                                   info('Se han registrado los cambios de el registro '+number);
-                            });
+                            console.info(($('#form'+number).serialize())+" "+'form'+number)
+                             $("#form"+number).ajaxSubmit({url: '${pageContext.request.contextPath}/changeoportunidad', type: 'get'})
                             e.currentTarget.removeEventListener("blur", handler);
                         });
                     }
@@ -129,6 +126,7 @@
                                 </select>
                             </div>
                         </div>
+                                <div class="col-2"><input type="reset" class="btn btn-secondary" value="Limpiar" style="margin-top:28px;"/></div>
                     </div>
                     <div class="row">
                         <div class="col-4">
@@ -250,9 +248,9 @@
                     <th >${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                     <td >${record.user.display}</td> 
                     <td ><div class="autocomplete"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
-                    <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo"></td>
+                    <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo" onchange="addBlurListener(this,${index.index+1})"></td>
                     <td class="select-td" > 
-                        <select class="form-control" id="estatus${index.index+1}" name="estatus">
+                        <select class="form-control" id="estatus${index.index+1}" name="estatus" onchange="addBlurListener(this,${index.index+1})">
                             <option value="no_procede"${record.customValues.estatus=="no_procede"?"selected":""}>No Procede</option>
                             <option value="pendiente"${record.customValues.estatus=="pendiente"?"selected":""}>Pendiente</option>
                             <option value="realizado"${record.customValues.estatus=="realizado"?"selected":""}>Realizado</option>
@@ -267,8 +265,8 @@
                             <option value="contrato"${record.customValues.estatus=="contrato"?"selected":""}>7. Contrato</option>
                         </select>
                     </td>
-                    <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans"></td>
-                    <td ><input type="text" value="${record.customValues.descripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion"></td>
+                    <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans" onchange="addBlurListener(this,${index.index+1})"></td>
+                    <td ><input type="text" value="${record.customValues.descripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})"></td>
                 </form>
             </tr>
         </c:forEach>

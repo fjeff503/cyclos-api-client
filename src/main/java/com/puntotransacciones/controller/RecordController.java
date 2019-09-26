@@ -59,9 +59,15 @@ public class RecordController {
         response.sendRedirect(request.getContextPath()+"/oportunidades");
     }
     
-    @RequestMapping(value="/changeoportunidad", method=RequestMethod.PUT)
-    public void changeRecord(HttpServletRequest request, HttpServletResponse response){
-        l.info("comprado: "+request.getParameter("comprador")+" vendedor: "+request.getParameter("vendedor")+" titulo:" + request.getParameter("titulo")+" estatus:" + request.getParameter("estatus") + "montoTrans: "+ request.getParameter("montoTrans")+" descripcion: "+request.getParameter("descripcion"));
-        
+    @RequestMapping(value="/changeoportunidad", method=RequestMethod.GET)
+    public void changeRecord(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
+            response.sendRedirect(request.getContextPath()+"/");
+        }
+        else{
+        String respuesta = userRecordService.putOportunidad((String)sesion.getAttribute("usuario"),(String) sesion.getAttribute("password"),(String) request.getParameter("id"),(String) request.getParameter("titulo"),(String) request.getParameter("estatus"),(String) request.getParameter("vendedor"),(String) request.getParameter("vendedor2"),(String) request.getParameter("descripcion"),(String) request.getParameter("montoTrans"),(String) request.getParameter("notas"));
+        l.info(respuesta);
+        }
     }  
 }

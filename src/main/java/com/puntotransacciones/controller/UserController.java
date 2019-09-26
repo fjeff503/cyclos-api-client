@@ -28,6 +28,7 @@ public class UserController {
         if(users != null && !users.isEmpty()){
             response.setContentType("text/plain");
             response.setCharacterEncoding("UTF-8");
+            l.info("Usuarios retornados:" + users.toString()); 
             response.getWriter().write(users.toString());
         }
         

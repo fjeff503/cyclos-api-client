@@ -179,7 +179,6 @@ public class MainController {
         else{
             mv.addObject("isNull",true);
         }
-
         return mv;
     }
     
@@ -202,7 +201,6 @@ public class MainController {
         }
         
         if(authService.authenticateUser(usuario, pass)){
-            logger.info("Entre al authService true");
             sesion.setAttribute("usuario", usuario);
              sesion.setAttribute("password", pass);
              users = userService.getUsers("uscript","1234");
