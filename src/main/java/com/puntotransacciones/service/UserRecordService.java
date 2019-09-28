@@ -47,6 +47,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.client.HttpClientErrorException;
 
 /**
  *
@@ -206,6 +207,7 @@ public class UserRecordService {
         respuesta.oportunidades=oportunidades;
         return respuesta;
     }
+     
      public String putOportunidad(String username, String pass, String id, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas ) throws MalformedURLException, IOException{
          String oportunidadWP = targetWP+"/records/"+id;
          String record = oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas,"put");
@@ -233,8 +235,8 @@ public class UserRecordService {
           }
            l.info("Respuesta del cambio: " + con.getResponseCode() );
            }
-           catch(Exception e){
-               l.info(e.getMessage() + " ");
+           catch(IOException e){
+               l.info(e.getMessage());
                return "Fallo";
            }
          return "Exito";
