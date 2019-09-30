@@ -242,20 +242,20 @@
         <!---------------------------- Content's Table ------------------->
         <table class="table">
             <tr>
-                <th>Fecha Creado</th>
-                <th>Compra</th>
-                <th>Vende</th>
-                <th>Concepto</th>
-                <th style="padding-right: 90px;">Estatus</th>
-                <th>Monto</th>
-                <th>Observaciones</th>
+                <th width="8%">Fecha Creado</th>
+                <th width="12%">Compra</th>
+                <th width="16%">Vende</th>
+                <th width="14%">Concepto</th>
+                <th width="12%"">Estatus</th>
+                <th width="7%">Monto</th>
+                <th width="39%">Observaciones</th>
             </tr>
             <% int indice = 0; %>
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
                 <tr>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
-                    <th >${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
+                    <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                     <td >${record.user.display}</td> 
                     <td ><div class="autocomplete"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
                     <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo" onchange="addBlurListener(this,${index.index+1})"></td>
@@ -277,7 +277,7 @@
                         </select>
                     </td>
                     <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans" onchange="addBlurListener(this,${index.index+1})"></td>
-                    <td ><input type="text" value="${record.customValues.descripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})"></td>
+                    <td ><input type="textarea" rows="5" value="${record.customValues.descripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})"></td>
                 </form>
             </tr>
         </c:forEach>
