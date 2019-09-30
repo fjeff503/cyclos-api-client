@@ -6,11 +6,7 @@
 package com.puntotransacciones.service;
 
 import com.google.gson.Gson;
-import com.puntotransacciones.domain.userRecords.CustomValues;
-import com.puntotransacciones.domain.userRecords.Oportunidad;
-import com.puntotransacciones.domain.userRecords.User;
 import com.puntotransacciones.util.Encoder;
-import com.sun.net.httpserver.Headers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,19 +15,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,7 +34,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.client.HttpClientErrorException;
-
+import com.puntotransacciones.domain.userRecords.Oportunidad;
 /**
  *
  * @author HP PC
@@ -270,6 +256,25 @@ public class UserRecordService {
           }
           
            return "Exito";
+       }
+       
+       
+       
+       
+       
+       public Double sumaDeOportunidades(ArrayList<Oportunidad> oportunidades){
+           Double suma = 0.0;
+           for(Oportunidad oportunidad: oportunidades){
+               try{
+               suma+= Double.parseDouble(oportunidad.customValues.getMontoTrans());
+               l.info(("MontoTrans: ")+oportunidad.customValues.getMontoTrans());
+               }
+               catch(Exception e){
+                   
+               }
+           }
+           
+           return suma;
        }
           public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas, String method){
             String oportunidadJSON = "";

@@ -61,7 +61,23 @@
             /*when navigating through the items using the arrow keys:*/
             background-color: DodgerBlue !important;
             color: #ffffff;
-          }          
+          }
+            textarea {
+                width: 100%;
+                height: 100%;
+                resize: none;
+                -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+                -moz-box-sizing: border-box; /* FF1+ */
+                box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+            }
+            .input-table{
+                width: 100%;
+                height: 100%;
+                resize: none;
+                -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+                -moz-box-sizing: border-box; /* FF1+ */
+                box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+            }
         </style>
         <link rel="stylesheet" href="<c:url value="/resources/modalStyles.css" />">
         <link rel="icon" href="https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/b4/b0/a1/b4b0a1a8-433a-7e7d-ada3-ebe07e1f6fca/source/512x512bb.jpg">
@@ -222,7 +238,11 @@
                                 </div>
                             </div>
                             <label for="vendedor2">Vendedor 2</label>
+                            <div class="row">
+                                <div class="autocomplete col-12">
                             <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off"/>
+                            </div>
+                            </div>
                             <label for="descripcion">Descripcion</label>
                             <textarea class="form-control" placeholder="Descripcion" id="descripcion" form="addEmpresa" name="descripcion" rows="3"></textarea>
                             <label for="montoT">Monto T$</label>
@@ -244,9 +264,9 @@
             <tr>
                 <th width="8%">Fecha Creado</th>
                 <th width="12%">Compra</th>
-                <th width="16%">Vende</th>
+                <th width="17%">Vende</th>
                 <th width="14%">Concepto</th>
-                <th width="12%"">Estatus</th>
+                <th width="11%"">Estatus</th>
                 <th width="7%">Monto</th>
                 <th width="39%">Observaciones</th>
             </tr>
@@ -257,7 +277,7 @@
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
                     <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                     <td >${record.user.display}</td> 
-                    <td ><div class="autocomplete"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
+                    <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
                     <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo" onchange="addBlurListener(this,${index.index+1})"></td>
                     <td class="select-td" > 
                         <select class="form-control" id="estatus${index.index+1}" name="estatus" onchange="addBlurListener(this,${index.index+1});
@@ -277,11 +297,11 @@
                         </select>
                     </td>
                     <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans" onchange="addBlurListener(this,${index.index+1})"></td>
-                    <td ><input type="textarea" rows="5" value="${record.customValues.descripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})"></td>
+                    <td ><textarea rows="2" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})">${record.customValues.descripcion}</textarea></td>
                 </form>
             </tr>
         </c:forEach>
-        <td/><td/><td/><td/><td/><td></td><td/>
+            <td/><td/><td/><td/><td/><td><h5><strong>$${total}</strong></h5></td><td/>
     </table>
     <c:if test="${empty records && test!=null}">
         <div class="container">

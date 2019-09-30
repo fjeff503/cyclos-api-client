@@ -94,6 +94,7 @@ public class MainController {
             mv.addObject("totalCount", Integer.parseInt(headers.get("X-Total-Count")));   
             mv.addObject("asesora", asesora);
             mv.addObject("grupo", grupo);
+            mv.addObject("total", userRecordService.sumaDeOportunidades(oportunidades));
             Object temp =  (empresa!=null ? mv.addObject("empresa",empresa):"");
             mv.addObject("estatus",estatus);
             String uri = "";
