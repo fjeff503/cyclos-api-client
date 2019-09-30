@@ -222,7 +222,7 @@
                                 </div>
                             </div>
                             <label for="vendedor2">Vendedor 2</label>
-                            <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedor2" autocomplete="off"/>
+                            <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off"/>
                             <label for="descripcion">Descripcion</label>
                             <textarea class="form-control" placeholder="Descripcion" id="descripcion" form="addEmpresa" name="descripcion" rows="3"></textarea>
                             <label for="montoT">Monto T$</label>
@@ -550,6 +550,7 @@
             autocomplete(document.getElementById("myInput"), empresasSplitted);
             autocomplete(document.getElementById("empresasForm"), empresasSplitted);
             autocomplete(document.getElementById("vendedor"), empresasSplitted);
+            autocomplete(document.getElementById("vendedorModal2"), empresasSplitted);
             for (i = 1; i <= 40; i++) {
                 autocomplete(document.getElementById("vendedor" + i), empresasSplitted);
             }
