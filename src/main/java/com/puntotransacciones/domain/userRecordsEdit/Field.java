@@ -1,6 +1,7 @@
 
 package com.puntotransacciones.domain.userRecordsEdit;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,9 +25,27 @@ public class Field {
     @SerializedName("kind")
     @Expose
     private String kind;
+    @SerializedName("size")
+    @Expose
+    private String size;
+    @SerializedName("required")
+    @Expose
+    private Boolean required;
+    @SerializedName("hasValuesList")
+    @Expose
+    private Boolean hasValuesList;
     @SerializedName("colspan")
     @Expose
     private Integer colspan;
+    @SerializedName("defaultValue")
+    @Expose
+    private String defaultValue;
+    @SerializedName("possibleValueCategories")
+    @Expose
+    private List<Object> possibleValueCategories = null;
+    @SerializedName("possibleValues")
+    @Expose
+    private List<PossibleValue> possibleValues = null;
     @SerializedName("linkedEntityType")
     @Expose
     private String linkedEntityType;
@@ -82,12 +101,60 @@ public class Field {
         this.kind = kind;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
+    }
+
+    public Boolean getHasValuesList() {
+        return hasValuesList;
+    }
+
+    public void setHasValuesList(Boolean hasValuesList) {
+        this.hasValuesList = hasValuesList;
+    }
+
     public Integer getColspan() {
         return colspan;
     }
 
     public void setColspan(Integer colspan) {
         this.colspan = colspan;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public List<Object> getPossibleValueCategories() {
+        return possibleValueCategories;
+    }
+
+    public void setPossibleValueCategories(List<Object> possibleValueCategories) {
+        this.possibleValueCategories = possibleValueCategories;
+    }
+
+    public List<PossibleValue> getPossibleValues() {
+        return possibleValues;
+    }
+
+    public void setPossibleValues(List<PossibleValue> possibleValues) {
+        this.possibleValues = possibleValues;
     }
 
     public String getLinkedEntityType() {

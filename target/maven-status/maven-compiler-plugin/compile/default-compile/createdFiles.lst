@@ -3,6 +3,8 @@ com\puntotransacciones\domain\userRecordsEdit\LastModifiedBy.class
 com\puntotransacciones\util\Encoder.class
 com\puntotransacciones\domain\userRecordsEdit\EnumeratedValue.class
 com\puntotransacciones\domain\userRecordsEdit\UserValue.class
+com\puntotransacciones\domain\userRecordsEdit\ImageValues.class
+com\puntotransacciones\domain\userRecordsEdit\BinaryValues.class
 com\puntotransacciones\service\UserRecordService.class
 com\puntotransacciones\controller\RecordController.class
 com\puntotransacciones\controller\UserController.class
@@ -11,8 +13,11 @@ com\puntotransacciones\domain\userRecordsEdit\CreatedBy.class
 com\puntotransacciones\service\AuthenticationService.class
 com\puntotransacciones\controller\MainController.class
 com\puntotransacciones\domain\userRecordsEdit\Field.class
+com\puntotransacciones\domain\userRecordsEdit\FileValues.class
 com\puntotransacciones\domain\userRecords\User.class
 com\puntotransacciones\domain\userRecordsEdit\Oportunidad.class
+com\puntotransacciones\domain\userRecordsEdit\PossibleValue.class
+com\puntotransacciones\domain\userRecordsEdit\Record.class
 com\puntotransacciones\domain\userRecordsEdit\Type.class
 com\puntotransacciones\domain\userRecords\Image.class
 com\puntotransacciones\configuration\SpringConfiguration.class
@@ -26,3 +31,4 @@ com\puntotransacciones\domain\userRecordsEdit\Image_.class
 com\puntotransacciones\domain\userRecordsEdit\User.class
 com\puntotransacciones\domain\userRecordsEdit\CustomValue.class
 com\puntotransacciones\configuration\SpringInitializer.class
+com\puntotransacciones\domain\userRecordsEdit\CustomValues.class

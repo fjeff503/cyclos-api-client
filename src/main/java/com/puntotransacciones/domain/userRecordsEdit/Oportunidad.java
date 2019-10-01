@@ -7,50 +7,33 @@ import com.google.gson.annotations.SerializedName;
 
 public class Oportunidad {
 
-    @SerializedName("id")
-    @Expose
-    private String id;
     @SerializedName("kind")
     @Expose
     private String kind;
     @SerializedName("type")
     @Expose
     private Type type;
+    @SerializedName("fields")
+    @Expose
+    private List<Field> fields = null;
     @SerializedName("user")
     @Expose
     private User user;
-    @SerializedName("creationDate")
-    @Expose
-    private String creationDate;
-    @SerializedName("createdBy")
-    @Expose
-    private CreatedBy createdBy;
-    @SerializedName("lastModificationDate")
-    @Expose
-    private String lastModificationDate;
-    @SerializedName("lastModifiedBy")
-    @Expose
-    private LastModifiedBy lastModifiedBy;
-    @SerializedName("customValues")
-    @Expose
-    private List<CustomValue> customValues = null;
     @SerializedName("edit")
     @Expose
     private Boolean edit;
     @SerializedName("remove")
     @Expose
     private Boolean remove;
-    @SerializedName("operations")
+    @SerializedName("editableFields")
     @Expose
-    private List<Object> operations = null;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private List<String> editableFields = null;
+    @SerializedName("record")
+    @Expose
+    private Record record;
+    @SerializedName("binaryValues")
+    @Expose
+    private BinaryValues binaryValues;
 
     public String getKind() {
         return kind;
@@ -68,52 +51,20 @@ public class Oportunidad {
         this.type = type;
     }
 
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public CreatedBy getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(CreatedBy createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getLastModificationDate() {
-        return lastModificationDate;
-    }
-
-    public void setLastModificationDate(String lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
-
-    public LastModifiedBy getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(LastModifiedBy lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public List<CustomValue> getCustomValues() {
-        return customValues;
-    }
-
-    public void setCustomValues(List<CustomValue> customValues) {
-        this.customValues = customValues;
     }
 
     public Boolean getEdit() {
@@ -132,12 +83,28 @@ public class Oportunidad {
         this.remove = remove;
     }
 
-    public List<Object> getOperations() {
-        return operations;
+    public List<String> getEditableFields() {
+        return editableFields;
     }
 
-    public void setOperations(List<Object> operations) {
-        this.operations = operations;
+    public void setEditableFields(List<String> editableFields) {
+        this.editableFields = editableFields;
+    }
+
+    public Record getRecord() {
+        return record;
+    }
+
+    public void setRecord(Record record) {
+        this.record = record;
+    }
+
+    public BinaryValues getBinaryValues() {
+        return binaryValues;
+    }
+
+    public void setBinaryValues(BinaryValues binaryValues) {
+        this.binaryValues = binaryValues;
     }
 
 }
