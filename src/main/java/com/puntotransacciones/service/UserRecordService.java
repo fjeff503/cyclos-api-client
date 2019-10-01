@@ -159,7 +159,7 @@ public class UserRecordService {
                     if(vendedor.length>1){
                         oportunidad.customValues.setVendedor("E"+vendedor[1]);
                     }
-                
+                    
                 }
                 else if(oportunidad.getCustomValues().getVendedor().contains("C")){
                     String[] vendedor = oportunidad.getCustomValues().getVendedor().split("C", 2);
@@ -170,10 +170,18 @@ public class UserRecordService {
                     
                 }
             }
+            //Agregamos las filas que tomará las oportunidades para desplegarlas en el front end
+            oportunidad.customValues.rowsDescripcion = 2;
+            if(oportunidad.customValues.getDescripcion()!=null){
+                if(oportunidad.customValues.getDescripcion()!=""){
+                    oportunidad.customValues.rowsDescripcion = (oportunidad.customValues.getDescripcion().length()>100?3:2);
+                }
+            }
+            //Limpiamos la asesora para que quede solo su inicial
             if(oportunidad.user.display != null){
                 oportunidad.user.display += "("+ oportunidad.createdBy.getDisplay().substring(0, 1).toUpperCase()+ ")";
             }
-            
+            //Normalizamos el formato de la fecha
             if(oportunidad.getCreationDate()!=null){
                 String[] tempVector = oportunidad.getCreationDate().split("T");
                 String[] tempVector2 = tempVector[0].split("-");
@@ -181,6 +189,7 @@ public class UserRecordService {
             }
             oportunidades.add(oportunidad);
         }
+        
         HashMap<String,String> headersMap = new HashMap();
         Header[] headers = response.getAllHeaders();
         for(Header header:headers){
@@ -195,9 +204,21 @@ public class UserRecordService {
     }
      
      public String putOportunidad(String username, String pass, String id, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas ) throws MalformedURLException, IOException{
+         String getOportunidadWP = targetWP+"/records/"+id+"/data-for-edit";
+         HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(targetWP);
+        String encodedCred = encoder.encode64(username,pass);
+        request.addHeader("Authorization", encodedCred);
+        request.addHeader("Accept", "application/json");
+        try{
+            HttpResponse response = client.execute(request);
+        }
+        catch(Exception e){
+            
+        }
+         
          String oportunidadWP = targetWP+"/records/"+id;
          String record = oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas,"put");
-         String encodedCred = encoder.encode64(username,pass);
            URL url = new URL (oportunidadWP);
            try{
            HttpURLConnection con = (HttpURLConnection)url.openConnection();

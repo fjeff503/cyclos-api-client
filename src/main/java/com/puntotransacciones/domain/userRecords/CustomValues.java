@@ -28,6 +28,9 @@ public class CustomValues {
     @Expose
     private String descripcion;
 
+    public int rowsDescripcion;
+    
+    
     public CustomValues(String fecha, String vendedor, String titulo) {
         this.fecha = fecha;
         this.vendedor = vendedor;
@@ -97,4 +100,13 @@ public class CustomValues {
         this.titulo = titulo;
     }
 
+    public int getRowsDescripcion() {
+        return rowsDescripcion;
+    }
+
+    public void setRowsDescripcion(int rowsDescripcion) {
+        this.rowsDescripcion = rowsDescripcion;
+    }
+
+    
 }
