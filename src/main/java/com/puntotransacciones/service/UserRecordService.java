@@ -204,7 +204,7 @@ public class UserRecordService {
      public String putOportunidad(String username, String pass, String id, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas ) throws MalformedURLException, IOException{
          String getOportunidadWP = targetWP+"/records/"+id+"/data-for-edit";
          HttpClient client = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(targetWP);
+        HttpGet request = new HttpGet(getOportunidadWP);
         String encodedCred = encoder.encode64(username,pass);
         request.addHeader("Authorization", encodedCred);
         request.addHeader("Accept", "application/json");
@@ -217,18 +217,13 @@ public class UserRecordService {
 	while ((line = rd.readLine()) != null) {
 		result.append(line);
 	}
+        JSONObject jsonResponse = new JSONObject(result.toString());
         
-        JSONArray responseArray = new JSONArray(result.toString());
-        
-        int size = responseArray.length();
-        ArrayList<Oportunidad> oportunidades = new ArrayList();
         int version = 0;
-        for(int i=0;i<size;i++){
-            JSONObject oportunidadJson = responseArray.getJSONObject(i);
-            Gson gson = new Gson();
-            com.puntotransacciones.domain.userRecordsEdit.Oportunidad oportunidad = gson.fromJson(oportunidadJson.toString(), com.puntotransacciones.domain.userRecordsEdit.Oportunidad.class);
-            version = oportunidad.getRecord().getVersion();
-        }
+        Gson gson = new Gson();
+        com.puntotransacciones.domain.userRecordsEdit.Oportunidad oportunidad = gson.fromJson(jsonResponse.toString(), com.puntotransacciones.domain.userRecordsEdit.Oportunidad.class);
+        version = oportunidad.getRecord().getVersion();
+        l.info("version" + version+"");
          String oportunidadWP = targetWP+"/records/"+id;
          String record = oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas, version);
            URL url = new URL (oportunidadWP);
@@ -265,7 +260,7 @@ public class UserRecordService {
      }
       
        public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
-           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas,"add");
+           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas, null);
            l.info(record);
            String oportunidadWP= targetWP+"/"+user+"/records/oportunidades";
            l.info(oportunidadWP);
@@ -356,10 +351,11 @@ public class UserRecordService {
                 oportunidadJSON+="\"notas\":\""+notas+"\"";
             }
             if(version!=null){
-                oportunidadJSON+="}}";
+                oportunidadJSON+="},\"version\":"+version+"}";
+               
             }
             else{
-                oportunidadJSON+="},\"version\":"+version+"}";
+                 oportunidadJSON+="}}";
             }
             l.info(oportunidadJSON);
         return oportunidadJSON;
