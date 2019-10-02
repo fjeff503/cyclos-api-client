@@ -30,6 +30,8 @@ public class Oportunidad {
     @Expose
     public User user;
 
+    public Integer version;
+    
     public String getId() {
         return id;
     }
@@ -86,4 +88,13 @@ public class Oportunidad {
         this.user = user;
     }
 
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    
 }

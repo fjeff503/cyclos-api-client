@@ -360,6 +360,8 @@
             </ul>
         </nav>
     </div>
+     <!-----------Error Saving Oportunidad Modal -------->
+     
     <!------------Ship Congratulation Modal ----------->
     <div class="modal fade" id="searchingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">

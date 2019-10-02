@@ -61,7 +61,7 @@ public class UserRecordService {
     }
     
     //UsernameAsesora debe ser el username!! (Ej. c0872 [Amairini])
-     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String usr, String pword, String estatus) throws IOException{
+     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String username, String password, String estatus) throws IOException{
         targetWP += "/general-records/oportunidades";
         Boolean amperson = false;
         if(page!=null){
@@ -122,7 +122,7 @@ public class UserRecordService {
         
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(targetWP);
-        String encodedCred = encoder.encode64(usr,pword);
+        String encodedCred = encoder.encode64(username,password);
         request.addHeader("Authorization", encodedCred);
         request.addHeader("Accept", "application/json");
         HttpResponse response = client.execute(request);
@@ -201,7 +201,7 @@ public class UserRecordService {
         return respuesta;
     }
      
-     public String putOportunidad(String username, String pass, String id, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas ) throws MalformedURLException, IOException{
+     public Integer getOportunidadVersion(String username, String pass, String id) throws IOException{
          String getOportunidadWP = targetWP+"/records/"+id+"/data-for-edit";
          HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(getOportunidadWP);
@@ -222,9 +222,14 @@ public class UserRecordService {
         Gson gson = new Gson();
         com.puntotransacciones.domain.userRecordsEdit.Oportunidad oportunidad = gson.fromJson(jsonResponse.toString(), com.puntotransacciones.domain.userRecordsEdit.Oportunidad.class);
         version = oportunidad.getRecord().getVersion();
-        l.info("version" + version+"");
+         return version;
+     }
+     public String putOportunidad(String username, String pass, String id, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas ) throws MalformedURLException, IOException{ 
+        Integer version = getOportunidadVersion(username, pass, id);      
+        
+        String encodedCred = encoder.encode64(username,pass);
          String oportunidadWP = targetWP+"/records/"+id;
-         String record = oportunidadJSONConstructor(titulo, estatus, cleanUserCode(vendedor), vendedor2, descripcion, montoT, notas, version);
+         String record = oportunidadPutJSONConstructor(titulo, estatus, cleanUserCode(vendedor), vendedor2, descripcion, montoT, notas, version);
            URL url = new URL (oportunidadWP);
            try{
            HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -255,11 +260,12 @@ public class UserRecordService {
                l.info(e.getMessage());
                return "Fallo";
            }
+           
          return "Exito";
      }
       
        public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
-           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas, null);
+           String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
            l.info(record);
            String oportunidadWP= targetWP+"/"+user+"/records/oportunidades";
            l.info(oportunidadWP);
@@ -311,7 +317,7 @@ public class UserRecordService {
            
            return suma;
        }
-          public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas, Integer version){
+          public String oportunidadJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas){
             String oportunidadJSON = "";
             oportunidadJSON+="{\"customValues\":{";
             Boolean coma = false;
@@ -355,6 +361,7 @@ public class UserRecordService {
                 }
                 oportunidadJSON+="\"notas\":\""+notas+"\"";
             }
+            String version = null;
             if(version!=null){
                 oportunidadJSON+="},\"version\":"+version+"}";
                
@@ -365,7 +372,36 @@ public class UserRecordService {
             l.info(oportunidadJSON);
         return oportunidadJSON;
         }
-  
+          
+     public String oportunidadPutJSONConstructor(String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas, Integer version){
+            if(titulo == null){titulo="";}
+            if(estatus == null){estatus="1.prospecto";}
+            if(vendedor== null){vendedor="";}
+            if(vendedor2 == null){vendedor2="";}
+            if(descripcion == null){descripcion="";}
+            if(montoT.equals("")){montoT=null;}
+            if(notas == null){notas="";}
+            String oportunidadJSON = "";
+            oportunidadJSON+="{\"customValues\":{";
+            Boolean coma = false;
+            oportunidadJSON+="\"titulo\":\""+titulo+"\"";
+            oportunidadJSON+=",";
+           oportunidadJSON+="\"reg_estatus\":\""+estatus+"\"";
+           oportunidadJSON+=",";
+           oportunidadJSON+="\"vendedor\":\""+vendedor+"\"";
+           oportunidadJSON+=",";
+           oportunidadJSON+="\"vendedor2\":\""+vendedor2+"\"";
+           oportunidadJSON+=",";
+           oportunidadJSON+="\"descripcion\":\""+descripcion+"\"";
+           oportunidadJSON+=",";
+           oportunidadJSON+="\"montotrans\":"+montoT;
+           oportunidadJSON+=",";
+           oportunidadJSON+="\"notas\":\""+notas+"\"";
+           oportunidadJSON+="},\"version\":"+version+"}";
+            l.info(oportunidadJSON);
+            return oportunidadJSON;
+        }
+     
     public String  estatusInterpreter(String id){
         if(id.equals("no_procede")){
             return "No Procede";

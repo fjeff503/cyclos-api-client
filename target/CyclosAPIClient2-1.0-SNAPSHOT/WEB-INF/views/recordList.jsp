@@ -300,7 +300,7 @@
                         </select>
                     </td>
                     <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans" onchange="addBlurListener(this,${index.index+1})"></td>
-                    <td ><textarea rows="2" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})">${record.customValues.descripcion}</textarea></td>
+                    <td ><textarea rows="${record.customValues.rowsDescripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})">${record.customValues.descripcion}</textarea></td>
                 </form>
             </tr>
         </c:forEach>
@@ -360,6 +360,8 @@
             </ul>
         </nav>
     </div>
+     <!-----------Error Saving Oportunidad Modal -------->
+     
     <!------------Ship Congratulation Modal ----------->
     <div class="modal fade" id="searchingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
