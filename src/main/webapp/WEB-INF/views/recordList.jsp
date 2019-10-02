@@ -461,7 +461,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header" class="center-text text-center">
-                        <h5>Logrado. <font style="color:red;">Felicidades!</font></h5>
+                        <h5>Felicidades! Una oportunidad más a la bolsa. <font style="color:red;">Vamos por la siguiente!</font></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -726,7 +726,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header" class="center-text text-center">
-                                <h5>Logrado. <font style="color:red;">Felicidades!</font></h5>
+                                <h5>Una oportunidad cerrada, tras otra, tras otra... Esto es lo que significa para nosotros tener un contrato entre empresas de la red. <font style="color:red;">Felicidades!</font></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
