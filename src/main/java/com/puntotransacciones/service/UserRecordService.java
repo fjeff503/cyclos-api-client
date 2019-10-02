@@ -225,7 +225,7 @@ public class UserRecordService {
         version = oportunidad.getRecord().getVersion();
         l.info("version" + version+"");
          String oportunidadWP = targetWP+"/records/"+id;
-         String record = oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas, version);
+         String record = oportunidadJSONConstructor(titulo, estatus, cleanUserCode(vendedor), vendedor2, descripcion, montoT, notas, version);
            URL url = new URL (oportunidadWP);
            try{
            HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -291,7 +291,13 @@ public class UserRecordService {
        
        
        
-       
+      public String cleanUserCode(String user){
+          if(user.contains(" - ")){
+              String[] userVector = user.split(" - ");
+              return userVector[0];
+          }
+          return user;
+      } 
        
        public Double sumaDeOportunidades(ArrayList<Oportunidad> oportunidades){
            Double suma = 0.0;
