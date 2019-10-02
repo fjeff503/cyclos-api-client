@@ -276,8 +276,8 @@
             <% int indice = 0; %>
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
-                <tr>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
+                <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-${index.index+1}">                
                     <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                     <td >${record.user.display}</td> 
                     <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
@@ -301,8 +301,14 @@
                     </td>
                     <td ><input type="text" value="${record.customValues.montoTrans}" class="form-control" id="monto${index.index+1}" name="montoTrans" onchange="addBlurListener(this,${index.index+1})"></td>
                     <td ><textarea rows="${record.customValues.rowsDescripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})">${record.customValues.descripcion}</textarea></td>
+                </tr>    
+                <tr id="group-of-rows-${index.index+1}" class="collapse">
+                        <td></td><th>Vendedor2:</th>
+                        <td><input type="text" value="${record.customValues.vendedor2}" class="form-control" id="vendedorSegundo${index.index+1}" autocomplete="off" name="vendedor2" onchange="addBlurListener(this,${index.index+1})"></td>
+                        <td></td><td></td><th>Notas:</th>
+                        <td><textarea rows="2" class="form-control" id="notas${index.index+1}" name="notas" onchange="addBlurListener(this,${index.index+1})">${record.customValues.notas}</textarea></td>
+                    </tr>
                 </form>
-            </tr>
         </c:forEach>
             <td/><td/><td/><td/><td/><td><h5><strong>$${total}</strong></h5></td><td/>
     </table>

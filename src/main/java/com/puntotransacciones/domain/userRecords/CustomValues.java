@@ -27,7 +27,10 @@ public class CustomValues {
     @SerializedName("descripcion")
     @Expose
     private String descripcion;
-
+    @SerializedName("notas")
+    @Expose
+    private String notas;
+    
     public int rowsDescripcion;
     
     
@@ -108,5 +111,13 @@ public class CustomValues {
         this.rowsDescripcion = rowsDescripcion;
     }
 
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+    
     
 }
