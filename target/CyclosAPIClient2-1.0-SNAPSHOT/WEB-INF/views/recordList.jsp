@@ -102,6 +102,9 @@
                 if(inp.value=="no_logrado"){
                     $('#searchingModal').modal('toggle');
             }
+            if(inp.value=="contrato"){
+                    $('#contratoModal').modal('toggle');
+            }
         }
         </script>
         <c:if test="${isNull}">
@@ -444,7 +447,324 @@
             </div>
         </div>
     </div>
-                   
+            
+        <!------------ LOGRADO ----------->
+        <div class="modal fade" id="congratulationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" class="center-text text-center">
+                        <h5>Logrado. <font style="color:red;">Felicidades!</font></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalBody" style="padding-top:200px;padding-bottom:100px;">
+                        <section>
+                            <div class='scene'>
+                                <div class='scene_titanShadow'></div>
+                                <div class='t_wrap'>
+                                    <div class='scene_titan'>
+                                        <div class='eyes'>
+                                            <div class='eye eye--left'></div>
+                                            <div class='eye eye--right'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='scene_saturn'>
+                                    <div class='scene_saturn__face'>
+                                        <div class='face_clip'>
+                                            <div class='eye eye--left'></div>
+                                            <div class='eye eye--right'></div>
+                                            <div class='mouth'></div>
+                                        </div>
+                                    </div>
+                                    <div class='scene_saturn__shadow'></div>
+                                    <div class='scene_saturn__shadowRing'></div>
+                                    <div class='scene_saturn__sparks'>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                        <div class='spark'></div>
+                                    </div>
+                                    <div class='scene_saturn__ring'>
+                                        <div class='small'>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                            <div class='small_part'></div>
+                                        </div>
+                                        <div class='layer'>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                        </div>
+                                        <div class='layer'>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                        </div>
+                                        <div class='layer'>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                            <div class='layer_part'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+                <!------------ CONTRATO ----------->
+        <div class="modal fade" id="contratoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" class="center-text text-center">
+                        <h5>Logrado. <font style="color:red;">Felicidades!</font></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalBody" style="padding: 0px 0px 0px 0px;">
+                        
+                        <div class="aquarium">
+  <div class="aquarium__table"></div>
+  <div class="aquarium__aquarium">
+    <div class="aquarium__water"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+    <div class="aquarium__bubble"></div>
+  </div>
+  <div class="aquarium__drops">
+    <div class="aquarium__drop"></div>
+    <div class="aquarium__water-column"></div>
+    <div class="aquarium__splash"></div>
+    <div class="aquarium__splash"></div>
+  </div>
+  <div class="aquarium__sponge-box">
+    <div class="aquarium__body">
+      <div class="aquarium__body-stripe"></div>
+      <div class="aquarium__body-hole"></div>
+    </div>
+    <div class="aquarium__face">
+      <div class="aquarium__mouth"></div>
+      <div class="aquarium__smile"></div>
+    </div>
+  </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+                
+                
+        
+        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
