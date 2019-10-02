@@ -714,53 +714,52 @@
         
         
                 <!------------ CONTRATO ----------->
-        <div class="modal fade" id="contratoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" class="center-text text-center">
-                        <h5>Logrado. <font style="color:red;">Felicidades!</font></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="modalBody" style="padding: 0px 0px 0px 0px;">
-                        
-                        <div class="aquarium">
-  <div class="aquarium__table"></div>
-  <div class="aquarium__aquarium">
-    <div class="aquarium__water"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-    <div class="aquarium__bubble"></div>
-  </div>
-  <div class="aquarium__drops">
-    <div class="aquarium__drop"></div>
-    <div class="aquarium__water-column"></div>
-    <div class="aquarium__splash"></div>
-    <div class="aquarium__splash"></div>
-  </div>
-  <div class="aquarium__sponge-box">
-    <div class="aquarium__body">
-      <div class="aquarium__body-stripe"></div>
-      <div class="aquarium__body-hole"></div>
-    </div>
-    <div class="aquarium__face">
-      <div class="aquarium__mouth"></div>
-      <div class="aquarium__smile"></div>
-    </div>
-  </div>
-</div>
+                <div class="modal fade" id="contratoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" class="center-text text-center">
+                                <h5>Logrado. <font style="color:red;">Felicidades!</font></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="modalBody" style="padding: 0px 0px 0px 0px;">
 
+                                <div class="aquarium">
+                                    <div class="aquarium__table"></div>
+                                    <div class="aquarium__aquarium">
+                                        <div class="aquarium__water"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                        <div class="aquarium__bubble"></div>
+                                    </div>
+                                    <div class="aquarium__drops">
+                                        <div class="aquarium__drop"></div>
+                                        <div class="aquarium__water-column"></div>
+                                        <div class="aquarium__splash"></div>
+                                        <div class="aquarium__splash"></div>
+                                    </div>
+                                    <div class="aquarium__sponge-box">
+                                        <div class="aquarium__body">
+                                            <div class="aquarium__body-stripe"></div>
+                                            <div class="aquarium__body-hole"></div>
+                                        </div>
+                                        <div class="aquarium__face">
+                                            <div class="aquarium__mouth"></div>
+                                            <div class="aquarium__smile"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-                
                 
                 
         

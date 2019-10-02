@@ -210,10 +210,9 @@ public class UserRecordService {
         request.addHeader("Accept", "application/json");
         HttpResponse httpResponse = client.execute(request);
         l.info(httpResponse.getStatusLine().getStatusCode() + " : "+httpResponse.getStatusLine().getReasonPhrase());
-          BufferedReader rd = new BufferedReader(
-		new InputStreamReader(httpResponse.getEntity().getContent()));
+          BufferedReader rd = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
         StringBuilder result = new StringBuilder();
-	String line = "";
+        String line = "";
 	while ((line = rd.readLine()) != null) {
 		result.append(line);
 	}
