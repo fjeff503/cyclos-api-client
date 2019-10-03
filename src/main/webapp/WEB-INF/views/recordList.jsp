@@ -23,13 +23,10 @@
             display: inline-block;
           }
           input {
-            border: 1px solid transparent;
-            background-color: #f1f1f1;
-            padding: 10px;
+            border: 1px solid transparent;           
             font-size: 16px;
           }
-          input[type=text] {
-            background-color: #f1f1f1;
+          input[type=text] {            
             width: 100%;
           }
           input[type=submit] {

@@ -31,4 +31,5 @@ com\puntotransacciones\domain\userRecordsEdit\Image_.class
 com\puntotransacciones\domain\userRecordsEdit\User.class
 com\puntotransacciones\domain\userRecordsEdit\CustomValue.class
 com\puntotransacciones\configuration\SpringInitializer.class
+com\puntotransacciones\util\WebListener.class
 com\puntotransacciones\domain\userRecordsEdit\CustomValues.class
