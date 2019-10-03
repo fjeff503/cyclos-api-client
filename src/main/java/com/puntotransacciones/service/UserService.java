@@ -29,6 +29,27 @@ public class UserService {
     public UserService() {
     }
     
+    public String getUserUsername(String user, String pass) throws IOException{
+        String httpRequestTargetWP = targetWP+"/users/self?fields=name";
+         HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(httpRequestTargetWP);
+        String encodedCred = encoder.encode64(user,pass);
+        request.addHeader("Authorization", encodedCred);
+        request.addHeader("Accept", "application/json");
+         HttpResponse response = client.execute(request);
+        BufferedReader rd = new BufferedReader(
+		new InputStreamReader(response.getEntity().getContent()));
+        StringBuilder result = new StringBuilder();
+	String line = "";
+	while ((line = rd.readLine()) != null) {
+		result.append(line);
+	}
+        String stringResult = result.toString();
+        String[] resultVector = stringResult.split("\"name\":\"");
+        String[] resultVector2 = resultVector[1].split("\"");
+        String[] resultVector3 = resultVector2[0].split(" ");
+        return resultVector3[0];
+    }
     
     public ArrayList<String> getUsers(String user, String pass) throws IOException{
         ArrayList<String> usuarios = new ArrayList();

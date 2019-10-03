@@ -87,7 +87,17 @@
                 console.info('Entré a la funcion');
                 inp.addEventListener("blur", function handler(e) {
                     console.info(($('#form' + number).serialize()) + " " + 'form' + number)
-                    $("#form" + number).ajaxSubmit({url: '${pageContext.request.contextPath}/changeoportunidad', type: 'get'})
+                     $.ajax({
+                             type: "GET",
+                             url: '${pageContext.request.contextPath}/changeoportunidad',
+                            data: $('#form' + number).serialize(), 
+                            success: function(data)
+                            {
+                                if(data.equals("Fallo")){
+                                    $('#cantSave-container').show();
+                                    $("#cantSave").text("No se ha podido guardar el contenido de la fila: "+number+". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                            }
+                    });                   
                     e.currentTarget.removeEventListener("blur", handler);
                 });
             }
@@ -111,13 +121,11 @@
                 </div>
             </div>
         </c:if> 
-        <c:if test="${cantSave}">
-            <div class="container">
+            <div class="container" style="display:none" id="cantSave-container">
                 <div class="row justify content center">
-                    <div class="alert alert-danger col-4" role="alert">No se ha podido guardar el contenido de la fila: </div>
+                    <div class="alert alert-danger col-4" id="cantSave" role="alert">No se ha podido guardar el contenido de la fila: </div>
                 </div>
             </div>
-        </c:if> 
         <!------------ Search Form ------------->
         <div class="container">
             <button class="btn btn-primary" data-toggle="collapse" data-target="#formulario"><i class="fas fa-arrow-down"></i></button>
@@ -128,7 +136,7 @@
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
                                 <div class="autocomplete" style="width:300px;" >
-                                    <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Aún en construcción!!)"}" class="form-control" id="myInput" name="empresa" autocomplete="off"/>
+                                    <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="myInput" name="empresa" autocomplete="off"/>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +317,7 @@
         </c:forEach>
             <td/><td/><td/><td/><td/><td><h5><strong>$${total}</strong></h5></td><td/>
     </table>
-    <c:if test="${empty records && test!=null}">
+    <c:if test="${empty records}">
         <div class="container">
             <div class="row justify content center">
                 <div class="alert alert-danger col-6 " role="alert">La busqueda no ha retornado registros. Vuelva a intentarlo cambiando los parametros</div>
@@ -370,7 +378,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" class="center-text text-center">
-                    <h5>No todas las oportunidades terminan como esperamos, pero la siguiente est&aacute vuelta de la esquina. <font style="color:red;">Continua buscando!</font></h5>
+                    <h5>No todas las oportunidades terminan como esperamos, pero la siguiente est&aacute vuelta de la esquina. <font style="color:red;">Continua buscando ${username}!</font></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -458,7 +466,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header" class="center-text text-center">
-                        <h5>Felicidades! Una oportunidad más a la bolsa. <font style="color:red;">Vamos por la siguiente!</font></h5>
+                        <h5>Felicidades ${username}! Una oportunidad más a la bolsa. <font style="color:red;">Vamos por la siguiente!</font></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -723,7 +731,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header" class="center-text text-center">
-                                <h5>Una oportunidad cerrada, tras otra, tras otra... Esto es lo que significa para nosotros tener un contrato entre empresas de la red. <font style="color:red;">Felicidades!</font></h5>
+                                <h5>Una oportunidad cerrada, tras otra, tras otra... Esto es lo que significa para nosotros tener un contrato entre empresas de la red. <font style="color:red;">Felicidades ${username}!</font></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

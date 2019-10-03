@@ -48,6 +48,7 @@ public class MainController {
             password = (String) sesion.getAttribute("password");
             
         }
+        sesion.setMaxInactiveInterval(60*60*4);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("recordList");
          
@@ -95,6 +96,7 @@ public class MainController {
             mv.addObject("asesora", asesora);
             mv.addObject("grupo", grupo);
             mv.addObject("total", userRecordService.sumaDeOportunidades(oportunidades));
+            mv.addObject("username",sesion.getAttribute("username"));
             Object temp =  (empresa!=null ? mv.addObject("empresa",empresa):"");
             mv.addObject("estatus",estatus);
             String uri = "";
@@ -204,7 +206,9 @@ public class MainController {
         if(authService.authenticateUser(usuario, pass)){
             sesion.setAttribute("usuario", usuario);
              sesion.setAttribute("password", pass);
+             sesion.setAttribute("username", userService.getUserUsername(usuario, pass));
              users = userService.getUsers("uscript","1234");
+             sesion.setMaxInactiveInterval(60*60*4);
             response.sendRedirect(request.getContextPath()+"/oportunidades");
         }
         else{

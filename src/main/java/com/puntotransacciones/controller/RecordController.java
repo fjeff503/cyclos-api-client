@@ -67,7 +67,9 @@ public class RecordController {
         }
         else{
         String respuesta = userRecordService.putOportunidad((String)sesion.getAttribute("usuario"),(String) sesion.getAttribute("password"),(String) request.getParameter("id"),(String) request.getParameter("titulo"),(String) request.getParameter("estatus"),(String) request.getParameter("vendedor"),(String) request.getParameter("vendedor2"),(String) request.getParameter("descripcion"),(String) request.getParameter("montoTrans"),(String) request.getParameter("notas"));
-        l.info(respuesta);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respuesta);
         }
     }  
 }
