@@ -93,15 +93,17 @@
                             data: $('#form' + number).serialize(), 
                             success: function(data)
                             {
-                                if(data.equals("Fallo")){
+                                if(data == "Fallo"){
                                     $('#cantSave-container').show();
                                     $("#cantSave").text("No se ha podido guardar el contenido de la fila: "+number+". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
                             }
-                    });                   
-                    e.currentTarget.removeEventListener("blur", handler);
+                    }
+                });                   
+                  e.currentTarget.removeEventListener("blur", handler); 
                 });
+                
             }
-            ;
+            
             function statusChange(inp, number) {
                 if (inp.value == "logrado") {
                     $('#congratulationModal').modal('toggle');
