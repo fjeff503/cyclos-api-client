@@ -35,6 +35,7 @@ public class MainController {
     public static ArrayList<String> users;
     public AuthenticationService authService = new AuthenticationService();
     public Logger logger = Logger.getLogger("logger");
+    
     @RequestMapping(value = "/oportunidades")
     public ModelAndView oportunidades(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession sesion = request.getSession();
@@ -52,7 +53,8 @@ public class MainController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("recordList");
          
-        
+        String desde = (String)request.getParameter("desde");
+        String hasta = (String)request.getParameter("hasta");
         String asesora = (String)request.getParameter("asesora");
         String empresa = (String)request.getParameter("empresa");
         String empresaCodigo = "";
@@ -78,12 +80,11 @@ public class MainController {
         if("todos".equals(estatus)){
             estatus=null;
         }
-        logger.info(estatus);
         ArrayList grupos = new ArrayList();
         if(grupo != null && !grupo.contains("todos")){
             grupos.add(grupo);
         }
-        UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, usuario, password, estatus);
+        UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, usuario, password, estatus, desde, hasta);
         ArrayList<Oportunidad> oportunidades = oportunidadesResponse.oportunidades;
         Map<String, String> headers = oportunidadesResponse.headers;
         //Adding Java objects
@@ -99,11 +100,21 @@ public class MainController {
             mv.addObject("username",sesion.getAttribute("username"));
             Object temp =  (empresa!=null ? mv.addObject("empresa",empresa):"");
             mv.addObject("estatus",estatus);
+            mv.addObject("desde",desde);
+            mv.addObject("hasta",hasta);
             String uri = "";
             Boolean amperson = false;
-            if( asesora != null && asesora!=""){
-                uri +="?asesora="+asesora;
+            if(desde !=null && desde !="" && hasta!=null && hasta!=null){
+                uri +="?desde="+desde+"&hasta="+hasta;
                 amperson = true;
+            }
+            if( asesora != null && asesora!=""){
+                if(amperson){
+                    
+                }
+                else{
+                uri +="?asesora="+asesora;
+                amperson = true;}
             }
             if( grupo != null && grupo !=""){
                 if(amperson){

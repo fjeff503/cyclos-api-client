@@ -61,7 +61,7 @@ public class UserRecordService {
     }
     
     //UsernameAsesora debe ser el username!! (Ej. c0872 [Amairini])
-     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String username, String password, String estatus) throws IOException{
+     public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String username, String password, String estatus, String desde, String hasta) throws IOException{
         targetWP += "/general-records/oportunidades";
         Boolean amperson = false;
         if(page!=null){
@@ -117,9 +117,18 @@ public class UserRecordService {
             }
             else{
                 targetWP+="?customFields=reg_estatus:"+estatus;
+                amperson = true;
             }
         }
-        
+        if(desde!=null && hasta!=null && desde!="" && hasta!=""){
+            if(amperson){
+                targetWP+="&creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
+            }
+            else{
+                targetWP+="?creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
+            }
+        }
+        l.info(targetWP);
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(targetWP);
         String encodedCred = encoder.encode64(username,password);
@@ -188,6 +197,7 @@ public class UserRecordService {
             oportunidades.add(oportunidad);
         }
         
+        //Conseguimos los headers del resultado
         HashMap<String,String> headersMap = new HashMap();
         Header[] headers = response.getAllHeaders();
         for(Header header:headers){
@@ -195,6 +205,8 @@ public class UserRecordService {
                  headersMap.put(header.getName(), header.getValue());
              }
         }
+        
+        //Creamos una respuesta con los headers incluidos
         OportunidadesResponse respuesta = new OportunidadesResponse();
         respuesta.headers=headersMap;
         respuesta.oportunidades=oportunidades;

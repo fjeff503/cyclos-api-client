@@ -134,15 +134,15 @@
             <div class="collapse" id="formulario">
                 <form action="${pageContext.request.contextPath}/oportunidades" method="GET">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
-                                <div class="autocomplete" style="width:300px;" >
-                                    <input type="text" placeholder="${empresa!=null?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="myInput" name="empresa" autocomplete="off"/>
+                                <div class="autocomplete" style="width:255px;" >
+                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="myInput" name="empresa" autocomplete="off"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label for="estatus">Estatus</label>
                                 <select class="form-control" id="estatus" path="estatus" name="estatus">
@@ -162,10 +162,14 @@
                                 </select>
                             </div>
                         </div>
+                                <div class="col-3">
+                                <label for="example-date-input">Desde</label>
+                                        <input class="form-control" type="date" value="${desde}" id="example-date-input" name="desde">
+                                </div>
                         <div class="col-2"><input type="reset" class="btn btn-secondary" value="Limpiar" style="margin-top:28px;"/></div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label for="asesoras">Asesoras</label>
                                 <select path="asesora" name="asesora" class="form-control">
@@ -177,7 +181,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-group">
                                 <label for="grupos">Grupos</label>
                                 <select class="form-control" name ="grupos" id="grupos" path="grupos">
@@ -185,15 +189,15 @@
                                     <option value="empresasb2b" ${grupo=="empresasb2b"?"selected":""}>EmpresasB2B</option>
                                     <option value="sucursalesb2c" ${grupo=="sucursalesb2c"?"selected":""}>SucursalesB2C</option>
                                     <option value="empresasboc" ${grupo=="empresasboc"?"selected":""}>EmpresasBOC</option>
-                                    <option value="empresas_cobros" ${grupo=="empresas_cobros"?"selected":""}>Empresas en Cobros</option>
-                                    <option value="empresas_inactivas" ${grupo=="empresas_inactivas"?"selected":""}>Empresas Inactivas</option>
                                     <option value="empresas_venta" ${grupo=="empresas_venta"?"selected":""}>Empresas Solo Ventas</option>
-                                    <option value="sucursalesboc" ${grupo=="sucursalesboc"?"selected":""}>Sucursales BOC</option>
-                                    <option value="eduvigis" ${grupo=="eduvigis"?"selected":""}>Sucursales Eduvigis</option>
                                     <option value="todos" ${grupo==null || grupo=="todos"? "selected":""}>Todos</option>
                                 </select>
                             </div>
                         </div>
+                                <div class="col-3">
+                                <label for="hasta">Hasta</label>
+                                        <input class="form-control" type="date" value="${hasta}" id="hasta" name="hasta">
+                                </div>
                         <div class="col-2" style="">
                             <button type="submit" class="btn btn-primary" style="margin-top:28px;">Buscar</button>
                         </div>
