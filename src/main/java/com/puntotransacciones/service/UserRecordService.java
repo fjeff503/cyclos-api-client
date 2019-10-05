@@ -213,6 +213,116 @@ public class UserRecordService {
         return respuesta;
     }
      
+     public ArrayList<Oportunidad> getAllOportunidades(ArrayList<String> usernameAsesoras, ArrayList<String> grupos, String username, String password, String estatus, String desde, String hasta) throws IOException{
+         targetWP="?pageSize=4000";
+        if(usernameAsesoras!=null){
+            if(!usernameAsesoras.isEmpty()){
+                    targetWP+="&brokers=";
+                for(int i=0; i<usernameAsesoras.size();i++){
+                        if(i==0){
+                            if(usernameAsesoras.get(0)==null){
+                                targetWP+=null;
+                            }
+                            else{
+                                targetWP+=usernameAsesoras.get(0);
+                            }
+                        }
+                        else{
+                            targetWP+="%2C"+usernameAsesoras.get(i) ;
+                        }
+                  }
+            }
+        }
+        if(grupos!=null){
+            if(!grupos.isEmpty()){
+                    targetWP+="&groups=";
+                for(int i=0; i<grupos.size();i++){
+                        if(i==0){
+                        targetWP+=grupos.get(0);}
+                        else{
+                            targetWP+="%2C"+grupos.get(i);
+                        }
+                    }
+            }
+        }
+        if(estatus!=null){
+                targetWP+="&customFields=reg_estatus:"+estatus;            
+        }
+        if(desde!=null && hasta!=null && desde!="" && hasta!=""){
+                targetWP+="&creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
+        }
+          l.info(targetWP);
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(targetWP);
+        String encodedCred = encoder.encode64(username,password);
+        request.addHeader("Authorization", encodedCred);
+        request.addHeader("Accept", "application/json");
+        HttpResponse response = client.execute(request);
+        
+        if(response.getStatusLine().getStatusCode()!=200){
+            int responseCode = response.getStatusLine().getStatusCode();
+            l.info("Codigo de ejecución: "+responseCode);
+            l.info(targetWP);
+            targetWP = "https://global.puntotransacciones.com/api";
+            return null;
+        }
+        BufferedReader rd = new BufferedReader(
+		new InputStreamReader(response.getEntity().getContent()));
+        StringBuilder result = new StringBuilder();
+	String line = "";
+	while ((line = rd.readLine()) != null) {
+		result.append(line);
+	}
+        
+        JSONArray responseArray = new JSONArray(result.toString());
+        
+        int size = responseArray.length();
+        targetWP = "https://global.puntotransacciones.com/api";
+        ArrayList<Oportunidad> oportunidades = new ArrayList();
+        for(int i=0;i<size;i++){
+            JSONObject oportunidadJson = responseArray.getJSONObject(i);
+            Gson gson = new Gson();
+            Oportunidad oportunidad = gson.fromJson(oportunidadJson.toString(), Oportunidad.class);
+            if(oportunidad.getCustomValues().getVendedor()!=null){
+                if(oportunidad.getCustomValues().getVendedor().contains("E")){
+                    String[] vendedor = oportunidad.getCustomValues().getVendedor().split("E", 2);
+                    if(vendedor.length>1){
+                        oportunidad.customValues.setVendedor("E"+vendedor[1]);
+                    }
+                    
+                }
+                else if(oportunidad.getCustomValues().getVendedor().contains("C")){
+                    String[] vendedor = oportunidad.getCustomValues().getVendedor().split("C", 2);
+                    if(vendedor.length>1){
+                        oportunidad.customValues.setVendedor("C"+vendedor[1]);
+                        oportunidad.customValues.setVendedor(oportunidad.customValues.getVendedor().replace("Ã", "í"));
+                    }
+                    
+                }
+            }
+            //Agregamos las filas que tomará las oportunidades para desplegarlas en el front end
+            oportunidad.customValues.rowsDescripcion = 2;
+            if(oportunidad.customValues.getDescripcion()!=null){
+                if(oportunidad.customValues.getDescripcion()!=""){
+                    oportunidad.customValues.rowsDescripcion = (oportunidad.customValues.getDescripcion().length()>100?3:2);
+                }
+            }
+            //Limpiamos la asesora para que quede solo su inicial
+            if(oportunidad.user.display != null){
+                oportunidad.user.display += "("+ oportunidad.createdBy.getDisplay().substring(0, 1).toUpperCase()+ ")";
+            }
+            //Normalizamos el formato de la fecha
+            if(oportunidad.getCreationDate()!=null){
+                String[] tempVector = oportunidad.getCreationDate().split("T");
+                String[] tempVector2 = tempVector[0].split("-");
+                oportunidad.setCreationDate(tempVector2[2]+"-"+tempVector2[1]+"-"+tempVector2[0]);
+            }
+            oportunidades.add(oportunidad);
+        }
+        
+        return oportunidades;
+     }
+     
      public Integer getOportunidadVersion(String username, String pass, String id) throws IOException{
          String getOportunidadWP = targetWP+"/records/"+id+"/data-for-edit";
          HttpClient client = HttpClientBuilder.create().build();
