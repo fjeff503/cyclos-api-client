@@ -213,8 +213,8 @@ public class UserRecordService {
         return respuesta;
     }
      
-     public ArrayList<Oportunidad> getAllOportunidades(ArrayList<String> usernameAsesoras, ArrayList<String> grupos, String username, String password, String estatus, String desde, String hasta) throws IOException{
-         targetWP="?pageSize=4000";
+     public ArrayList<Oportunidad> getAllOportunidades(String username, String password, ArrayList<String> usernameAsesoras, ArrayList<String> grupos, String estatus, String desde, String hasta) throws IOException{
+         targetWP+="/general-records/oportunidades?pageSize=4000";
         if(usernameAsesoras!=null){
             if(!usernameAsesoras.isEmpty()){
                     targetWP+="&brokers=";
@@ -261,7 +261,7 @@ public class UserRecordService {
         
         if(response.getStatusLine().getStatusCode()!=200){
             int responseCode = response.getStatusLine().getStatusCode();
-            l.info("Codigo de ejecución: "+responseCode);
+            l.info("Codigo de ejecución: "+responseCode + " Estatus:"+response.getStatusLine().getReasonPhrase());
             l.info(targetWP);
             targetWP = "https://global.puntotransacciones.com/api";
             return null;

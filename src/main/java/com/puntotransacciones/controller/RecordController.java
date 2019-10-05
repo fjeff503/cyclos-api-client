@@ -246,7 +246,7 @@ public class RecordController {
         }
         
         
-        return userRecordService.getAllOportunidades(null, null, null, null, null, null, null);
+        return userRecordService.getAllOportunidades((String)sesion.getAttribute("usuario"), (String) sesion.getAttribute("password"), null, null, null, null, null);
     }
     
 }
