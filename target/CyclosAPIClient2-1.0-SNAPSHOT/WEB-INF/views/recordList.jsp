@@ -96,11 +96,16 @@
                                 if(data == "Fallo"){
                                     $('#cantSave-container').show();
                                     $("#cantSave").text("No se ha podido guardar el contenido de la fila: "+number+". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                                    $('#row'+number).addClass('bg-danger');
+                                    $('#group-of-rows-'+number).addClass('bg-secondary');
+                                   
                             }
                     },
                             error: function(data){
                                 $('#cantSave-container').show();
                                 $("#cantSave").text("No se ha podido guardar el contenido de la fila: "+number+". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                                $('#row'+number).addClass('bg-danger');
+                                $('#group-of-rows-'+number).addClass('bg-secondary');
                             }
     });                   
                   e.currentTarget.removeEventListener("blur", handler); 
@@ -321,7 +326,7 @@
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
-                <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-${index.index+1}">                
+                <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-${index.index+1}" id="row${index.index+1}">                
                     <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                     <td >${record.user.display}</td> 
                     <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
