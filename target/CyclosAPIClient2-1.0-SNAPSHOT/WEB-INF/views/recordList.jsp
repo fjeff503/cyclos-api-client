@@ -97,8 +97,12 @@
                                     $('#cantSave-container').show();
                                     $("#cantSave").text("No se ha podido guardar el contenido de la fila: "+number+". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
                             }
-                    }
-                });                   
+                    },
+                            error: function(data){
+                                $('#cantSave-container').show();
+                                $("#cantSave").text("No se ha podido guardar el contenido de la fila: "+number+". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                            }
+    });                   
                   e.currentTarget.removeEventListener("blur", handler); 
                 });
                 
@@ -114,6 +118,9 @@
             if(inp.value=="contrato"){
                     $('#contratoModal').modal('toggle');
             }
+        }
+        function exportOportunidades(){
+            
         }
         </script>
         <c:if test="${isNull}">
@@ -205,11 +212,37 @@
                 </form>
             </div>
         </div>
-        <!-----------Form Modal Button and Logout Button -------------->
+        <!-----------Form Modal Button, Logout Button and Save Button -------------->
         <div>
-            <a class="btn btn-primary float-left" href="${pageContext.request.contextPath}/logout">Log out</a>
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#formModal" style="margin-bottom:0px;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
+            <a class="btn btn-primary float-left" href="${pageContext.request.contextPath}/logout" style="margin-left:3px; margin-bottom:1px;">Log out</a>          
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#formModal" style="margin-bottom:1px;;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
+            <button class="btn btn-primary float-right" style="margin-right:5px; margin-bottom:1px;" data-toggle="modal" data-target="#exportModal"><i class="far fa-save"></i></button>
         </div>
+        <!--------------Export Interface ------------------>
+        <div id="exportModal" class="modal fade" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Exportar Oportunidades</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="${pageContext.request.contextPath}/todasLasOportundiades" method="GET" id="exportOportunidades">
+                                <label for="maximoDeOportunidades">Cantidad máxima de registros a exportar:</label>
+                                <input type="number" name="maximoDeOportunidades" id="maximoDeOportunidades" value="200" class="form-control">
+                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" form="exportOportunidades">Exportar Oportunidades</button>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        
         <!----------------Form Modal ------------------->
         <form action="${pageContext.request.contextPath}/addOportunidad" method="POST" id="addEmpresa">
             <div id="formModal" class="modal fade" role="dialog">
