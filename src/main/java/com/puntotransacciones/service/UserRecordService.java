@@ -213,8 +213,13 @@ public class UserRecordService {
         return respuesta;
     }
      
-     public ArrayList<Oportunidad> getAllOportunidades(String username, String password, ArrayList<String> usernameAsesoras, ArrayList<String> grupos, String estatus, String desde, String hasta) throws IOException{
-         targetWP+="/general-records/oportunidades?pageSize=4000";
+     public ArrayList<Oportunidad> getAllOportunidades(String username, String password, ArrayList<String> usernameAsesoras, ArrayList<String> grupos, String estatus, String desde, String hasta, String maximoOportunidades) throws IOException{
+         if(maximoOportunidades == null || maximoOportunidades == "0"){
+             maximoOportunidades = "200";
+         }
+         
+         targetWP+="/general-records/oportunidades?pageSize="+maximoOportunidades;
+         targetWP+="&"+"fields=customValues.reg_estatus%2CcustomValues.descripcion%2CcustomValues.vendedor%2CcustomValues.montotrans%2CcustomValues.notas%2Cuser.display%2CcreationDate%2CcustomValues.vendedor2";
         if(usernameAsesoras!=null){
             if(!usernameAsesoras.isEmpty()){
                     targetWP+="&brokers=";
@@ -248,7 +253,7 @@ public class UserRecordService {
         if(estatus!=null){
                 targetWP+="&customFields=reg_estatus:"+estatus;            
         }
-        if(desde!=null && hasta!=null && desde!="" && hasta!=""){
+        if(desde!=null && hasta!=null && !desde.equals("") && !hasta.equals("")){
                 targetWP+="&creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
         }
           l.info(targetWP);
@@ -306,10 +311,6 @@ public class UserRecordService {
                 if(oportunidad.customValues.getDescripcion()!=""){
                     oportunidad.customValues.rowsDescripcion = (oportunidad.customValues.getDescripcion().length()>100?3:2);
                 }
-            }
-            //Limpiamos la asesora para que quede solo su inicial
-            if(oportunidad.user.display != null){
-                oportunidad.user.display += "("+ oportunidad.createdBy.getDisplay().substring(0, 1).toUpperCase()+ ")";
             }
             //Normalizamos el formato de la fecha
             if(oportunidad.getCreationDate()!=null){

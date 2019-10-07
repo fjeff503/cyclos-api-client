@@ -125,7 +125,26 @@
             }
         }
         function exportOportunidades(){
-            
+            console.info($('#search-form').serialize() +"&"+ $('#export-form').serialize() + " Info");
+            $.ajax({
+                type:"GET",
+                headers: {
+                    'Accept':'application/json'
+                },
+                url: '${pageContext.request.contextPath}/oportunidad/getAll',
+                data: $('#search-form').serialize() +"&"+ $('#export-form').serialize() ,
+                success: function(data)
+                            {
+                                console.info(data); 
+                                console.info(data[1]["creationDate"]);
+                              for(var x in data){
+                                  console.info(Object.keys(x));
+                                  console.info(x["user"]);
+                             }
+                              console.info(data);     
+                            }
+                    
+            })
         }
         </script>
         <c:if test="${isNull}">
@@ -144,7 +163,7 @@
         <div class="container">
             <button class="btn btn-primary" data-toggle="collapse" data-target="#formulario"><i class="fas fa-arrow-down"></i></button>
             <div class="collapse" id="formulario">
-                <form action="${pageContext.request.contextPath}/oportunidades" method="GET">
+                <form action="${pageContext.request.contextPath}/oportunidades" method="GET" id="search-form">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
@@ -189,6 +208,7 @@
                                     <option value="C0952" ${asesora=="C0952"?"selected":""}>Rosa María Cerrato</option>
                                     <option value="C0951" ${asesora=="C0951"?"selected":""}>Victoria Belloso</option>
                                     <option value="C0823" ${asesora=="C0823"?"selected":""}>Karen Cubias</option>
+                                    <option value="C0854" ${asesora=="C0854"?"selected":""}>Asesor 3</option>
                                     <option value="todos" ${asesora==null || asesora == "todos"?"selected":""}>Todos</option>
                                 </select>
                             </div>
@@ -234,7 +254,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="${pageContext.request.contextPath}/todasLasOportundiades" method="GET" id="exportOportunidades">
+                            <form action="${pageContext.request.contextPath}/todasLasOportundiades" method="GET" id="export-form">
                                 <label for="maximoDeOportunidades">Cantidad máxima de registros a exportar:</label>
                                 <input type="number" name="maximoDeOportunidades" id="maximoDeOportunidades" value="200" class="form-control">
                                 
@@ -242,7 +262,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary" form="exportOportunidades">Exportar Oportunidades</button>
+                            <button type="button" class="btn btn-primary"  onclick="exportOportunidades()">Exportar Oportunidades</button>
                         </div>
                     </div>
                 </div>

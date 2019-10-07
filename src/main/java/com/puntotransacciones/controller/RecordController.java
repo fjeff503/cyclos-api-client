@@ -244,9 +244,26 @@ public class RecordController {
         if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
             response.sendRedirect(request.getContextPath());
         }
+        ArrayList<String> asesoras = new ArrayList();
+        String asesora = (String)request.getParameter("asesora");
+        if(asesora != null){
+            if(asesora!=""){
+                if(!asesora.contains("todos")){
+                    asesoras.add(asesora);
+                }
+            }
+        }
         
-        
-        return userRecordService.getAllOportunidades((String)sesion.getAttribute("usuario"), (String) sesion.getAttribute("password"), null, null, null, null, null);
+        ArrayList<String> grupos = new ArrayList();
+        String grupo = (String)request.getParameter("grupos");
+        if(grupo != null && !grupo.contains("todos")){
+            grupos.add(grupo);
+        }
+        String estatus = (String) request.getParameter("estatus");
+        if("todos".equals(estatus)){
+            estatus=null;
+        }
+        return userRecordService.getAllOportunidades((String)sesion.getAttribute("usuario"), (String) sesion.getAttribute("password"), asesoras, grupos,estatus , (String)request.getParameter("desde"), (String)request.getParameter("hasta"), (String)request.getParameter("maximoDeOportunidades"));
     }
     
 }
