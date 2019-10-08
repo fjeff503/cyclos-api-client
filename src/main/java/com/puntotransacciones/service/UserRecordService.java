@@ -62,33 +62,33 @@ public class UserRecordService {
     
     //UsernameAsesora debe ser el username!! (Ej. c0872 [Amairini])
      public OportunidadesResponse  getOportunidades(ArrayList<String> usernameAsesoras, Integer page, ArrayList<String> grupos, String username, String password, String estatus, String desde, String hasta) throws IOException{
-        targetWP += "/general-records/oportunidades";
+        String targetGetOportunidades = targetWP+ "/general-records/oportunidades";
         Boolean amperson = false;
         if(page!=null){
-            targetWP+="?page="+page;
+            targetGetOportunidades+="?page="+page;
             amperson = true;
         }
         if(usernameAsesoras!=null){
             if(!usernameAsesoras.isEmpty()){
                 if(amperson){
-                    targetWP+="&brokers=";
+                    targetGetOportunidades+="&brokers=";
                 }
                 else{
-                    targetWP+="?brokers=";
+                    targetGetOportunidades+="?brokers=";
                     amperson=true;
                 }
 
                 for(int i=0; i<usernameAsesoras.size();i++){
                         if(i==0){
                             if(usernameAsesoras.get(0)==null){
-                                targetWP+=null;
+                                targetGetOportunidades+=null;
                             }
                             else{
-                                targetWP+=usernameAsesoras.get(0);
+                                targetGetOportunidades+=usernameAsesoras.get(0);
                             }
                         }
                         else{
-                            targetWP+="%2C"+usernameAsesoras.get(i) ;
+                            targetGetOportunidades+="%2C"+usernameAsesoras.get(i) ;
                         }
                   }
             }
@@ -96,39 +96,39 @@ public class UserRecordService {
         if(grupos!=null){
             if(!grupos.isEmpty()){
                 if(amperson){
-                    targetWP+="&groups=";
+                    targetGetOportunidades+="&groups=";
                 }
                 else{
-                    targetWP+="?groups=";
+                    targetGetOportunidades+="?groups=";
                     amperson = true;
                 }
                 for(int i=0; i<grupos.size();i++){
                         if(i==0){
-                        targetWP+=grupos.get(0);}
+                        targetGetOportunidades+=grupos.get(0);}
                         else{
-                            targetWP+="%2C"+grupos.get(i);
+                            targetGetOportunidades+="%2C"+grupos.get(i);
                         }
                     }
             }
         }
         if(estatus!=null){
             if(amperson){
-                targetWP+="&customFields=reg_estatus:"+estatus;
+                targetGetOportunidades+="&customFields=reg_estatus:"+estatus;
             }
             else{
-                targetWP+="?customFields=reg_estatus:"+estatus;
+                targetGetOportunidades+="?customFields=reg_estatus:"+estatus;
                 amperson = true;
             }
         }
         if(desde!=null && hasta!=null && desde!="" && hasta!=""){
             if(amperson){
-                targetWP+="&creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
+                targetGetOportunidades+="&creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
             }
             else{
-                targetWP+="?creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
+                targetGetOportunidades+="?creationPeriod="+desde+"T00%3A00%3A01%2C"+hasta+"T23%3A59%3A59";
             }
         }
-        l.info(targetWP);
+        l.info(targetGetOportunidades);
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(targetWP);
         String encodedCred = encoder.encode64(username,password);
@@ -139,8 +139,7 @@ public class UserRecordService {
         if(response.getStatusLine().getStatusCode()!=200){
             int responseCode = response.getStatusLine().getStatusCode();
             l.info("Codigo de ejecución: "+responseCode);
-            l.info(targetWP);
-            targetWP = "https://global.puntotransacciones.com/api";
+            l.info(targetGetOportunidades);
             return new OportunidadesResponse(null,null);
         }
         BufferedReader rd = new BufferedReader(
@@ -154,7 +153,6 @@ public class UserRecordService {
         JSONArray responseArray = new JSONArray(result.toString());
         
         int size = responseArray.length();
-        targetWP = "https://global.puntotransacciones.com/api";
         ArrayList<Oportunidad> oportunidades = new ArrayList();
         for(int i=0;i<size;i++){
             JSONObject oportunidadJson = responseArray.getJSONObject(i);
