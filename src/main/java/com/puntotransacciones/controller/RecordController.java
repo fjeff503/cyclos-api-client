@@ -63,8 +63,20 @@ public class RecordController {
         }
         Integer page = (request.getParameter("page")!=null?Integer.parseInt(request.getParameter("page")):null);
         String grupo = (String)request.getParameter("grupos");
+        //String estatus = (String) request.getParameter("estatus");
         String estatus = (String) request.getParameter("estatus");
-
+        l.info("Estatus: "+estatus);
+         if("todos".equals(estatus)){
+            estatus=null;
+        }
+        if(estatus!=null){
+            if(estatus.contains("%2C")){
+                estatus = estatus.replace("%2C", "%7C");
+            }
+            if(estatus.contains(",")){
+                estatus = estatus.replace(",", "%7C");
+            }
+        }
         l.info( "grupo: "+grupo+" empresa: "+empresa+" asesoras: "+asesora + " Parameter map is empty: "+request.getParameterMap().get("asesora"));
         ArrayList<String> asesoras = new ArrayList();
         if(asesora != null){
@@ -73,9 +85,6 @@ public class RecordController {
                     asesoras.add(asesora);
                 }
             }
-        }
-        if("todos".equals(estatus)){
-            estatus=null;
         }
         ArrayList grupos = new ArrayList();
         if(grupo != null && !grupo.contains("todos")){
