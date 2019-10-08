@@ -249,23 +249,6 @@ Author     : HP PC
                                     </ul>
                                 </div>
                                             <input type="hidden" id="search-estatus" value="" name="estatus">
-                                <!--
-                                <select class="form-control" id="estatus" path="estatus" name="estatus" multiple>
-                                    <option value="prospecto"${estatus=="prospecto"?"selected":""}>1. Prospecto</option>
-                                    <option value="cotizado"${estatus=="cotizado"?"selected":""}>2. Cotizado</option>
-                                    <option value="aprobado"${estatus=="aprobado"?"selected":""}>3. Aprobado</option>
-                                    <option value="entregado"${estatus=="entregado"?"selected":""}>4. Entregado</option>
-                                    <option value="logrado"${estatus=="logrado"?"selected":""}>5. Logrado</option>
-                                    <option value="no_logrado"${estatus=="no_logrado"?"selected":""}>6. No Logrado</option>
-                                    <option value="contrato"${estatus=="contrato"?"selected":""}>7. Contrato</option>
-                                    <option value="no_procede"${estatus=="no_procede"?"selected":""}>No Procede</option>
-                                    <option value="pendiente"${estatus=="pendiente"?"selected":""}>Pendiente</option>
-                                    <option value="realizado"${estatus=="realizado"?"selected":""}>Realizado</option>
-                                    <option value="suspendido"${estatus=="suspendido"?"selected":""}>Suspendido</option>
-                                    <option value="confirmado" ${estatus=="confirmado"?"selected":""}>Confirmado</option>                                   
-                                    <option value="todos"${estatus==null?"selected":""}>Todos</option>
-                                </select>
-                                -->
                             </div>
                         </div>
                         <div class="col-3">

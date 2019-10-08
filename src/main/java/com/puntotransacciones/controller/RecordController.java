@@ -122,7 +122,7 @@ public class RecordController {
             }
             if( asesora != null && asesora!=""){
                 if(amperson){
-                    
+                   uri +="&asesora="+asesora; 
                 }
                 else{
                 uri +="?asesora="+asesora;
