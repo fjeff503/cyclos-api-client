@@ -130,7 +130,7 @@ public class UserRecordService {
         }
         l.info(targetGetOportunidades);
         HttpClient client = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(targetWP);
+        HttpGet request = new HttpGet(targetGetOportunidades);
         String encodedCred = encoder.encode64(username,password);
         request.addHeader("Authorization", encodedCred);
         request.addHeader("Accept", "application/json");
