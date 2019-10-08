@@ -8,7 +8,9 @@ package com.puntotransacciones.controller;
 import com.puntotransacciones.domain.userRecords.Oportunidad;
 import com.puntotransacciones.service.UserRecordService;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -52,6 +54,11 @@ public class RecordController {
          
         String desde = (String)request.getParameter("desde");
         String hasta = (String)request.getParameter("hasta");
+        if(desde==null && hasta == null){
+            desde = "2019-08-01";
+            LocalDate date = LocalDate.now();
+            hasta = date.getYear()+"-"+(date.getMonthValue()<10?"0"+date.getMonthValue():date.getMonthValue())+"-"+(date.getDayOfMonth()<10?"0"+date.getDayOfMonth():date.getDayOfMonth());
+        }
         String asesora = (String)request.getParameter("asesora");
         String empresa = (String)request.getParameter("empresa");
         String empresaCodigo = "";
@@ -105,7 +112,8 @@ public class RecordController {
             mv.addObject("records", oportunidades);
             mv.addObject("pageCount",Integer.parseInt(headers.get("X-Page-Count")));
             mv.addObject("currentPage", Integer.parseInt(headers.get("X-Current-Page")));
-            mv.addObject("totalCount", Integer.parseInt(headers.get("X-Total-Count")));   
+            mv.addObject("totalCount", Integer.parseInt(headers.get("X-Total-Count")));
+            mv.addObject("hasNextPage", headers.get("X-Has-Next-Page"));
             mv.addObject("asesora", asesora);
             mv.addObject("grupo", grupo);
             mv.addObject("total", userRecordService.sumaDeOportunidades(oportunidades));

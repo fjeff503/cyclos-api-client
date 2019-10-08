@@ -199,7 +199,7 @@ public class UserRecordService {
         HashMap<String,String> headersMap = new HashMap();
         Header[] headers = response.getAllHeaders();
         for(Header header:headers){
-             if("X-Page-Count".equals(header.getName()) || "X-Current-Page".equals(header.getName()) || "X-Total-Count".equals(header.getName()) ){
+             if("X-Page-Count".equals(header.getName()) || "X-Current-Page".equals(header.getName()) || "X-Total-Count".equals(header.getName())  || "X-Has-Next-Page".equals(header.getName()) ){
                  headersMap.put(header.getName(), header.getValue());
              }
         }

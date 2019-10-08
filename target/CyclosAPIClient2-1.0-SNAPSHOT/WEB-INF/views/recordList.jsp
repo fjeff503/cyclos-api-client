@@ -464,14 +464,14 @@ Author     : HP PC
                     </c:if>
                     <li class="page-item ${currentPage==0?'active':''}"> 
                         ${currentPage==0?'<span class="page-link">':firstLink}
-                        ${currentPage==0?'1':currentPage} 
+                        ${currentPage==0?'1':hasNextPage==false?currentPage-1:currentPage} 
                         ${currentPage==0?'<span class="sr-only">(current)</span></span>':'</a>'}
                     </li>
                     <c:if test="${pageCount>1}">
-                        <li class="page-item ${currentPage<pageCount && currentPage!=0?'active':''}">
-                            ${currentPage<pageCount && currentPage!=0?'<span class="page-link">':secondLink}
-                            ${currentPage==0?'2':currentPage+1}
-                            ${currentPage<pageCount && currentPage!=0?'<span class="sr-only">(current)</span></span>':'</a>'}    
+                        <li class="page-item ${currentPage!=0 && hastNextPage==true ?'active':''}">
+                            ${ currentPage!=0 && hastNextPage==true ?'<span class="page-link">':secondLink}
+                            ${currentPage==0?'2':hasNextPage==false?currentPage:currentPage+1}
+                            ${currentPage!=0 && hastNextPage==true ?'<span class="sr-only">(current)</span></span>':'</a>'}    
                         </li>
                     </c:if>
                     <c:if test="${pageCount>2}">
