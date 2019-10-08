@@ -93,6 +93,12 @@ public class RecordController {
         UserRecordService.OportunidadesResponse oportunidadesResponse = userRecordService.getOportunidades(asesoras,page,grupos, usuario, password, estatus, desde, hasta);
         ArrayList<Oportunidad> oportunidades = oportunidadesResponse.oportunidades;
         Map<String, String> headers = oportunidadesResponse.headers;
+        
+        if(estatus!=null){
+            if(estatus.contains("%7C")){
+                estatus = estatus.replace("%7C", ",");
+            }
+        }
         //Adding Java objects
         if(oportunidades != null){
             //Adds objects according to items founded -  If no items are founded then void is returned to all the objects related to the user records list
