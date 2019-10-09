@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -40,8 +41,8 @@ public class MainController {
     @RequestMapping(value="/logout", method=RequestMethod.GET)
         public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
-        if(session.getAttribute("user")!=null && session.getAttribute("password")!=null){
-                session.removeAttribute("user");
+        if(session.getAttribute("usuario")!=null && session.getAttribute("password")!=null){
+                session.removeAttribute("usuario");
                 session.removeAttribute("password");
         }
         response.sendRedirect(request.getContextPath()+"/");
@@ -68,13 +69,20 @@ public class MainController {
         }
 }
     
+    @ResponseBody
     @RequestMapping(value="/checkAuth")
-    public String checkAuthentication(HttpServletRequest request, HttpServletResponse response){
+    public void checkAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        logger.info("Entré al checkAuth");
         HttpSession sesion = request.getSession();
-        if(sesion.getAttribute("user")==null || sesion.getAttribute("password")==null){
-            return "Fallo";
+         response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");       
+        if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
+            logger.info("Usuario: "+sesion.getAttribute("usuario")+ "  Password:" +sesion.getAttribute("password"));
+            response.getWriter().write("Fallo");
         }
-        return "Exito";
+        else{
+         response.getWriter().write("Exito");
+        }
     }
     
     @RequestMapping(value="/")

@@ -163,18 +163,17 @@ Author     : HP PC
         }
         function checkSession(){
             $.ajax({
-            type: "GET",
-                    headers: {
-                        'Accept': 'application/json'
-                    },
+                    type: "GET",
                     url: '${pageContext.request.contextPath}/checkAuth',
                     success: function (data)
                     {
+                        console.info(data);
                         if(data == "Fallo"){
                             window.location.replace("https://puntotrans.herokuapp.com/");
                     }
                 },
-                    error:function(){
+                    error:function(data){
+                        console.info("Error");
                         window.location.replace("https://puntotrans.herokuapp.com/");
     }
         })
@@ -330,7 +329,7 @@ Author     : HP PC
         <!-----------Form Modal Button, Logout Button and Save Button -------------->
         <div>
             <a class="btn btn-primary float-left" href="${pageContext.request.contextPath}/logout" style="margin-left:3px; margin-bottom:1px;">Log out</a>          
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#formModal" style="margin-bottom:1px;;"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#formModal" style="margin-bottom:1px;;" onclick="checkSession()"><i class="fas fa-plus"></i> Agregar Oportunidad</button>
             <button class="btn btn-primary float-right" style="margin-right:5px; margin-bottom:1px;" data-toggle="modal" data-target="#exportModal"><i class="far fa-save"></i></button>
         </div>
         <!--------------Export Interface ------------------>
