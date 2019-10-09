@@ -60,7 +60,6 @@ public class MainController {
              sesion.setAttribute("password", pass);
              sesion.setAttribute("username", userService.getUserUsername(usuario, pass));
              users = userService.getUsers("uscript","1234");
-             sesion.setMaxInactiveInterval(60*60*4);
             response.sendRedirect(request.getContextPath()+"/oportunidades");
         }
         else{
@@ -68,6 +67,15 @@ public class MainController {
         response.sendRedirect(request.getContextPath()+"/");
         }
 }
+    
+    @RequestMapping(value="/checkAuth")
+    public String checkAuthentication(HttpServletRequest request, HttpServletResponse response){
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("user")==null || sesion.getAttribute("password")==null){
+            return "Fallo";
+        }
+        return "Exito";
+    }
     
     @RequestMapping(value="/")
     public ModelAndView indice(HttpServletRequest request, HttpServletResponse response) throws IOException{

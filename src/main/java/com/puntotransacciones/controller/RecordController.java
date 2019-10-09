@@ -48,7 +48,6 @@ public class RecordController {
             password = (String) sesion.getAttribute("password");
             
         }
-        sesion.setMaxInactiveInterval(60*60*4);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("recordList");
          
@@ -220,9 +219,6 @@ public class RecordController {
         HttpSession sesion = request.getSession();
         String usuario = (String) sesion.getAttribute("usuario");
         String password = (String) sesion.getAttribute("password");
-        if(usuario==null || password==null){
-            response.sendRedirect(request.getContextPath()+"/");
-        }
         String titulo = request.getParameter("titulo");
         String empresa = request.getParameter("empresa");
         String vendedor = request.getParameter("vendedor");
@@ -240,6 +236,9 @@ public class RecordController {
         String descripcion = request.getParameter("descripcion");
         String montoT = request.getParameter("montoT");
         String notas = request.getParameter("notas");
+        if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
+            response.sendRedirect(request.getContextPath()+"/");
+        }
         userRecordService.addOportunidad(usuario, password, empresa, titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
         
         

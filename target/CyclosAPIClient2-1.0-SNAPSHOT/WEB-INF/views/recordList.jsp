@@ -95,10 +95,12 @@ Author     : HP PC
                         success: function (data)
                         {
                             if (data == "Fallo") {
-                                $('#cantSave-container').show();
-                                $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
-                                $('#row' + number).addClass('bg-danger');
-                                $('#group-of-rows-' + number).addClass('bg-secondary');
+                            $('#cantSave-container').show();
+                            $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                            $('#row' + number).addClass('bg-danger');
+                            $('#row' + number).css({"color":"white","font-weight": "bold"});
+                            $('#group-of-rows-' + number).addClass('bg-secondary');
+                            $('#group-of-rows-' + number).css({"color":"white","font-weight": "bold"});
 
                             }
                         },
@@ -106,7 +108,9 @@ Author     : HP PC
                             $('#cantSave-container').show();
                             $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
                             $('#row' + number).addClass('bg-danger');
+                            $('#row' + number).css({"color":"white","font-weight": "bold"});
                             $('#group-of-rows-' + number).addClass('bg-secondary');
+                            $('#group-of-rows-' + number).css({"color":"white","font-weight": "bold"});
                         }
                     });
                     e.currentTarget.removeEventListener("blur", handler);
@@ -157,6 +161,24 @@ Author     : HP PC
                     jQuery('#search-form-box'+i).prop('checked',false);
             }
         }
+        function checkSession(){
+            $.ajax({
+            type: "GET",
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    url: '${pageContext.request.contextPath}/checkAuth',
+                    success: function (data)
+                    {
+                        if(data == "Fallo"){
+                            window.location.replace("https://puntotrans.herokuapp.com/");
+                    }
+                },
+                    error:function(){
+                        window.location.replace("https://puntotrans.herokuapp.com/");
+    }
+        })
+    }
         </script>
         <c:if test="${isNull}">
             <div class="container">
@@ -457,7 +479,7 @@ Author     : HP PC
             </div>
         </c:if>
         
-        <div><em class="float-left">Resultados devueltos: ${totalCount==null?0:totalCount} oportunidades</em></div>
+        <div><em class="float-left">Resultados devueltos: ${totalCount==null?0:totalCount} oportunidades. </em></div>
         <!------------- Pagination ------------->
         <div class="text-center center-text" style="width: 20%; margin: 0 auto;">           
             <nav aria-label="...">
@@ -478,10 +500,10 @@ Author     : HP PC
                         ${currentPage==0?'<span class="sr-only">(current)</span></span>':'</a>'}
                     </li>
                     <c:if test="${pageCount>1}">
-                        <li class="page-item ${currentPage!=0 && hastNextPage==true ?'active':''}">
-                            ${ currentPage!=0 && hastNextPage==true ?'<span class="page-link">':secondLink}
+                        <li class="page-item ${currentPage!=0 && hasNextPage==true ?'active':''}">
+                            ${ currentPage!=0 && hasNextPage==true ?'<span class="page-link">':secondLink}
                             ${currentPage==0?'2':hasNextPage==false?currentPage:currentPage+1}
-                            ${currentPage!=0 && hastNextPage==true ?'<span class="sr-only">(current)</span></span>':'</a>'}    
+                            ${currentPage!=0 && hasNextPage==true ?'<span class="sr-only">(current)</span></span>':'</a>'}    
                         </li>
                     </c:if>
                     <c:if test="${pageCount>2}">
@@ -1045,7 +1067,13 @@ Author     : HP PC
 
 
         </script>
-
+        <script>
+                    $.ajax({
+                        
+                    
+    }
+                            )
+        </script>
         <script>
             $("#search-form").submit(function(){
                 var arr=[];
