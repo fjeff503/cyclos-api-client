@@ -147,6 +147,16 @@ Author     : HP PC
 
                 })
             }
+            function limpiarCampos(){
+                $.noConflict();
+                jQuery('#search-form-empresa').val('');
+                jQuery('#search-form-desde').val("");
+                jQuery('#search-form-hasta').val("");
+                jQuery('#search-form-asesora').val('todos');
+                for(i=1;i<13;i++){
+                    jQuery('#search-form-box'+i).prop('checked',false);
+            }
+        }
         </script>
         <c:if test="${isNull}">
             <div class="container">
@@ -171,7 +181,7 @@ Author     : HP PC
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
                                 <div class="autocomplete" style="width:255px;" >
-                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="myInput" name="empresa" autocomplete="off"/>
+                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="search-form-empresa" name="empresa" autocomplete="off"/>
                                 </div>
                             </div>
                         </div>
@@ -188,62 +198,62 @@ Author     : HP PC
                                     <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="prospecto"  name="option" ${estatus.contains("prospecto")?"checked":""}> 1. Prospecto
+                                                <input type="checkbox" class="${estatus.contains("prospecto")?"active":""}" value="prospecto"  name="option" ${estatus.contains("prospecto")?"checked":""} id="search-form-box1"> 1. Prospecto
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="cotizado" name="option" ${estatus.contains("cotizado")?"checked":""}> 2. Cotizado
+                                                <input type="checkbox" class="${estatus.contains("cotizado")?"active":""}" value="cotizado" name="option" ${estatus.contains("cotizado")?"checked":""} id="search-form-box2"> 2. Cotizado
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="aprobado" name="option" ${estatus.contains("aprobado")?"checked":""}> 3. Aprobado
+                                                <input type="checkbox" class="${estatus.contains("aprobado")?"active":""}" value="aprobado" name="option" ${estatus.contains("aprobado")?"checked":""} id="search-form-box3"> 3. Aprobado
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="entregado" name="option" ${estatus.contains("entregado")?"checked":""}> 4. Entregado
+                                                <input type="checkbox" class="${estatus.contains("entregado")?"active":""}" value="entregado" name="option" ${estatus.contains("entregado")?"checked":""} id="search-form-box4"> 4. Entregado
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="logrado" name="option" ${estatus.contains("logrado")?"checked":""}> 5. Logrado
+                                                <input type="checkbox" class="${estatus.contains("logrado")?"active":""}" value="logrado" name="option" ${estatus.contains("logrado")?"checked":""} id="search-form-box5"> 5. Logrado
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="no_logrado" name="option" ${estatus.contains("no_logrado")?"checked":""}> 6. No Logrado
+                                                <input type="checkbox" class="${estatus.contains("no_logrado")?"active":""}" value="no_logrado" name="option" ${estatus.contains("no_logrado")?"checked":""} id="search-form-box6"> 6. No Logrado
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="contrato" name="option" ${estatus.contains("contrato")?"checked":""}> 7. Contrato
+                                                <input type="checkbox" class="${estatus.contains("contrato")?"active":""}" value="contrato" name="option" ${estatus.contains("contrato")?"checked":""} id="search-form-box7"> 7. Contrato
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="no_procede" name="option" ${estatus.contains("no_procede")?"checked":""}> No Procede
+                                                <input type="checkbox" class="${estatus.contains("no_procede")?"active":""}" value="no_procede" name="option" ${estatus.contains("no_procede")?"checked":""} id="search-form-box8"> No Procede
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="pendiente" name="option" ${estatus.contains("pendiente")?"checked":""}> Pendiente
+                                                <input type="checkbox" class="${estatus.contains("pendiente")?"active":""}" value="pendiente" name="option" ${estatus.contains("pendiente")?"checked":""} id="search-form-box9"> Pendiente
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="realizado" name="option" ${estatus.contains("realizado")?"checked":""}> Realizado
+                                                <input type="checkbox" class="${estatus.contains("realizado")?"active":""}" value="realizado" name="option" ${estatus.contains("realizado")?"checked":""} id="search-form-box10"> Realizado
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="suspendido" name="option" ${estatus.contains("suspendido")?"checked":""}> Suspendido
+                                                <input type="checkbox" class="${estatus.contains("suspendido")?"active":""} " value="suspendido" name="option" ${estatus.contains("suspendido")?"checked":""} id="search-form-box11"> Suspendido
                                             </label>
                                         </li>
                                         <li >
                                             <label>
-                                                <input type="checkbox" class="" value="confirmado" name="option" ${estatus.contains("confirmado")?"checked":""}> Confirmado
+                                                <input type="checkbox" class="${estatus.contains("confirmado")?"active":""}" value="confirmado" name="option" ${estatus.contains("confirmado")?"checked":""} id="search-form-box12"> Confirmado
                                             </label>
                                         </li>
                                     </ul>
@@ -252,16 +262,16 @@ Author     : HP PC
                             </div>
                         </div>
                         <div class="col-3">
-                            <label for="example-date-input">Desde</label>
-                            <input class="form-control" type="date" value="${desde}" id="example-date-input" name="desde">
+                            <label for="search-form-desde">Desde</label>
+                            <input class="form-control" type="date" value="${desde}" id="search-form-desde" name="desde">
                         </div>
-                        <div class="col-2"><input type="reset" class="btn btn-secondary" value="Limpiar" style="margin-top:28px;"/></div>
+                        <div class="col-2"><button  type=button class="btn btn-secondary" value="Limpiar" style="margin-top:28px;" onclick="limpiarCampos()">Limpiar</button></div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="asesoras">Asesoras</label>
-                                <select path="asesora" name="asesora" class="form-control">
+                                <select path="asesora" name="asesora" class="form-control" id="search-form-asesora">
                                     <option value="C0872" ${asesora=="C0872"?"selected":""}>Amairini Castillo</option>
                                     <option value="C0952" ${asesora=="C0952"?"selected":""}>Rosa María Cerrato</option>
                                     <option value="C0951" ${asesora=="C0951"?"selected":""}>Victoria Belloso</option>
@@ -285,8 +295,8 @@ Author     : HP PC
                             </div>
                         </div>
                         <div class="col-3">
-                            <label for="hasta">Hasta</label>
-                            <input class="form-control" type="date" value="${hasta}" id="hasta" name="hasta">
+                            <label for="form-search-hasta">Hasta</label>
+                            <input class="form-control" type="date" value="${hasta}" id="search-form-hasta" name="hasta">
                         </div>
                         <div class="col-2" style="">
                             <button type="submit" class="btn btn-primary" style="margin-top:28px;">Buscar</button>
@@ -1023,7 +1033,7 @@ Author     : HP PC
                 for (i = 1; i < empresasSplitted.length; i++) {
                     empresasSplitted[i] = empresasSplitted[i].replace(" ", "");
                 }
-                autocomplete(document.getElementById("myInput"), empresasSplitted);
+                autocomplete(document.getElementById("search-form-empresa"), empresasSplitted);
                 autocomplete(document.getElementById("empresasForm"), empresasSplitted);
                 autocomplete(document.getElementById("vendedor"), empresasSplitted);
                 autocomplete(document.getElementById("vendedorModal2"), empresasSplitted);
