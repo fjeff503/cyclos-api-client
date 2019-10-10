@@ -35,6 +35,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.client.HttpClientErrorException;
 import com.puntotransacciones.domain.userRecords.Oportunidad;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 /**
  *
  * @author HP PC
@@ -191,6 +194,34 @@ public class UserRecordService {
                 String[] tempVector = oportunidad.getCreationDate().split("T");
                 String[] tempVector2 = tempVector[0].split("-");
                 oportunidad.setCreationDate(tempVector2[2]+"-"+tempVector2[1]+"-"+tempVector2[0]);
+                String estadoTexto = "contrato logrado no_logrado";
+                //filtro de los 3 estados(contrato, logrado, no_logrado)
+                 	if (oportunidad.lastModificationDate != null) {                   
+                 		String[] tempVector3 = oportunidad.lastModificationDate.split("T");
+                 		LocalDate localDate = LocalDate.now();
+                 		LocalDate fecha_creacion = localDate.parse(tempVector[0]);
+                 		LocalDate fecha_modificacion = localDate.parse(tempVector3[0]); 
+                		
+                	
+                
+                	 if (ChronoUnit.DAYS.between(fecha_modificacion, localDate) > 2 && ChronoUnit.DAYS.between(fecha_creacion, localDate)  < 60 && !(estadoTexto.contains(oportunidad.customValues.getEstatus()) )) {                   
+                   		oportunidad.bandera = true; 
+                	 } 
+                         else {
+                 		oportunidad.bandera = false;
+                	 } 
+                 }
+                        else{
+                                    LocalDate fecha_creacion = LocalDate.parse(tempVector[0]);
+                 		LocalDate localDate = LocalDate.now();
+                            if(!(estadoTexto.contains(oportunidad.customValues.getEstatus())) && (ChronoUnit.DAYS.between(fecha_creacion, localDate) > 2)){
+                                oportunidad.bandera=true;
+                            }
+                            else{
+                            oportunidad.bandera=false;
+                            }
+                        }
+                        
             }
             oportunidades.add(oportunidad);
         }
@@ -314,7 +345,7 @@ public class UserRecordService {
             if(oportunidad.getCreationDate()!=null){
                 String[] tempVector = oportunidad.getCreationDate().split("T");
                 String[] tempVector2 = tempVector[0].split("-");
-                oportunidad.setCreationDate(tempVector2[2]+"-"+tempVector2[1]+"-"+tempVector2[0]);
+                oportunidad.setCreationDate(tempVector2[2]+"-"+tempVector2[1]+"-"+tempVector2[0]);                
             }
             oportunidades.add(oportunidad);
         }

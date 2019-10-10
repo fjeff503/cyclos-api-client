@@ -29,7 +29,12 @@ public class Oportunidad {
     @SerializedName("user")
     @Expose
     public User user;
-
+    @SerializedName("lastModificationDate")
+   @Expose
+    public String lastModificationDate;
+    
+    public Boolean bandera;
+    
     public Integer version;
     
     public String getId() {
@@ -96,5 +101,22 @@ public class Oportunidad {
         return version;
     }
 
+    public Boolean getBandera() {
+        return bandera;
+    }
+
+    public void setBandera(Boolean bandera) {
+        this.bandera = bandera;
+    }
+
+    public String getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    public void setLastModificationDate(String lastModificationDate) {
+        this.lastModificationDate = lastModificationDate;
+    }
+    
+    
     
 }

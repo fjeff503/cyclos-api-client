@@ -1,5 +1,6 @@
 com\puntotransacciones\service\UserRecordService$OportunidadesResponse.class
 com\puntotransacciones\domain\userRecordsEdit\LastModifiedBy.class
+com\puntotransacciones\util\MySessionListener.class
 com\puntotransacciones\util\Encoder.class
 com\puntotransacciones\domain\userRecordsEdit\EnumeratedValue.class
 com\puntotransacciones\domain\userRecordsEdit\UserValue.class

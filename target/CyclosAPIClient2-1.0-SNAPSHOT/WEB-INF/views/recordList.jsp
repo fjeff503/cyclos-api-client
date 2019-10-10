@@ -100,8 +100,11 @@ Author     : HP PC
                             $('#row' + number).addClass('bg-danger');
                             $('#row' + number).css({"color":"white","font-weight": "bold"});
                             $('#group-of-rows-' + number).addClass('bg-secondary');
-                            $('#group-of-rows-' + number).css({"color":"white","font-weight": "bold"});
-
+                            $('#group-of-rows-' + number).css({"color":"white","font-weight": "bold"});                                                                                 
+                            }
+                            
+                            else{
+                                $('#row'+number).removeClass('font-weight-bold text-white bg-secondary');                            
                             }
                         },
                         error: function (data) {
@@ -217,9 +220,9 @@ Author     : HP PC
                                         <span class="caret "style="padding-left:100px;"></span>
                                     </button>
                                     <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
-                                        <li >
+                                        <li class="${estatus.contains("prospecto")?"active":""}">
                                             <label>
-                                                <input type="checkbox" class="${estatus.contains("prospecto")?"active":""}" value="prospecto"  name="option" ${estatus.contains("prospecto")?"checked":""} id="search-form-box1"> 1. Prospecto
+                                                <input type="checkbox" value="prospecto"  name="option" ${estatus.contains("prospecto")?"checked":""} id="search-form-box1"> 1. Prospecto
                                             </label>
                                         </li>
                                         <li >
@@ -435,7 +438,7 @@ Author     : HP PC
             <c:forEach items="${records}" var="record" varStatus="index">
                 <% indice += 1;%>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
-                    <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-${index.index+1}" id="row${index.index+1}">                
+                    <tr class="clickable ${record.bandera?"font-weight-bold text-white bg-secondary":""}" data-toggle="collapse" data-target="#group-of-rows-${index.index+1}" id="row${index.index+1}">                
                         <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                         <td >${record.user.display}</td> 
                         <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
