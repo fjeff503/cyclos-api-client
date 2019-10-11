@@ -226,7 +226,7 @@ Author     : HP PC
             })
             }
             function deleteOportunidad(num, id){
-            var comprador = $('#compradorDisplay' + num).val();
+                    var comprador = $('#compradorDisplay' + num).text();
                     var vendedor = $('#vendedor' + num).val();
                     var titulo = $('#titulo' + num).val();
                     var descripcion = $('#descripcion' + num).val();
@@ -567,6 +567,7 @@ Author     : HP PC
                         <td ><textarea rows="${record.customValues.rowsDescripcion}" class="form-control" id="descripcion${index.index+1}" name="descripcion" onchange="addBlurListener(this,${index.index+1})">${record.customValues.descripcion}</textarea></td>
                     </tr>    
                     <tr id="group-of-rows-${index.index+1}" class="collapse">
+                        <td></td>
                         <td></td><th>Vendedor2:</th>
                         <td><input type="text" value="${record.customValues.vendedor2}" class="form-control" id="vendedorSegundo${index.index+1}" autocomplete="off" name="vendedor2" onchange="addBlurListener(this,${index.index+1})"></td>
                         <td></td><td></td><th>Notas:</th>
@@ -574,7 +575,7 @@ Author     : HP PC
                     </tr>
                 </form>
             </c:forEach>
-            <td/><td/><td/><td/><td/><td><h5><strong>$${total}</strong></h5></td><td/>
+            <td/><td/><td/><td/><td/><td/><td><h5><strong>$${total}</strong></h5></td><td/>
         </table>
         <c:if test="${empty records}">
             <div class="container">
