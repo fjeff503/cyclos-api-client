@@ -35,9 +35,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.client.HttpClientErrorException;
 import com.puntotransacciones.domain.userRecords.Oportunidad;
+import java.net.ProtocolException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import org.apache.http.client.methods.HttpDelete;
 /**
  *
  * @author HP PC
@@ -416,6 +418,28 @@ public class UserRecordService {
          return "Exito";
      }
       
+     public String deleteOportunidad(String username, String pass, String id) throws MalformedURLException, ProtocolException, IOException{
+         String deleteWP = targetWP+"/records/"+id;
+           HttpClient client = HttpClientBuilder.create().build();
+         HttpDelete request = new HttpDelete(targetWP);
+        String encodedCred = encoder.encode64(username,pass);
+        URL url = new URL(deleteWP);
+        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+        httpCon.setDoOutput(true);
+        httpCon.setRequestProperty(
+        "Authorization", encodedCred );
+        httpCon.setRequestProperty( "Accept", "application/json" );
+        httpCon.setRequestMethod("DELETE");
+        httpCon.connect();      
+         if(httpCon.getResponseCode()!=204){
+            int responseCode = httpCon.getResponseCode();
+            l.info("Codigo de ejecución: "+responseCode );
+            l.info(deleteWP);
+            targetWP = "https://global.puntotransacciones.com/api";
+            return "Fallo";
+        }
+         return "Exito";
+     }
        public String addOportunidad(String username, String pass, String user, String titulo, String estatus, String vendedor, String vendedor2, String descripcion, String montoT, String notas) throws UnsupportedEncodingException, IOException{
            String record =  oportunidadJSONConstructor(titulo, estatus, vendedor, vendedor2, descripcion, montoT, notas);
            l.info(record);

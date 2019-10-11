@@ -259,6 +259,24 @@ public class RecordController {
         }
     }
     
+    @RequestMapping(value="/oportunidad/delete" ,method=RequestMethod.DELETE)
+    public void deleteRecords(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("usuario")==null || sesion.getAttribute("password")==null){
+            response.sendRedirect(request.getContextPath()+"/");
+        }
+        else if(request.getParameter("id")==null){
+            response.sendRedirect(request.getContextPath()+"/oportunidades");
+        }
+        else{
+            l.info((String) request.getParameter("id"));
+        String respuesta = userRecordService.deleteOportunidad((String) sesion.getAttribute("usuario"), (String) sesion.getAttribute("password"), (String) request.getParameter("id"));
+                response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(respuesta);
+        }
+    }
+    
     @ResponseBody
     @RequestMapping(value="/oportunidad/getAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Oportunidad> getAllOportunidades(HttpServletRequest request, HttpServletResponse response) throws IOException{
