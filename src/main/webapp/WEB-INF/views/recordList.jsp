@@ -133,7 +133,6 @@ Author     : HP PC
                 }
             }
             function exportOportunidades() {
-                console.info($('#search-form').serialize() + "&" + $('#export-form').serialize() + " Info");
                 $.ajax({
                     type: "GET",
                     headers: {
@@ -143,13 +142,56 @@ Author     : HP PC
                     data: $('#search-form').serialize() + "&" + $('#export-form').serialize(),
                     success: function (data)
                     {
-                        console.info(data);
-                        console.info(data[1]["creationDate"]);
+                        let csvContent = "data:text/csv;charset=utf-8,";
+                        let i=0;
+                        let firstRow = "Fecha de Creacion, Comprador, Vendedor, Titulo, Estatus, Monto Trans, Descripcion \r\n";
+                        csvContent+=firstRow;
                         for (var x in data) {
-                            console.info(Object.keys(x));
-                            console.info(x["user"]);
+                           let row = data[i]['creationDate'];
+                           if(data[i]['user']['display'] != null && data[i]['user']['display']  != "null"){
+                               row+=data[i]['user']['display'];
+                           }
+                           
+                           if(data[i]['customValues']['vendedor'] != null && data[i]['customValues']['vendedor'] != "null" && data[i]['customValues']['vendedor'] != ""){
+                           row+="," + data[i]['customValues']['vendedor'];
+                            }
+                            else{
+                                row+=",";
+                            }
+                            if(data[i]['customValues']['titulo'] != null && data[i]['customValues']['titulo'] != "null" && data[i]['customValues']['titulo'] != ""){
+                           row+="," + data[i]['customValues']['titulo'] ;
+                            }
+                            else{
+                                row+=",";
+                            }
+                            if(data[i]['customValues']['estatus'] != null && data[i]['customValues']['estatus'] != "null" && data[i]['customValues']['estatus'] != ""){
+                           row+="," +data[i]['customValues']['estatus'];
+                            }
+                            else{
+                                row+=",";
+                            }
+                            if(data[i]['customValues']['montoTrans'] != null && data[i]['customValues']['montoTrans'] != "null" && data[i]['customValues']['montoTrans'] != ""){
+                           row+= "," + data[i]['customValues']['montoTrans'] ;
+                            }
+                            else{
+                                row+=",";
+                            }
+                            if(data[i]['customValues']['descripcion'] != null && data[i]['customValues']['descripcion'] != "null" && data[i]['customValues']['descripcion'] != ""){
+                           row+="," + data[i]['customValues']['descripcion'] ;
+                             }
+                             else{
+                                row+=",";
+                            }
+                            csvContent+= row+ "\r\n";
+                            i++;
                         }
-                        console.info(data);
+                        var encodedUri = encodeURI(csvContent);
+                        var link = document.createElement("a");
+                        link.setAttribute("href", encodedUri);
+                        link.setAttribute("download", "oportunidades.csv");
+                        document.body.appendChild(link); // Required for FF
+                        
+                        link.click();
                     }
 
                 })
