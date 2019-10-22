@@ -2,27 +2,41 @@ package com.puntotransacciones.controller;
 
 import com.puntotransacciones.util.MailSender;
 import java.io.IOException;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import java.util.logging.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@Path("/sendEmail")
+@Controller
 public class MessageController
 {
-	@GET
-	@Path("/{to}/{tipo}/{nameTo}/{transactAmount}/{transactNum}/{userNumFrom}/{userToName}/{entryPoint}")
-	public Response sendMsg(@PathParam("to") String to,@PathParam("tipo") String tipo, @PathParam("nameTo") String nameTo,
-                @PathParam ("transactAmount") String transactAmount, 
-                @PathParam("transactNum") String transactNum,@PathParam("userNumFrom") String userNumFrom,
-                @PathParam("userToName") String userToName, @PathParam("entryPoint") String entryPoint) throws IOException
-	{       
+        /*@RequestMapping(value="sendEmail", method=RequestMethod.GET)
+        public void sendMsg(){
+            Logger l = Logger.getLogger("l");
+            l.info("Entré al controller");
+            
+        }*/
+        
+	@RequestMapping(value="sendEmail" , method= RequestMethod.GET)
+        @ResponseBody
+	public String sendMsg(@RequestParam("to") String to,@RequestParam("tipo") String tipo, 
+                @RequestParam("nameTo") String nameTo,
+                @RequestParam ("transactAmount") String transactAmount, 
+                @RequestParam("transactNum") String transactNum,@RequestParam("userNumFrom") String userNumFrom,
+                @RequestParam("userToName") String userToName, @RequestParam("entryPoint") String entryPoint) throws IOException
+	{
+            Logger l = Logger.getLogger("l");
+            l.info("Entré al controller");
                 if(tipo.equals("pagoRecibido")||tipo.equals("pagorecibido")){
 		String output = "Respuesta : " + 
                         MailSender.emailPagoRecibido(to, tipo, nameTo, transactAmount, transactNum, userNumFrom, userToName, entryPoint);
-                return Response.status(200).entity(output).build();
+                return "Success";
                 }
 		//Simply return the parameter passed as message
-		return Response.status(500).entity("Parametros Incorrectos").build();
+		return "Fail";
 	}
 }

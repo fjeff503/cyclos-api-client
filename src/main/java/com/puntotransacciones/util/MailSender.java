@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -40,6 +41,9 @@ public class MailSender {
                             }
                             in.close();
                         } catch (IOException e) {
+                            Logger l = Logger.getLogger("l");
+                            File file = new File(".");
+                                    for(String fileNames : file.list()) l.info("File: "+fileNames);
                         }                       
         String mensaje = contentBuilder.toString();
         return sendEmail(to,mensaje);

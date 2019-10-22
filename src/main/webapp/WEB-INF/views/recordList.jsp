@@ -399,7 +399,7 @@ Author     : HP PC
                                 <select path="asesora" name="asesora" class="form-control" id="search-form-asesora">
                                     <option value="C0872" ${asesora=="C0872"?"selected":""}>Amairini Castillo</option>
                                     <option value="C0952" ${asesora=="C0952"?"selected":""}>Rosa María Cerrato</option>
-                                    <option value="C0951" ${asesora=="C0951"?"selected":""}>Victoria Belloso</option>
+                                    <option value="C0951" ${asesora=="C0951"?"selected":""}>Victoria Alvarado</option>
                                     <option value="C0823" ${asesora=="C0823"?"selected":""}>Karen Cubias</option>
                                     <option value="C0854" ${asesora=="C0854"?"selected":""}>Asesor 3</option>
                                     <option value="todos" ${asesora==null || asesora == "todos"?"selected":""}>Todos</option>
