@@ -30,8 +30,8 @@
         </c:if> 
         <div class="container center-text text-center">
             <div class="row" style="margin-top:20px;">
-                <div class="col-2 "></div>
-                <div class=" col-8">
+                <div class="col-1 "></div>
+                <div class=" col-10">
                 
                     <h4><a style="color:red">1.</a> Para restaurar su contraseña ingrese sus datos:</h4>
                     <form method="post" action="${pageContext.request.contextPath}/siva/reset">
@@ -46,7 +46,7 @@
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>
                 </div>
-                <div class="col-2"></div>
+                <div class="col-1"></div>
             </div>
         </div>
     </body>
