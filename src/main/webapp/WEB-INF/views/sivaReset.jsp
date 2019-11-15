@@ -33,7 +33,7 @@
                 <div class="col-1 "></div>
                 <div class=" col-10">
                 
-                    <h4><a style="color:red">1.</a> Para restaurar su contraseña ingrese sus datos:</h4>
+                    <h2><a style="color:red">1.</a> Para restaurar su contraseña ingrese sus datos:</h2>
                     <form method="post" action="${pageContext.request.contextPath}/siva/reset">
                         <div class="form-group">
                             <label for="usuario">Usuario</label>

@@ -17,8 +17,8 @@
             <div class="row" style="margin-top:20px;">
                 <div class="col-1"></div>
                 <div class="col-10">
-                    <h3 style="margin-top:10px;">Contraseña Restaurada</h3>
-                   Ya puede ingresar a su cuenta de <a style="color:blue">SIVA</a> con su nueva contraseña.
+                    <h2 style="margin-top:10px;">Contraseña Restaurada</h2>
+                    <h4>Ya puede ingresar a su cuenta de <a style="color:blue">SIVA</a> con su nueva contraseña.</h4>
                 </div>
                 <div class="col-1"></div>
             </div>
