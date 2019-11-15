@@ -399,9 +399,9 @@ Author     : HP PC
                                 <select path="asesora" name="asesora" class="form-control" id="search-form-asesora">
                                     <option value="C0872" ${asesora=="C0872"?"selected":""}>Amairini Castillo</option>
                                     <option value="C0952" ${asesora=="C0952"?"selected":""}>Rosa María Cerrato</option>
-                                    <option value="C0951" ${asesora=="C0951"?"selected":""}>Victoria Belloso</option>
+                                    <option value="C0951" ${asesora=="C0951"?"selected":""}>Victoria Alvarado</option>
+                                    <option value="C0852" ${asesora=="C0852"?"selected":""}>Samantha Campos</option>
                                     <option value="C0823" ${asesora=="C0823"?"selected":""}>Karen Cubias</option>
-                                    <option value="C0854" ${asesora=="C0854"?"selected":""}>Asesor 3</option>
                                     <option value="todos" ${asesora==null || asesora == "todos"?"selected":""}>Todos</option>
                                 </select>
                             </div>
@@ -541,7 +541,7 @@ Author     : HP PC
                 <% indice += 1;%>
                 <form method="PUT" id="form${index.index+1}" action="${pageContext.request.contextPath}/changeoportunidad">
                     <tr class="clickable ${record.bandera?"font-weight-bold text-white bg-secondary":""}" data-toggle="collapse" data-target="#group-of-rows-${index.index+1}" id="row${index.index+1}">                
-                        <td><button type="button" style="${record.bandera?"color:black":"color:red"}" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteOportunidad(${index.index+1},'${record.id}')" id="deleteButton${index.index+1}"><span aria-hidden="true">&times;</span></button></td>
+                        <td><!--<button type="button" style="${record.bandera?"color:black":"color:red"}" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteOportunidad(${index.index+1},'${record.id}')" id="deleteButton${index.index+1}"><span aria-hidden="true">&times;</span></button>--></td>
                         <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                         <td ><span id="compradorDisplay${index.index+1}">${record.user.display}</span></td> 
                         <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 

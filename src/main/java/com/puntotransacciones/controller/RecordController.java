@@ -53,9 +53,10 @@ public class RecordController {
          
         String desde = (String)request.getParameter("desde");
         String hasta = (String)request.getParameter("hasta");
-        if(desde==null && hasta == null){
-            desde = "2019-08-01";
+        if(desde==null && hasta == null){            
             LocalDate date = LocalDate.now();
+            desde = String.valueOf(date.minusMonths(2));
+            System.out.println(desde);
             hasta = date.getYear()+"-"+(date.getMonthValue()<10?"0"+date.getMonthValue():date.getMonthValue())+"-"+(date.getDayOfMonth()<10?"0"+date.getDayOfMonth():date.getDayOfMonth());
         }
         String asesora = (String)request.getParameter("asesora");
