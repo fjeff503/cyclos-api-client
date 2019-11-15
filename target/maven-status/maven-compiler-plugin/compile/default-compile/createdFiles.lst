@@ -23,6 +23,7 @@ com\puntotransacciones\domain\userRecordsEdit\Type.class
 com\puntotransacciones\domain\userRecords\Image.class
 com\puntotransacciones\configuration\SpringConfiguration.class
 com\puntotransacciones\service\UserService.class
+com\puntotransacciones\controller\SivaController.class
 com\puntotransacciones\domain\userRecords\Oportunidad.class
 com\puntotransacciones\domain\userRecordsEdit\LinkedEntityValue.class
 com\puntotransacciones\domain\user\EntityUser.class
