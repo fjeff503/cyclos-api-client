@@ -36,6 +36,7 @@ import org.json.JSONObject;
 import org.springframework.web.client.HttpClientErrorException;
 import com.puntotransacciones.domain.userRecords.Oportunidad;
 import java.net.ProtocolException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
@@ -148,7 +149,7 @@ public class UserRecordService {
             return new OportunidadesResponse(null,null);
         }
         BufferedReader rd = new BufferedReader(
-		new InputStreamReader(response.getEntity().getContent()));
+		new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
         StringBuilder result = new StringBuilder();
 	String line = "";
 	while ((line = rd.readLine()) != null) {
@@ -225,6 +226,7 @@ public class UserRecordService {
                         }
                         
             }
+            oportunidad.customValues.setDescripcion(oportunidad.customValues.getDescripcion());
             oportunidades.add(oportunidad);
         }
         

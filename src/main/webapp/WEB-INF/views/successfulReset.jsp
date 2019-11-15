@@ -15,12 +15,12 @@
     <body>
         <div class="container">
             <div class="row" style="margin-top:20px;">
-                <div class="col-lg-4 col-md-4 col-xl-4 col-sm-2 col-2 "></div>
-                <div class="col-lg-4 col-md-4 col-xl-4  col-sm-8 col-8">
+                <div class="col-2 "></div>
+                <div class="col-8">
                     <h3 style="margin-top:10px;">Contraseña Restaurada</h3>
                    Ya puede ingresar a su cuenta de <a style="color:blue">SIVA</a> con su nueva contraseña.
                 </div>
-                <div class="col-lg-4 col-md-4 col-xl-4  col-sm-2 col-2"></div>
+                <div class="col-2"></div>
             </div>
         </div>
     </body>
