@@ -27,7 +27,7 @@ public class SivaService {
     Logger l = Logger.getLogger("siva");
     
     public String validarInformacion(@NotNull String usuario,@NotNull String dui) throws UnsupportedEncodingException, IOException{
-        String url = baseUrl +"autenticar-miembro" +"?usuario=" +URLEncoder.encode(usuario, "UTF-8") +"&dui="+URLEncoder.encode(dui, "UTF-8");;
+        String url = baseUrl +"autenticar-miembro?username=" +URLEncoder.encode(usuario, "UTF-8") +"&dui="+URLEncoder.encode(dui, "UTF-8");
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
         HttpResponse response = client.execute(request);
@@ -46,6 +46,30 @@ public class SivaService {
 	}
         l.info("Resultado del request: " + result.toString());
         return result.toString();
+    }
+    
+    public String restaurarContra(@NotNull String contra, @NotNull String key) throws UnsupportedEncodingException, IOException{
+        String url = baseUrl +"cambiar-contra?key=" +URLEncoder.encode(key, "UTF-8") +"&newPassword="+URLEncoder.encode(contra, "UTF-8");
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = client.execute(request);
+        
+        if(response.getStatusLine().getStatusCode()!=200){
+            int responseCode = response.getStatusLine().getStatusCode();
+            l.info("Codigo de ejecución: "+responseCode);
+            return "Error";
+        }
+        BufferedReader rd = new BufferedReader(
+		new InputStreamReader(response.getEntity().getContent()));
+        StringBuilder result = new StringBuilder();
+	String line = "";
+	while ((line = rd.readLine()) != null) {
+		result.append(line);
+	}
+        l.info("Resultado del request de cambio de password: " + result.toString());
+        l.info(url);
+        return result.toString();
+        
     }
 
     public SivaService() {

@@ -21,12 +21,19 @@
                 </div>
             </div>
         </c:if> 
+        <c:if test="${SessionTimeout}">
+            <div class="container">
+                <div class="row justify content center">
+                    <div class="alert alert-danger col-4" role="alert">Tiempo máximo de espera superado. Favor ingrese sus datos de nuevo</div>
+                </div>
+            </div>
+        </c:if> 
         <div class="container center-text text-center">
             <div class="row" style="margin-top:20px;">
                 <div class="col-lg-4 col-md-4 col-xl-4 col-sm-1 col-2 "></div>
                 <div class="col-lg-4 col-md-4 col-xl-4  col-sm-10 col-8">
                 
-                    <h4>Para restaurar su contraseña ingrese sus datos:</h4>
+                    <h4><a style="color:red">1.</a> Para restaurar su contraseña ingrese sus datos:</h4>
                     <form method="post" action="${pageContext.request.contextPath}/siva/reset">
                         <div class="form-group">
                             <label for="usuario">Usuario</label>
@@ -34,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label for="dui">DUI</label>
-                            <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" placeholder="11111111-1" title="Ingrese un formato de DUI válido.">
+                            <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" placeholder="05300571-7" title="Ingrese un formato de DUI válido.">
                         </div>
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>

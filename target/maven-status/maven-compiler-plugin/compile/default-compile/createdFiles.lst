@@ -29,6 +29,7 @@ com\puntotransacciones\domain\userRecordsEdit\LinkedEntityValue.class
 com\puntotransacciones\domain\user\EntityUser.class
 com\puntotransacciones\domain\userRecords\CustomValues.class
 com\puntotransacciones\domain\userRecordsEdit\Image.class
+com\puntotransacciones\service\SivaService.class
 com\puntotransacciones\domain\userRecordsEdit\Image_.class
 com\puntotransacciones\domain\userRecordsEdit\User.class
 com\puntotransacciones\domain\userRecordsEdit\CustomValue.class
