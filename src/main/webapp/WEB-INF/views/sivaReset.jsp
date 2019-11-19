@@ -34,7 +34,7 @@
             <img src="<c:url value="/resources/siva-logo.jpg" />">
             <div class="row">
                 <div>              
-                    <h1 style="margin-top:15px; margin-bottom:15px"><a style="color:red">1.</a> <a style="color:#03396c">Para restaurar su contraseña ingrese sus datos</a></h1>
+                    <h2 style="margin-top:15px; margin-bottom:15px"><a style="color:red">1.</a> <a style="color:#03396c">Para restaurar su contraseña ingrese sus datos</a></h2>
                     <form method="post" action="${pageContext.request.contextPath}/siva/reset">
                         <div class="form-group">
                             <label for="usuario" style="font-size: 34px">Usuario:</label>
@@ -45,6 +45,7 @@
                             <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" placeholder="05300571-7" title="Ingrese un formato de DUI válido." autocomplete="off">
                         </div>
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
+                        <div style="margin-bottom: 20px;"></div>
                     </form>
                 </div>
             </div>

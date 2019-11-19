@@ -41,6 +41,7 @@
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>
                 </div>
+                <div style="margin-bottom: 20px;"></div>
             </div>
         </div>
         <script>
@@ -53,7 +54,7 @@
                     e.preventDefault();
                 }
             })
-            document.getElementById('confirmar-contraseña').addEventListener("change", function(e){
+            document.getElementById('confirmar-contraseña').addEventListener("change", function (e) {
                 document.getElementById('confirmar-contraseña').classList.remove("is-invalid");
             })
 
