@@ -27,7 +27,7 @@
             <img src="<c:url value="/resources/siva-logo.jpg" />">
             <div class="row">               
                 <div>
-                    <h2 style="margin-top:15px; margin-bottom:15px"><a style="color:red;">2.</a> <a style="color:#03396c">Ingrese su nueva contraseña</a></h2>
+                    <h2 style="margin-top:15px; margin-bottom:25px"><a style="color:red;">2.</a> <a style="color:#03396c">Ingrese su nueva contraseña</a></h2>
                     <form method="post" action="${pageContext.request.contextPath}/siva/attempt-reset" id="resetForm">
                         <div class="form-group">
                             <label for="contraseña" style="font-size: 34px">Contraseña:</label>
@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>
                 </div>
-                <div style="margin-bottom: 20px;"></div>
+                <div style="margin-bottom: 50px;"></div>
             </div>
         </div>
         <script>

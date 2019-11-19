@@ -23,6 +23,10 @@
                     <h4>Ya puede ingresar a su cuenta de <a style="color:blue">SIVA</a> con su nueva contraseña.</h4>
                 </div>
             </div>
+            
+            <div class="row" style="margin-top: 30px; margin-bottom: 40px;">
+                <img src="<c:url value="/resources/siva-logo.jpg" />">
+            </div>
         </div>
     </body>
 </html>
