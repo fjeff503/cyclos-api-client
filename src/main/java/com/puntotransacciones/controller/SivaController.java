@@ -68,11 +68,14 @@ public class SivaController {
             response.sendRedirect(request.getContextPath()+"/siva");
             return null;
         }
-        else if(!contra.equals(contra2)){
-            ModelAndView mv = new ModelAndView();
-            mv.setViewName("passwordReset");
-            mv.addObject("passwordNotEqual",true);
-            return mv;
+        else if(contra != null && contra2 != null){
+            if(!contra.equals(contra2)){
+                l.info("contra: "+contra+" Contra2: "+contra2);
+                ModelAndView mv = new ModelAndView();
+                mv.setViewName("passwordReset");
+                mv.addObject("passwordNotEqual",true);
+                return mv;
+            }
         }
         request.getSession().setAttribute("restaurada", true);
         request.getSession().setAttribute("contra", contra);
