@@ -44,7 +44,7 @@
                             <label for="dui" style="font-size: 34px">DUI:</label>
                             <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" placeholder="05300571-7" title="Ingrese un formato de DUI válido." autocomplete="off">
                         </div>
-                        <button type="submit" class="btn btn-primary text-right">Validar</button>
+                        <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Validar</button>
                         <div style="margin-bottom: 150px;"></div>
                     </form>
                 </div>
