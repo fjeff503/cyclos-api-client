@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>
                 </div>
-                <div style="margin-bottom: 50px;"></div>
+                <div style="margin-bottom: 150px;"></div>
             </div>
         </div>
         <script>

@@ -24,7 +24,7 @@
                 </div>
             </div>
             
-            <div class="row" style="margin-top: 30px; margin-bottom: 40px;">
+            <div class="row" style="margin-top: 30px; margin-bottom: 150px;">
                 <img src="<c:url value="/resources/siva-logo.jpg" />">
             </div>
         </div>
