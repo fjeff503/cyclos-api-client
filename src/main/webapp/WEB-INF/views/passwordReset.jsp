@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Restaurar Contraseña - SIVA</title>
         <link rel="icon" href="<c:url value="/resources/siva-logo.jpg" />">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -30,11 +31,11 @@
                     <form method="post" action="${pageContext.request.contextPath}/siva/attempt-reset" id="resetForm">
                         <div class="form-group">
                             <label for="contraseña" style="font-size: 34px">Contraseña:</label>
-                            <input type="password" class="form-control" id="contraseña" name="contra" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos.">
+                            <input type="password" class="form-control" id="contraseña" name="contra" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos." autocomplete="off">
                         </div>
                         <div class="form-group" id="confirmar-contra-group">
                             <label for="confirmar-contraseña" style="font-size: 34px">Confirmar Contraseña:</label>
-                            <input type="password" class="form-control" id="confirmar-contraseña" name="contra2" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"  pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos.">
+                            <input type="password" class="form-control" id="confirmar-contraseña" name="contra2" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"  pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos." autocomplete="off">
                             <div class="invalid-feedback">Las contraseñas no son iguales.</div>
                         </div>
                         <button type="submit" class="btn btn-primary text-right">Validar</button>

@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Restaurar Contraseña - SIVA</title>
         <link rel="icon" href="<c:url value="/resources/siva-logo.jpg" />">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -37,11 +38,11 @@
                     <form method="post" action="${pageContext.request.contextPath}/siva/reset">
                         <div class="form-group">
                             <label for="usuario" style="font-size: 34px">Usuario:</label>
-                            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="7000912" title="Ingrese un formato de usuario válido.">
+                            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="7000912" title="Ingrese un formato de usuario válido." autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="dui" style="font-size: 34px">DUI:</label>
-                            <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" placeholder="05300571-7" title="Ingrese un formato de DUI válido.">
+                            <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" placeholder="05300571-7" title="Ingrese un formato de DUI válido." autocomplete="off">
                         </div>
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>
