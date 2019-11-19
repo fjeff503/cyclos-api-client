@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <div class="row" style="margin-top:20px;">
-                <div class="col-12">
+                <div>
                     <h2 style="margin-top:10px;">Contraseña Restablecida</h2>
                     <h4>Ya puede ingresar a su cuenta de <a style="color:blue">SIVA</a> con su nueva contraseña.</h4>
                 </div>

@@ -32,7 +32,7 @@
         <div class="container center-text text-center" style="margin-top:20px;">
             <img src="<c:url value="/resources/siva-logo.jpg" />">
             <div class="row">
-                <div class=" col-12">              
+                <div>              
                     <h1 style="margin-top:15px; margin-bottom:15px"><a style="color:red">1.</a> <a style="color:#03396c">Para restaurar su contraseña ingrese sus datos</a></h1>
                     <form method="post" action="${pageContext.request.contextPath}/siva/reset">
                         <div class="form-group">
