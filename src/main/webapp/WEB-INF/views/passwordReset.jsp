@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Restaurar Contraseña - SIVA</title>
+        <link rel="icon" href="<c:url value="/resources/siva-logo.jpg" />">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
@@ -21,25 +22,24 @@
                 </div>
             </div>
         </c:if> 
-        <div class="container center-text text-center">
-            <div class="row" style="margin-top:20px;">
-                <div class="col-1 "></div>
-                <div class="col-10">
-                    <h2><a style="color:red">2.</a> Ingrese su nueva contraseña</h2>
+        <div class="container center-text text-center" style="margin-top:20px;">
+            <img src="<c:url value="/resources/siva-logo.jpg" />">
+            <div class="row">               
+                <div class="col-12">
+                    <h1 style="margin-top:15px; margin-bottom:15px"><a style="color:red;">2.</a> <a style="color:#03396c">Ingrese su nueva contraseña</a></h1>
                     <form method="post" action="${pageContext.request.contextPath}/siva/attempt-reset" id="resetForm">
                         <div class="form-group">
-                            <label for="contraseña">Contraseña</label>
+                            <label for="contraseña" style="font-size: 34px">Contraseña:</label>
                             <input type="password" class="form-control" id="contraseña" name="contra" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos.">
                         </div>
                         <div class="form-group" id="confirmar-contra-group">
-                            <label for="confirmar-contraseña">Confirmar Contraseña</label>
+                            <label for="confirmar-contraseña" style="font-size: 34px">Confirmar Contraseña:</label>
                             <input type="password" class="form-control" id="confirmar-contraseña" name="contra2" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"  pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos.">
                             <div class="invalid-feedback">Las contraseñas no son iguales.</div>
                         </div>
                         <button type="submit" class="btn btn-primary text-right">Validar</button>
                     </form>
                 </div>
-                <div class="col-1"></div>
             </div>
         </div>
         <script>

@@ -9,18 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Restablecer Contraseña - SIVA</title>
+        <title>Restablecimiento Exitoso - SIVA</title>
+        <link rel="icon" href="<c:url value="/resources/siva-logo.jpg" />">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
             <div class="row" style="margin-top:20px;">
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <h2 style="margin-top:10px;">Contraseña Restaurada</h2>
+                <div class="col-12">
+                    <h2 style="margin-top:10px;">Contraseña Restablecida</h2>
                     <h4>Ya puede ingresar a su cuenta de <a style="color:blue">SIVA</a> con su nueva contraseña.</h4>
                 </div>
-                <div class="col-1"></div>
             </div>
         </div>
     </body>
