@@ -306,7 +306,7 @@ Author     : HP PC
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
                                 <div class="autocomplete" style="width:255px;" >
-                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="search-form-empresa" name="empresa" autocomplete="off"/>
+                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="search-form-empresa" name="empresa" autocomplete="off" pattern="[E]{1}[0-9]{4}"/>
                                 </div>
                             </div>
                         </div>
@@ -473,12 +473,12 @@ Author     : HP PC
                             </button>
                         </div>
                         <div class="modal-body">
-                            <label for="grupos">Titulo <font color="red">*</font></label>
-                            <input type="text" placeholder="Titulo" class="form-control" name="titulo" required/>
-                            <label for="grupos">Empresa <font color="red">*</font></label>
+                            <label for="tituloModal">Titulo <font color="red">*</font></label>
+                            <input type="text" placeholder="Titulo" class="form-control" name="titulo" id="tituloModal" autocomplete="off" required/>
+                            <label for="empresasForm">Empresa <font color="red">*</font></label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off" required/>
+                                    <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off" pattern="[E]{1}[0-9]{4}" required title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/>
                                 </div>
                             </div>
                             <label for="grupos">Estatus <font color="red">*</font></label>
@@ -499,13 +499,13 @@ Author     : HP PC
                             <label for="vendedor">Vendedor</label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off"/>
+                                    <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off" pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/>
                                 </div>
                             </div>
                             <label for="vendedor2">Vendedor 2</label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off"/>
+                                    <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off" pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/>
                                 </div>
                             </div>
                             <label for="descripcion">Descripcion</label>
@@ -544,7 +544,7 @@ Author     : HP PC
                         <td><!--<button type="button" style="${record.bandera?"color:black":"color:red"}" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteOportunidad(${index.index+1},'${record.id}')" id="deleteButton${index.index+1}"><span aria-hidden="true">&times;</span></button>--></td>
                         <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                         <td ><span id="compradorDisplay${index.index+1}">${record.user.display}</span></td> 
-                        <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" /></div></td> 
+                        <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/></div></td> 
                         <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo" onchange="addBlurListener(this,${index.index+1})"></td>
                         <td class="select-td" > 
                             <select class="form-control" id="estatus${index.index+1}" name="estatus" onchange="addBlurListener(this,${index.index+1});

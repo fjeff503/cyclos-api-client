@@ -38,7 +38,7 @@
                             <input type="password" class="form-control" id="confirmar-contraseña" name="contra2" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"  pattern="[A-Za-z0-9]{3,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos." autocomplete="off">
                             <div class="invalid-feedback">Las contraseñas no son iguales.</div>
                         </div>
-                        <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Validar</button>
+                        <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Enviar</button>
                     </form>
                 </div>
                 <div style="margin-bottom: 150px;"></div>
