@@ -478,7 +478,7 @@ Author     : HP PC
                             <label for="empresasForm">Empresa <font color="red">*</font></label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off" <!--pattern="[E]{1}[0-9]{4}" required title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->/>
+                                    <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off"/> <!--pattern="[E]{1}[0-9]{4}" required title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->
                                 </div>
                             </div>
                             <label for="grupos">Estatus <font color="red">*</font></label>
@@ -505,7 +505,7 @@ Author     : HP PC
                             <label for="vendedor2">Vendedor 2</label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off"/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->
+                                    <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off"/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." />-->
                                 </div>
                             </div>
                             <label for="descripcion">Descripcion</label>
