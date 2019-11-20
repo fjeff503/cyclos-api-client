@@ -30,69 +30,82 @@
                 </div>
             </div>
         </c:if> 
-        <div class="container center-text text-center" style="margin-top:20px;">
-            <img src="<c:url value="/resources/siva-logo.jpg" />">
+        <div class="container text-center" style="margin-top:20px;">
             <div class="row">
-                <div>              
-                    <h2 style="margin-top:15px; margin-bottom:25px"><a style="color:red">1.</a> <a style="color:#03396c">Para restaurar su contraseña ingrese sus datos</a></h2>
-                    <form method="post" action="${pageContext.request.contextPath}/siva/reset">
-                        <div class="form-group">
-                            <label for="usuario" style="font-size: 34px">Usuario:</label>
-                            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="7000912" title="Ingrese un formato de usuario válido." autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label for="dui" style="font-size: 34px">DUI:</label>
-                            <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" value="00000000-0" title="Ingrese un formato de DUI válido." autocomplete="off">
-                        </div>
-                        <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Validar</button>
-                        <div style="margin-bottom: 150px;"></div>
-                    </form>
+                <div class="col-12">
+                    <img src="<c:url value="/resources/siva-logo.jpg" />">
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 150px;">
+                <div class="col-12">
+                    <div>              
+                        <h2 style="margin-top:15px; margin-bottom:25px"><a style="color:red">1.</a> <a style="color:#03396c">Para restaurar su contraseña ingrese sus datos</a></h2>
+                        <form method="post" action="${pageContext.request.contextPath}/siva/reset">
+                            <div class="form-group">
+                                <label for="usuario" style="font-size: 34px">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="7000912" title="Ingrese un formato de usuario válido." autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="dui" style="font-size: 34px">DUI:</label>
+                                <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" value="00000000-0" title="Ingrese un formato de DUI válido." autocomplete="off">
+                            </div>
+                            <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Validar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
-    
+
     <script>
         var value = document.getElementById('dui').getAttribute('value');
         var currentKey = 0;
-        document.getElementById('dui').addEventListener('keydown', function(e){
-            e.preventDefault();                     
-            if(e.keyCode >= 48 && e.keyCode <= 57){
-                if(currentKey === 10){return;}
-                if(currentKey === 8){currentKey = 9}
-                value = value.substr(0,currentKey) + String.fromCharCode(e.keyCode) + value.substr(currentKey+1,value.length-(currentKey+1));               
-                document.getElementById('dui').setAttribute('value',value);
+        document.getElementById('dui').addEventListener('keydown', function (e) {
+            e.preventDefault();
+            if (e.keyCode >= 48 && e.keyCode <= 57) {
+                if (currentKey === 10) {
+                    return;
+                }
+                if (currentKey === 8) {
+                    currentKey = 9
+                }
+                value = value.substr(0, currentKey) + String.fromCharCode(e.keyCode) + value.substr(currentKey + 1, value.length - (currentKey + 1));
+                document.getElementById('dui').setAttribute('value', value);
                 currentKey++;
                 //setFocusOn(currentKey)
-                
+
             }
-            else if(e.keyCode === 8){
-                if(currentKey === 9){currentKey = 8}
-                if(currentKey === 0){return}
-                value = value.substr(0,currentKey-1) + "0" + value.substr(currentKey,value.length-(currentKey));
-                document.getElementById('dui').setAttribute('value',value);
+            else if (e.keyCode === 8) {
+                if (currentKey === 9) {
+                    currentKey = 8
+                }
+                if (currentKey === 0) {
+                    return
+                }
+                value = value.substr(0, currentKey - 1) + "0" + value.substr(currentKey, value.length - (currentKey));
+                document.getElementById('dui').setAttribute('value', value);
                 currentKey--;
                 //setFocusOn(currentKey,element)
             }
         });
-        
-        function setFocusOn(keyFocus,element){
-            
-            
-            
+
+        function setFocusOn(keyFocus, element) {
+
+
+
         }
-        
-        document.getElementById('dui').addEventListener('focus', function(e){
+
+        document.getElementById('dui').addEventListener('focus', function (e) {
             var elem = document.getElementById('dui');
             elem.setSelectionRange(currentKey, currentKey);
             elem.focus();
         })
-        
-        document.getElementById('dui').addEventListener('onclick', function(e){
+
+        document.getElementById('dui').addEventListener('onclick', function (e) {
             var elem = document.getElementById('dui');
             elem.focus();
             elem.setSelectionRange(currentKey, currentKey);
         })
-        
+
     </script>
 </html>
