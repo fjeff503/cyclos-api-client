@@ -547,6 +547,8 @@ public class UserRecordService {
             else{
                  oportunidadJSON+="}}";
             }
+            oportunidadJSON = oportunidadJSON.replaceAll(System.getProperty("line.separator"), "\\\\n");
+            l.info("Has (newLine): "+oportunidadJSON.contains("newLine"));
             l.info(oportunidadJSON);
         return oportunidadJSON;
         }
@@ -576,6 +578,7 @@ public class UserRecordService {
            oportunidadJSON+=",";
            oportunidadJSON+="\"notas\":\""+notas+"\"";
            oportunidadJSON+="},\"version\":"+version+"}";
+           oportunidadJSON = oportunidadJSON.replaceAll(System.getProperty("line.separator"), "\\\\n");
             l.info(oportunidadJSON);
             return oportunidadJSON;
         }

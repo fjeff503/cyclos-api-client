@@ -86,43 +86,49 @@ Author     : HP PC
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script>
-                    function addBlurListener(inp, number) {
-                    console.info('Entré a la funcion');
-                            inp.addEventListener("blur", function handler(e) {
-                            console.info(($('#form' + number).serialize()) + " " + 'form' + number)
-                                    $.ajax({
-                                    type: "GET",
-                                            url: '${pageContext.request.contextPath}/changeoportunidad',
-                                            data: $('#form' + number).serialize(),
-                                            success: function (data)
-                                            {
-                                            if (data == "Fallo") {
-                                            $('#cantSave-container').show();
-                                                    $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
-                                                    $('#row' + number).addClass('bg-danger');
-                                                    $('#row' + number).css({"color":"white", "font-weight": "bold"});
-                                                    $('#group-of-rows-' + number).addClass('bg-secondary');
-                                                    $('#group-of-rows-' + number).css({"color":"white", "font-weight": "bold"});
-                                                    $('#deleteButton' + number).css("color", "white");
-                                            }
+            function addBlurListener(inp, number) {
+            inp.addEventListener("blur", function handler(e) {
 
-                                            else{
-                                            $('#row' + number).removeClass('font-weight-bold text-white bg-secondary');
-                                            }
-                                            },
-                                            error: function (data) {
-                                            $('#cantSave-container').show();
-                                                    $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
-                                                    $('#row' + number).addClass('bg-danger');
-                                                    $('#row' + number).css({"color":"white", "font-weight": "bold"});
-                                                    $('#group-of-rows-' + number).addClass('bg-secondary');
-                                                    $('#group-of-rows-' + number).css({"color":"white", "font-weight": "bold"});
-                                                    $('#deleteButton' + number).css("color", "white");
-                                            }
-                                    });
-                                    e.currentTarget.removeEventListener("blur", handler);
-                            });
-                    }
+            console.info(($('#form' + number).serialize()) + " " + 'form' + number)
+            submitForm('#form'+number);
+                    
+            e.currentTarget.removeEventListener("blur", handler);
+            });
+            }
+            
+            function submitForm(formName){
+                $.ajax({
+                    type: "GET",
+                            url: '${pageContext.request.contextPath}/changeoportunidad',
+                            data: $(formName).serialize(),
+                            success: function (data)
+                            {
+                            if (data == "Fallo") {
+                            $('#cantSave-container').show();
+                            $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                            $('#row' + number).addClass('bg-danger');
+                            $('#row' + number).css({"color":"white", "font-weight": "bold"});
+                            $('#group-of-rows-' + number).addClass('bg-secondary');
+                            $('#group-of-rows-' + number).css({"color":"white", "font-weight": "bold"});
+                            $('#deleteButton' + number).css("color", "white");
+                           }
+
+                            else{
+                            $('#row' + number).removeClass('font-weight-bold text-white bg-secondary');
+                            }
+                            },
+                            error: function (data) {
+                            $('#cantSave-container').show();
+                            $("#cantSave").text("No se ha podido guardar el contenido de la fila: " + number + ". Problablemente ha terminado su sesión, intente recargar la página y volver a iniciar sesión.");
+                            $('#row' + number).addClass('bg-danger');
+                            $('#row' + number).css({"color":"white", "font-weight": "bold"});
+                            $('#group-of-rows-' + number).addClass('bg-secondary');
+                            $('#group-of-rows-' + number).css({"color":"white", "font-weight": "bold"});
+                            $('#deleteButton' + number).css("color", "white");
+                            }
+                    });
+            
+            }
 
             function statusChange(inp, number) {
             if (inp.value == "logrado") {
@@ -146,12 +152,12 @@ Author     : HP PC
                     success: function (data)
                     {
                     let csvContent = "data:text/csv;charset=utf-8,";
-                            let i = 0;
-                            let firstRow = "Fecha de Creacion, Comprador, Vendedor, Titulo, Estatus, Monto Trans, Descripcion \r\n";
-                            csvContent += firstRow;
-                            for (var x in data) {
+                    let i = 0;
+                    let firstRow = "Fecha de Creacion, Comprador, Vendedor, Titulo, Estatus, Monto Trans, Descripcion \r\n";
+                    csvContent += firstRow;
+                    for (var x in data) {
                     let row = data[i]['creationDate'];
-                            if (data[i]['user']['display'] != null && data[i]['user']['display'] != "null"){
+                    if (data[i]['user']['display'] != null && data[i]['user']['display'] != "null"){
                     row += data[i]['user']['display'];
                     }
 
@@ -186,25 +192,25 @@ Author     : HP PC
                     row += ",";
                     }
                     csvContent += row + "\r\n";
-                            i++;
+                    i++;
                     }
                     var encodedUri = encodeURI(csvContent);
-                            var link = document.createElement("a");
-                            link.setAttribute("href", encodedUri);
-                            link.setAttribute("download", "oportunidades.csv");
-                            document.body.appendChild(link);
-                            link.click();
+                    var link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", "oportunidades.csv");
+                    document.body.appendChild(link);
+                    link.click();
                     }
 
             })
             }
             function limpiarCampos(){
             $.noConflict();
-                    jQuery('#search-form-empresa').val('');
-                    jQuery('#search-form-desde').val("");
-                    jQuery('#search-form-hasta').val("");
-                    jQuery('#search-form-asesora').val('todos');
-                    for (i = 1; i < 13; i++){
+            jQuery('#search-form-empresa').val('');
+            jQuery('#search-form-desde').val("");
+            jQuery('#search-form-hasta').val("");
+            jQuery('#search-form-asesora').val('todos');
+            for (i = 1; i < 13; i++){
             jQuery('#search-form-box' + i).prop('checked', false);
             }
             }
@@ -215,70 +221,70 @@ Author     : HP PC
                     success: function (data)
                     {
                     console.info(data);
-                            if (data == "Fallo"){
+                    if (data == "Fallo"){
                     window.location.replace("https://puntotrans.herokuapp.com/");
                     }
                     },
                     error:function(data){
                     console.info("Error");
-                            window.location.replace("https://puntotrans.herokuapp.com/");
+                    window.location.replace("https://puntotrans.herokuapp.com/");
                     }
             })
             }
             function deleteOportunidad(num, id){
-                    var comprador = $('#compradorDisplay' + num).text();
-                    var vendedor = $('#vendedor' + num).val();
-                    var titulo = $('#titulo' + num).val();
-                    var descripcion = $('#descripcion' + num).val();
-                    console.info(id);
-                    $('#deleteModal').modal('show');
-                    $('#modalEliminarButton').click(function(){
-                        $('#deleteModal').modal('hide');
-                        $.ajax({
-                        type: "DELETE",
-                                url: '${pageContext.request.contextPath}/oportunidad/delete?id=' + id,
-                                success: function (data)
-                                {
-                                    console.info(data)
-                                if (data == "Fallo"){
-                                        $('#cantSave-container').show();
-                                        $("#cantSave").text("No se pudo eliminar el contenido de estam fila: " + num + ". Intente recargar la página y volver a intentarlo.");
-                                        $('#row' + num).addClass('bg-danger');
-                                        $('#row' + num).css({"color":"white", "font-weight": "bold"});
-                                        $('#group-of-rows-' + num).addClass('bg-secondary');
-                                        $('#group-of-rows-' + num).css({"color":"white", "font-weight": "bold"});
-                                        $('#deleteButton' + num).css("color", "white");
-                                }
-                                if(data == "Exito"){
-                                        Swal.fire(
-                                                'Oportunidad borrada',
-                                                '',
-                                                'success'
-                                                );
-                                        $('#row' + num).css("display","none");
-                                        $('#group-of-rows-' + num).css("display","none");
-                                }
-                                },
-                                error:function(data){
-                                $("#cantSave").text("No se pudo eliminar el contenido de estam fila: " + number + ". Intente recargar la página y volver a intentarlo.");
-                                        $('#row' + num).addClass('bg-danger');
-                                        $('#row' + num).css({"color":"white", "font-weight": "bold"});
-                                        $('#group-of-rows-' + num).addClass('bg-secondary');
-                                        $('#group-of-rows-' + num).css({"color":"white", "font-weight": "bold"});
-                                        $('#deleteButton' + num).css("color", "white");
-                                }
-                        })
+            var comprador = $('#compradorDisplay' + num).text();
+            var vendedor = $('#vendedor' + num).val();
+            var titulo = $('#titulo' + num).val();
+            var descripcion = $('#descripcion' + num).val();
+            console.info(id);
+            $('#deleteModal').modal('show');
+            $('#modalEliminarButton').click(function(){
+            $('#deleteModal').modal('hide');
+            $.ajax({
+            type: "DELETE",
+                    url: '${pageContext.request.contextPath}/oportunidad/delete?id=' + id,
+                    success: function (data)
+                    {
+                    console.info(data)
+                            if (data == "Fallo"){
+                    $('#cantSave-container').show();
+                    $("#cantSave").text("No se pudo eliminar el contenido de estam fila: " + num + ". Intente recargar la página y volver a intentarlo.");
+                    $('#row' + num).addClass('bg-danger');
+                    $('#row' + num).css({"color":"white", "font-weight": "bold"});
+                    $('#group-of-rows-' + num).addClass('bg-secondary');
+                    $('#group-of-rows-' + num).css({"color":"white", "font-weight": "bold"});
+                    $('#deleteButton' + num).css("color", "white");
+                    }
+                    if (data == "Exito"){
+                    Swal.fire(
+                            'Oportunidad borrada',
+                            '',
+                            'success'
+                            );
+                    $('#row' + num).css("display", "none");
+                    $('#group-of-rows-' + num).css("display", "none");
+                    }
+                    },
+                    error:function(data){
+                    $("#cantSave").text("No se pudo eliminar el contenido de estam fila: " + number + ". Intente recargar la página y volver a intentarlo.");
+                    $('#row' + num).addClass('bg-danger');
+                    $('#row' + num).css({"color":"white", "font-weight": "bold"});
+                    $('#group-of-rows-' + num).addClass('bg-secondary');
+                    $('#group-of-rows-' + num).css({"color":"white", "font-weight": "bold"});
+                    $('#deleteButton' + num).css("color", "white");
+                    }
+            })
             })
 
                     $('#deleteModal').on('hidde.bs.modal', function(){
             $('#modalEliminarButton').off("click");
             })
                     $('#firstLineStrong').text('Comprador: ');
-                    $('#secondLineStrong').text('Vendedor: ');
-                    $('#thirdLineStrong').text('Titulo: ');
-                    $('#innerFirstLineEliminar').text(" " + comprador);
-                    $('#innerSecondLineEliminar').text(" " + vendedor);
-                    if (typeof titulo != 'undefined'){
+            $('#secondLineStrong').text('Vendedor: ');
+            $('#thirdLineStrong').text('Titulo: ');
+            $('#innerFirstLineEliminar').text(" " + comprador);
+            $('#innerSecondLineEliminar').text(" " + vendedor);
+            if (typeof titulo != 'undefined'){
             $('#innerThirdLineEliminar').text(" " + titulo);
             }
             }
@@ -306,7 +312,7 @@ Author     : HP PC
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
                                 <div class="autocomplete" style="width:255px;" >
-                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="search-form-empresa" name="empresa" autocomplete="off" pattern="[E]{1}[0-9]{4}"/>
+                                    <input type="text" placeholder="${empresa!=null && empresa!=""?empresa:"Empresa (Pendiente de agregar!)"}" class="form-control" id="search-form-empresa" name="empresa" autocomplete="off" pattern="([E]{1}[0-9]{4})\w+"/>
                                 </div>
                             </div>
                         </div>
@@ -478,7 +484,7 @@ Author     : HP PC
                             <label for="empresasForm">Empresa <font color="red">*</font></label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off"/> <!--pattern="[E]{1}[0-9]{4}" required title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->
+                                    <input type="text" placeholder="Empresa" class="form-control" name="empresa" id="empresasForm" autocomplete="off" pattern="([E][0-9]{4}).+" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/> <!--pattern="[E]{1}[0-9]{4}" required title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->
                                 </div>
                             </div>
                             <label for="grupos">Estatus <font color="red">*</font></label>
@@ -499,13 +505,13 @@ Author     : HP PC
                             <label for="vendedor">Vendedor</label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off"/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->
+                                    <input type="text" placeholder="Vendedor" class="form-control" name="vendedor" id="vendedor" autocomplete="off" pattern="([E][0-9]{4}).+" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." -->
                                 </div>
                             </div>
                             <label for="vendedor2">Vendedor 2</label>
                             <div class="row">
                                 <div class="autocomplete col-12">
-                                    <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off"/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." />-->
+                                    <input type="text" placeholder="Vendedor2" class="form-control" name="vendedor2" id="vendedorModal2" autocomplete="off" pattern="([E][0-9]{4}).+" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después."/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." />-->
                                 </div>
                             </div>
                             <label for="descripcion">Descripcion</label>
@@ -544,11 +550,11 @@ Author     : HP PC
                         <td><!--<button type="button" style="${record.bandera?"color:black":"color:red"}" class="close" data-dismiss="modal" aria-label="Close" onclick="deleteOportunidad(${index.index+1},'${record.id}')" id="deleteButton${index.index+1}"><span aria-hidden="true">&times;</span></button>--></td>
                         <th>${record.creationDate}<input type="hidden" value="${record.id}" name="id" id="comprador${index.index+1}"></th>
                         <td ><span id="compradorDisplay${index.index+1}">${record.user.display}</span></td> 
-                        <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})"/> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." --></div></td> 
+                        <td ><div class="autocomplete input-table"><input type="text" name="vendedor" id="vendedor${index.index+1}" value="${record.customValues.vendedor}" class="form-control" autocomplete="off" onchange="addBlurListener(this,${index.index+1})" pattern="([E][0-9]{4}).+" /> <!--pattern="[E]{1}[0-9]{4}" title="Las sucursales no son permitidas. El formato de empresa debe comenzar con una E y debe tener 4 números después." --></div></td> 
                         <td ><input type="text"  class="form-control" value="${record.customValues.titulo}" id="titulo${index.index+1}" name="titulo" onchange="addBlurListener(this,${index.index+1})"></td>
                         <td class="select-td" > 
                             <select class="form-control" id="estatus${index.index+1}" name="estatus" onchange="addBlurListener(this,${index.index+1});
-                                                statusChange(this,${index.index+1});">
+                                statusChange(this,${index.index+1});">
                                 <option value="no_procede"${record.customValues.estatus=="no_procede"?"selected":""}>No Procede</option>
                                 <option value="pendiente"${record.customValues.estatus=="pendiente"?"selected":""}>Pendiente</option>
                                 <option value="realizado"${record.customValues.estatus=="realizado"?"selected":""}>Realizado</option>
@@ -669,8 +675,8 @@ Author     : HP PC
                     </div>
                     <div class="modal-body center-block text-center">                       
                         <div class="spinner-border text-danger" role="status">
-  <span class="sr-only">Loading...</span>
-</div>
+                            <span class="sr-only">Loading...</span>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -1085,152 +1091,155 @@ Author     : HP PC
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script>
-                                    function autocomplete(inp, arr) {
-                                    /*the autocomplete function takes two arguments,
-                                     the text field element and an array of possible autocompleted values:*/
-                                    var currentFocus;
-                                            /*execute a function when someone writes in the text field:*/
-                                            inp.addEventListener("input", function (e) {
-                                            var a, b, i, val = this.value;
-                                                    /*close any already open lists of autocompleted values*/
-                                                    closeAllLists();
-                                                    if (!val) {
-                                            return false;
-                                            }
-                                            currentFocus = - 1;
-                                                    /*create a DIV element that will contain the items (values):*/
-                                                    a = document.createElement("DIV");
-                                                    a.setAttribute("id", this.id + "autocomplete-list");
-                                                    a.setAttribute("class", "autocomplete-items");
-                                                    /*append the DIV element as a child of the autocomplete container:*/
-                                                    this.parentNode.appendChild(a);
-                                                    /*for each item in the array...*/
-                                                    var resultados = 0;
-                                                    for (i = 0; i < arr.length; i++) {
-                                            if (resultados == 7) {
-                                            break;
-                                            }
-                                            /*check if the item starts with the same letters as the text field value:*/
-                                            if (arr[i].toUpperCase().includes(val.toUpperCase())) {
-                                            /*create a DIV element for each matching element:*/
-                                            b = document.createElement("DIV");
-                                                    /*make the matching letters bold:*/
-                                                    b.innerHTML = arr[i];
-                                                    /*insert a input field that will hold the current array item's value:*/
-                                                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                                                    /*execute a function when someone clicks on the item value (DIV element):*/
-                                                    b.addEventListener("click", function (e) {
-                                                    /*insert the value for the autocomplete text field:*/
-                                                    inp.value = this.getElementsByTagName("input")[0].value;
-                                                            /*close the list of autocompleted values,
-                                                             (or any other open lists of autocompleted values:*/
-                                                            closeAllLists();
-                                                    });
-                                                    a.appendChild(b);
-                                                    resultados++;
-                                            }
-                                            }
-                                            });
-                                            /*execute a function presses a key on the keyboard:*/
-                                            inp.addEventListener("keydown", function (e) {
-                                            var x = document.getElementById(this.id + "autocomplete-list");
-                                                    if (x)
-                                                    x = x.getElementsByTagName("div");
-                                                    if (e.keyCode == 40) {
-                                            /*If the arrow DOWN key is pressed,
-                                             increase the currentFocus variable:*/
-                                            currentFocus++;
-                                                    /*and and make the current item more visible:*/
-                                                    addActive(x);
-                                            } else if (e.keyCode == 38) { //up
-                                            /*If the arrow UP key is pressed,
-                                             decrease the currentFocus variable:*/
-                                            currentFocus--;
-                                                    /*and and make the current item more visible:*/
-                                                    addActive(x);
-                                            } else if (e.keyCode == 13) {
-                                            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                                            e.preventDefault();
-                                                    if (currentFocus > - 1) {
-                                            /*and simulate a click on the "active" item:*/
-                                            if (x)
-                                                    x[currentFocus].click();
-                                            }
-                                            }
-                                            });
-                                            function addActive(x) {
-                                            /*a function to classify an item as "active":*/
-                                            if (!x)
-                                                    return false;
-                                                    /*start by removing the "active" class on all items:*/
-                                                    removeActive(x);
-                                                    if (currentFocus >= x.length)
-                                                    currentFocus = 0;
-                                                    if (currentFocus < 0)
-                                                    currentFocus = (x.length - 1);
-                                                    /*add class "autocomplete-active":*/
-                                                    x[currentFocus].classList.add("autocomplete-active");
-                                            }
-                                    function removeActive(x) {
-                                    /*a function to remove the "active" class from all autocomplete items:*/
-                                    for (var i = 0; i < x.length; i++) {
-                                    x[i].classList.remove("autocomplete-active");
-                                    }
-                                    }
-                                    function closeAllLists(elmnt) {
-                                    /*close all autocomplete lists in the document,
-                                     except the one passed as an argument:*/
-                                    var x = document.getElementsByClassName("autocomplete-items");
-                                            for (var i = 0; i < x.length; i++) {
-                                    if (elmnt != x[i] && elmnt != inp) {
-                                    x[i].parentNode.removeChild(x[i]);
-                                    }
-                                    }
-                                    }
-                                    /*execute a function when someone clicks in the document:*/
-                                    document.addEventListener("click", function (e) {
-                                    closeAllLists(e.target);
-                                    });
-                                    }
+                            function autocomplete(inp, arr) {
+                            /*the autocomplete function takes two arguments,
+                             the text field element and an array of possible autocompleted values:*/
+                            var currentFocus;
+                            /*execute a function when someone writes in the text field:*/
+                            inp.addEventListener("input", function (e) {
+                            var a, b, i, val = this.value;
+                            /*close any already open lists of autocompleted values*/
+                            closeAllLists();
+                            if (!val) {
+                            return false;
+                            }
+                            currentFocus = - 1;
+                            /*create a DIV element that will contain the items (values):*/
+                            a = document.createElement("DIV");
+                            a.addEventListener("click",submitForm());
+                            a.setAttribute("id", this.id + "autocomplete-list");
+                            a.setAttribute("class", "autocomplete-items");
+                            /*append the DIV element as a child of the autocomplete container:*/
+                            this.parentNode.appendChild(a);
+                            /*for each item in the array...*/
+                            var resultados = 0;
+                            for (i = 0; i < arr.length; i++) {
+                            if (resultados == 7) {
+                            break;
+                            }
+                            /*check if the item starts with the same letters as the text field value:*/
+                            if (arr[i].toUpperCase().includes(val.toUpperCase())) {
+                            /*create a DIV element for each matching element:*/
+                            b = document.createElement("DIV");
+                            /*make the matching letters bold:*/
+                            b.innerHTML = arr[i];
+                            /*insert a input field that will hold the current array item's value:*/
+                            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                            /*execute a function when someone clicks on the item value (DIV element):*/
+                            b.addEventListener("click", function (e) {
+                            /*insert the value for the autocomplete text field:*/
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            /*close the list of autocompleted values,
+                             (or any other open lists of autocompleted values:*/
+                            closeAllLists();
+                            /*console.info('#form'+inp.match(/[0-9]+/g));
+                            submitForm('#form'+inp.match(/[0-9]+/g));*/
+                            });
+                            a.appendChild(b);
+                            resultados++;
+                            }
+                            }
+                            });
+                            /*execute a function presses a key on the keyboard:*/
+                            inp.addEventListener("keydown", function (e) {
+                            var x = document.getElementById(this.id + "autocomplete-list");
+                            if (x)
+                                    x = x.getElementsByTagName("div");
+                            if (e.keyCode == 40) {
+                            /*If the arrow DOWN key is pressed,
+                             increase the currentFocus variable:*/
+                            currentFocus++;
+                            /*and and make the current item more visible:*/
+                            addActive(x);
+                            } else if (e.keyCode == 38) { //up
+                            /*If the arrow UP key is pressed,
+                             decrease the currentFocus variable:*/
+                            currentFocus--;
+                            /*and and make the current item more visible:*/
+                            addActive(x);
+                            } else if (e.keyCode == 13) {
+                            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                            e.preventDefault();
+                            if (currentFocus > - 1) {
+                            /*and simulate a click on the "active" item:*/
+                            if (x)
+                                    x[currentFocus].click();
+                            }
+                            }
+                            });
+                            function addActive(x) {
+                            /*a function to classify an item as "active":*/
+                            if (!x)
+                                    return false;
+                            /*start by removing the "active" class on all items:*/
+                            removeActive(x);
+                            if (currentFocus >= x.length)
+                                    currentFocus = 0;
+                            if (currentFocus < 0)
+                                    currentFocus = (x.length - 1);
+                            /*add class "autocomplete-active":*/
+                            x[currentFocus].classList.add("autocomplete-active");
+                            }
+                            function removeActive(x) {
+                            /*a function to remove the "active" class from all autocomplete items:*/
+                            for (var i = 0; i < x.length; i++) {
+                            x[i].classList.remove("autocomplete-active");
+                            }
+                            }
+                            function closeAllLists(elmnt) {
+                            /*close all autocomplete lists in the document,
+                             except the one passed as an argument:*/
+                            var x = document.getElementsByClassName("autocomplete-items");
+                            for (var i = 0; i < x.length; i++) {
+                            if (elmnt != x[i] && elmnt != inp) {
+                            x[i].parentNode.removeChild(x[i]);
+                            }
+                            }
+                            }
+                            /*execute a function when someone clicks in the document:*/
+                            document.addEventListener("click", function (e) {
+                            closeAllLists(e.target);
+                            });
+                            }
         </script>
 
 
         <script>
             var empresas = "";
-                    jQuery.get('usuarios', function (data) {
-                    empresas = data;
-                            empresas = empresas.replace("[", "").replace("]", "");
-                            var empresasSplitted = empresas.split(",");
-                            for (i = 1; i < empresasSplitted.length; i++) {
-                    empresasSplitted[i] = empresasSplitted[i].replace(" ", "");
-                    }
-                    autocomplete(document.getElementById("search-form-empresa"), empresasSplitted);
-                            autocomplete(document.getElementById("empresasForm"), empresasSplitted);
-                            autocomplete(document.getElementById("vendedor"), empresasSplitted);
-                            autocomplete(document.getElementById("vendedorModal2"), empresasSplitted);
-                            for (i = 1; i <= 40; i++) {
-                    autocomplete(document.getElementById("vendedor" + i), empresasSplitted);
-                    }
-                    });</script>
+            jQuery.get('usuarios', function (data) {
+            empresas = data;
+            empresas = empresas.replace("[", "").replace("]", "");
+            var empresasSplitted = empresas.split(",");
+            for (i = 1; i < empresasSplitted.length; i++) {
+                empresasSplitted[i] = empresasSplitted[i].replace(" ", "");
+            }
+            autocomplete(document.getElementById("search-form-empresa"), empresasSplitted);
+            autocomplete(document.getElementById("empresasForm"), empresasSplitted);
+            autocomplete(document.getElementById("vendedor"), empresasSplitted);
+            autocomplete(document.getElementById("vendedorModal2"), empresasSplitted);
+            for (i = 1; i <= 40; i++) {
+                autocomplete(document.getElementById("vendedor" + i), empresasSplitted);
+            }
+            });</script>
         <script>
-                    $.ajax({
+            $.ajax({
 
 
-                    }
-                    )
+            }
+            )
         </script>
         <script>
                     $("#search-form").submit(function(){
             var arr = [];
-                    $('input:checked[name="option"]').each(function(){
+            $('input:checked[name="option"]').each(function(){
             arr.push($(this).val());
             });
-                    $('#search-estatus').val(arr.join(','));
+            $('#search-estatus').val(arr.join(','));
             });
-                    $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
+            $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
             $(this).closest("li").toggleClass("active", this.checked);
             });
-                    $(document).on('click', '.allow-focus', function (e) {
+            $(document).on('click', '.allow-focus', function (e) {
             e.stopPropagation();
             });
         </script>
