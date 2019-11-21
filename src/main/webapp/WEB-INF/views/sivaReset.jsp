@@ -47,7 +47,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="dui" style="font-size: 34px">DUI:</label>
-                                <input type="text" pattern="[0-9]{8}-[0-9]{1}" class="form-control" id="dui" name="dui" value="00000000-0" title="Ingrese un formato de DUI válido." autocomplete="off">
+                                <input type="text" pattern="[0-9]{9}" class="form-control" id="dui" name="dui" placeholder="059482019" title="Ingrese un formato de DUI válido." autocomplete="off">
+                                <a style="font-style: italic">Ingrese los números de su DUI, sin guíon (-).</a>
                             </div>
                             <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Validar</button>
                         </form>
@@ -57,6 +58,7 @@
         </div>
     </body>
 
+    <!--
     <script>
         var value = document.getElementById('dui').getAttribute('value');
         var currentKey = 0;
@@ -108,4 +110,5 @@
         })
 
     </script>
+    -->
 </html>

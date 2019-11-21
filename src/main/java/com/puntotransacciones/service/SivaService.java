@@ -27,6 +27,9 @@ public class SivaService {
     Logger l = Logger.getLogger("siva");
     
     public String validarInformacion(@NotNull String usuario,@NotNull String dui) throws UnsupportedEncodingException, IOException{
+        char character = dui.charAt(8);
+        dui = dui.substring(0,8)+"-"+character;
+        l.info("DUI: "+dui);
         String url = baseUrl +"autenticar-miembro?username=" +URLEncoder.encode(usuario, "UTF-8") +"&dui="+URLEncoder.encode(dui, "UTF-8");
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
