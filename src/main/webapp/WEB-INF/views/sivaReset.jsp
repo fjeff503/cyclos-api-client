@@ -43,11 +43,11 @@
                         <form method="post" action="${pageContext.request.contextPath}/siva/reset">
                             <div class="form-group">
                                 <label for="usuario" style="font-size: 34px">Usuario:</label>
-                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="7000912" title="Ingrese un formato de usuario válido." autocomplete="off">
+                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="7000912" title="Ingrese un formato de usuario válido." autocomplete="off" required>
                             </div>
                             <div class="form-group">
                                 <label for="dui" style="font-size: 34px">DUI:</label>
-                                <input type="text" pattern="[0-9]{9}" class="form-control" id="dui" name="dui" placeholder="059482019" title="Ingrese un formato de DUI válido. Debe contener 9 números, sin guión." autocomplete="off">
+                                <input type="text" pattern="[0-9]{9}" class="form-control" id="dui" name="dui" placeholder="059482019" title="Ingrese un formato de DUI válido. Debe contener 9 números, sin guión." autocomplete="off" required>
                                 <a style="font-style: italic">Ingrese los números de su DUI, sin guíon (-).</a>
                             </div>
                             <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Validar</button>
