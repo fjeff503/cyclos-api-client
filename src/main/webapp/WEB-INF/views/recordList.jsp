@@ -86,17 +86,20 @@ Author     : HP PC
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script>
+            var click_in_progress = false
             function addBlurListener(inp, number) {
-            inp.addEventListener("blur", function handler(e) {
+                inp.addEventListener("blur", function handler(e) {
+                if(!click_in_progress){    
+                    console.info(($('#form' + number).serialize()) + " " + 'form' + number)
+                    submitForm('#form'+number, number);
+                }
 
-            console.info(($('#form' + number).serialize()) + " " + 'form' + number)
-            submitForm('#form'+number);
-                    
-            e.currentTarget.removeEventListener("blur", handler);
-            });
+                e.currentTarget.removeEventListener("blur", handler);
+                });
             }
             
-            function submitForm(formName){
+            function submitForm(formName,number){
+                console.info(($('#form' + number).serialize()) + " " + 'form' + number)
                 $.ajax({
                     type: "GET",
                             url: '${pageContext.request.contextPath}/changeoportunidad',
@@ -1106,7 +1109,6 @@ Author     : HP PC
                             currentFocus = - 1;
                             /*create a DIV element that will contain the items (values):*/
                             a = document.createElement("DIV");
-                            a.addEventListener("click",submitForm());
                             a.setAttribute("id", this.id + "autocomplete-list");
                             a.setAttribute("class", "autocomplete-items");
                             /*append the DIV element as a child of the autocomplete container:*/
@@ -1126,14 +1128,23 @@ Author     : HP PC
                             /*insert a input field that will hold the current array item's value:*/
                             b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                             /*execute a function when someone clicks on the item value (DIV element):*/
+                            b.addEventListener("mousedown",function(e){
+                                click_in_progress = true;
+                            })
+                            b.addEventListener("mouseup", function(e){
+                                click_in_progress = false;
+                            })
                             b.addEventListener("click", function (e) {
+                                
                             /*insert the value for the autocomplete text field:*/
                             inp.value = this.getElementsByTagName("input")[0].value;
                             /*close the list of autocompleted values,
                              (or any other open lists of autocompleted values:*/
                             closeAllLists();
-                            /*console.info('#form'+inp.match(/[0-9]+/g));
-                            submitForm('#form'+inp.match(/[0-9]+/g));*/
+                            console.info(inp.value);
+                            console.info('#form'+inp.getAttribute("id").match(/[0-9]+/g));
+                            submitForm('#form'+inp.getAttribute("id").match(/[0-9]+/g), inp.getAttribute("id").match(/[0-9]+/g));
+                            console.info("done");
                             });
                             a.appendChild(b);
                             resultados++;
@@ -1220,27 +1231,22 @@ Author     : HP PC
             for (i = 1; i <= 40; i++) {
                 autocomplete(document.getElementById("vendedor" + i), empresasSplitted);
             }
-            });</script>
-        <script>
-            $.ajax({
-
-
-            }
-            )
-        </script>
-        <script>
-                    $("#search-form").submit(function(){
-            var arr = [];
-            $('input:checked[name="option"]').each(function(){
-            arr.push($(this).val());
             });
-            $('#search-estatus').val(arr.join(','));
-            });
-            $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
-            $(this).closest("li").toggleClass("active", this.checked);
-            });
-            $(document).on('click', '.allow-focus', function (e) {
-            e.stopPropagation();
+            
+            
+            
+            $("#search-form").submit(function(){
+                var arr = [];
+                $('input:checked[name="option"]').each(function(){
+                arr.push($(this).val());
+                });
+                $('#search-estatus').val(arr.join(','));
+                });
+                $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
+                $(this).closest("li").toggleClass("active", this.checked);
+                });
+                $(document).on('click', '.allow-focus', function (e) {
+                e.stopPropagation();
             });
         </script>
     </body>
