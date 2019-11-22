@@ -31,11 +31,11 @@
                     <form method="post" action="${pageContext.request.contextPath}/siva/attempt-reset" id="resetForm">
                         <div class="form-group">
                             <label for="contraseña" style="font-size: 34px">Contraseña:</label>
-                            <input type="password" class="form-control" id="contraseña" name="contra" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" pattern="[A-Za-z0-9]{4,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos." autocomplete="off">
+                            <input type="password" class="form-control" id="contraseña" name="contra" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" pattern="[A-Za-z0-9]{4,12}" title="La contraseña debe llevar de 4-12 digitos, sin utilizar simbolos." autocomplete="off">
                         </div>
                         <div class="form-group" id="confirmar-contra-group">
                             <label for="confirmar-contraseña" style="font-size: 34px">Confirmar Contraseña:</label>
-                            <input type="password" class="form-control" id="confirmar-contraseña" name="contra2" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"  pattern="[A-Za-z0-9]{4,12}" title="La contraseña debe llevar de 3-12 digitos, sin utilizar simbolos." autocomplete="off">
+                            <input type="password" class="form-control" id="confirmar-contraseña" name="contra2" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"  pattern="[A-Za-z0-9]{4,12}" title="La contraseña debe llevar de 4-12 digitos, sin utilizar simbolos." autocomplete="off">
                             <div class="invalid-feedback">Las contraseñas no son iguales.</div>
                         </div>
                         <button type="submit" class="btn btn-primary text-right" style="margin-top:15px;">Enviar</button>
