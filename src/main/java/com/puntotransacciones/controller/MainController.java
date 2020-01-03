@@ -60,7 +60,7 @@ public class MainController {
             sesion.setAttribute("usuario", usuario);
              sesion.setAttribute("password", pass);
              sesion.setAttribute("username", userService.getUserUsername(usuario, pass));
-             users = userService.getUsers("uscript","1234");
+             users = userService.getUsers("uscript","Jefferson123");
             response.sendRedirect(request.getContextPath()+"/oportunidades");
         }
         else{
